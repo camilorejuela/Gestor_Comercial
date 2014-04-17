@@ -16,7 +16,6 @@ public abstract class Transaccion {
 	
 	protected String id;
 	protected Vendedor vendedor;
-	//id_cliente/proveedor
 	protected ArrayList<Producto> productos;
 	protected int valor;
 	protected Date fecha;

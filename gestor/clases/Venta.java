@@ -6,18 +6,34 @@ package gestor.clases;
  */
 public class Venta extends Transaccion{
 
+	private Cliente cliente;
 	
-	public Venta(){
-		super();
+	/**
+	 * 
+	 * @param id Id generado automáticamente
+	 * @param vendedor
+	 */
+	public Venta(String id, Vendedor vendedor){
+		super(id, vendedor);
 	}
 	
+	/**
+	 * Asignar cliente a la venta
+	 * 
+	 * @param cliente
+	 */
+	public void setCliente(Cliente cliente)
+	{
+		this.cliente = cliente;
+	}
 	
-	/*
-	bool setCliente(Cliente cliente)
-	bool confirmarVenta()
-	
-	bool setProveedor(Proveedor proveedor)
-	bool confirmarCompra()
-	cuentasPorPagar.add(Compra compra)
-	*/
+	/**
+	 * Confirmar la venta con los datos y productos especificados
+	 * 
+	 * @return
+	 */
+	public boolean confirmarVenta()
+	{
+		return true;
+	}
 }
