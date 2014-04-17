@@ -2,69 +2,134 @@ package gestor.clases;
 
 import java.sql.Date;
 
-public class Administrador extends Usuario {
+/**
+ * 
+ * @author 
+ *
+ */
+public class Administrador extends Vendedor {
 	
-	private String usuarioadmin;
-	private String contraseñaadmin;
-	
-	public Administrador(String id, String nombre, String apellido, Date fecha_nac, 
-			String usuarioadmin, String contraseña){
-		super(id, nombre, apellido, fecha_nac);
-		this.usuarioadmin = usuarioadmin;
-		this.contraseñaadmin = contraseña;
+	/**
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param fechaNacimiento
+	 * @param nombreUsuario El nombre de usuario para iniciar sesión
+	 * @param contraseña La contraseña para iniciar sesión
+	 */
+	public Administrador(String id, String nombre, String apellido, Date fechaNacimiento, 
+			String nombreUsuario, String contraseña){
+		super(id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña);
 	}
 	
-	public Producto consultarProducto(String nombre){
-		return null;
-	}
-	
-	public boolean hacerVenta(){
+	/**
+	 * Crea un usuario que puede ser Cliente o Proveedor
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param fechaNacimiento
+	 * @param telefono
+	 * @param email
+	 * @return
+	 */
+	public boolean crearUsuario(String id, String nombre, String apellido, Date fechaNacimiento,
+		String telefono, String email){
 		return true;
 	}
 	
-	public boolean hacerCompra(){
-		return true;
-	}
-	public boolean cancelarCuentaPorPagar(Compra compraAPagar){
-		return true;
+	/**
+	 * Crea un usuario que puede ser Vendedor o Administrador
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param fechaNacimiento
+	 * @return
+	 */
+	public boolean crearUsuario(String id, String nombre, String apellido, Date fechaNacimiento){
+			return true;
 	}
 	
-	public boolean crearUsuario(String id, String nombre, String apellido, Date fecha_nac, int tipousuario,
-		String telefono, String email ){
-		
-		return true;
-		
-	}
-	
+	/**
+	 * Modifica la información de un usuario existente
+	 * 
+	 * @param usuario El usuario que va a modificar
+	 * @return
+	 */
 	public boolean modificarUsuario(Usuario usuario){
 		return true;
 	}
 	
+	/**
+	 * Inhabilita un usuario existente
+	 * 
+	 * @param usuario El usuario que va a inhabilitar
+	 */
 	public void inhabilitarUsuario(Usuario usuario){
-		
 	}
 	
-	public boolean addProducto(Producto nuevoProducto){//firma diferente
+	/**
+	 * Agrega un nuevo producto al sistema
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param productor La empresa que lo produce
+	 * @param descripcion Descripción del producto
+	 * @param vencimiento La fecha de vencimiento
+	 * @return
+	 */
+	public boolean addProducto(String id, String nombre, String productor,
+			String descripcion, Date vencimiento){
 		return true;
 	}
 	
+	/**
+	 * Modifica la información de un producto existente
+	 * 
+	 * @param producto El producto que va a modificar
+	 * @return
+	 */
 	public boolean modificarProducto(Producto producto){
 		return true;
 	}
 	
+	/**
+	 * Inhabilita (saca de funcionamiento) un producto existente
+	 * 
+	 * @param producto El producto que va a inhabilitar
+	 */
 	public void inhabilitarProducto(Producto producto){
-		
 	}
 	
-	public void consultarTransacciones(){
-		
+	/**
+	 * Consulta las transacciones realizadas entre un rango de fechas
+	 * 
+	 * @param fechaDesde Límite inferior del rango a consultar
+	 * @param fechaHasta Límite superior del rango a consultar
+	 */
+	public void consultarTransacciones(Date fechaDesde, Date fechaHasta){
 	}
 	
+	/**
+	 * Consulta el inventario actual
+	 */
 	public void consultarInventario(){
-		
 	}
 	
+	/**
+	 * Genera el informe deseado por el usuario
+	 */
 	public void generarInforme(){
-		
+	}
+	
+	/**
+	 * Es administrador?
+	 * 
+	 * @return
+	 */
+	public static boolean isAdmin(){
+		return true;
 	}
 }

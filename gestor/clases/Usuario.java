@@ -1,17 +1,28 @@
 package gestor.clases;
 import java.sql.Date;
 
-
+/**
+ * 
+ * @author 
+ *
+ */
 public abstract class Usuario {
 	
-	protected String id, nombre, apellido, telefono, email;
+	protected String id, nombre, apellido;
 	protected Date fechaNacimiento;
 
-	public Usuario(String id, String nombre, String apellido, Date fecha_nac){
+	/**
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param fechaNacimiento
+	 */
+	public Usuario(String id, String nombre, String apellido, Date fechaNacimiento){
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fechaNacimiento = fecha_nac;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	public String getId(){
