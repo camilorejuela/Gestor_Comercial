@@ -25,7 +25,7 @@ public class Conexion {
      * Crea una instancia de la clase MySQL y realiza todo el código 
      * de conexión, consulta y muestra de resultados.
      */
-	// aca pasa algo maluco xD
+	// aca pasaba algo maluco xD
     public Conexion() 
     {
         // Se mete todo en un try por los posibles errores de MySQL
