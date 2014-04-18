@@ -26,16 +26,15 @@ public abstract class Usuario {
 	}
 	
 	public String getId(){
-		return null;
+		return id;
 	}
 	public String getNombre(){
-		return null;
+		return nombre;
 	}
 	public String getApellido(){
-		return null;
+		return apellido;
 	}
 	public Date getFechaNacimiento(){
-		return null;
+		return fechaNacimiento;
 	}
-
 }
