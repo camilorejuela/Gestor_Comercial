@@ -26,6 +26,10 @@ public class Cliente extends Usuario{
 		super(id, nombre, apellido, fechaNacimiento);
 		this.telefono = telefono;
 		this.email = email;
+		
+		Conexion conexion = new Conexion();
+		conexion.agregarNuevoCliente(this);
+		conexion.cerrarConexion();
 	}
 	
 	/**
