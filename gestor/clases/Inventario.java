@@ -1,17 +1,46 @@
 package gestor.clases;
 
+import java.sql.Date;
+
 /**
  * @author 
  *
  */
 public class Inventario {
 
-	//private Producto producto;
-	//private int cantidad;
+	private String idproducto;
+	private int cantidad;
+	private float preciocompra, precioventa;
+	private Date fecha_vencimiento;
 	
-	public Inventario()
-	{}
-	
+	public Inventario(Producto producto, int cantidad, float precioventa, float preciocompra, Date fecha_vencimiento ){
+		this.idproducto = producto.getId();
+		this.cantidad = cantidad;
+		this.precioventa = precioventa;
+		this.preciocompra = preciocompra;
+		this.fecha_vencimiento = fecha_vencimiento;
+	}
+
+	public String getIdproducto() {
+		return idproducto;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public float getPreciocompra() {
+		return preciocompra;
+	}
+
+	public float getPrecioventa() {
+		return precioventa;
+	}
+
+	public Date getFecha_vencimiento() {
+		return fecha_vencimiento;
+	}
+
 	public boolean agregarProducto(){
 		return true;
 	}

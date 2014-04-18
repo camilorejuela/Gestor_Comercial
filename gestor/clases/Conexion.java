@@ -69,7 +69,88 @@ public class Conexion {
             System.out.println("EXCEPCION");
         }
 	}
+	// COSAS AGREGRADAS POR FRANK
 	
+	/**
+	 * Obtiene el id próximo para guardar en la tabla producto
+	 * @return id (tabla producto)
+	 */
+	public int obtenerIdProducto(){
+		int contadorId = 1;
+		try{
+			rs = s.executeQuery("select * from producto");
+	        if (rs.next() == true){
+	        	// inventario no está vacio
+	           	while (rs.next()){ contadorId++;}
+	           	contadorId = contadorId + 1;
+	        }else {
+	           	// inventario está vacio
+	        }
+	        return contadorId;
+		}catch (Exception e){
+			e.printStackTrace();
+		    System.out.println("EXCEPCION, algo no sirvió");
+		    return 0;
+		}
+	}
+	
+	/**
+	 * Obtiene el id próximo a guardar en la tabla inventario
+	 * @return id_registro_intentario (tabla inventario)
+	 */
+	public int obtenerIdRegistroInventario(){
+		int contadorId = 1;
+		try{
+			rs = s.executeQuery("select * from inventario");
+	        if (rs.next() == true){
+	        	// inventario no está vacio
+	           	while (rs.next()){ contadorId++;}
+	           	contadorId = contadorId + 1;
+	        }else {
+	           	// inventario está vacio
+	        }
+	        return contadorId;
+		}catch (Exception e){
+			e.printStackTrace();
+		    System.out.println("EXCEPCION, algo no sirvió");
+		    return 0;
+		}
+	}
+	
+	public void agregarNuevoProducto(Producto producto)
+	{
+		int contadorId;
+		try{
+			//Agrega el nuevo producto a la tabla producto
+			System.out.println("Agregar producto a la tabla /producto/");
+	        String seleccion1 = "insert producto values ('" + producto.getId() + "','" + producto.getNombre() + "','" + producto.getDescripcion() + "','" + producto.getProductor() + "')";
+			s.executeUpdate(seleccion1);
+			System.out.println("Producto actualizado");
+			
+			//Se hace consulta sobre inventario, para identificar el id a agregar
+			contadorId = obtenerIdRegistroInventario();
+			if (contadorId == 0){
+				// SE DEJA INDICADO PARA CUANDO NO FUNCIONE EL METODO obtenerRegistroInventario();
+			}
+			
+			//Agrega el nuevo producto al inventario
+			System.out.println("Actualiza producto en la tabla /inventario/");
+			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','0000-00-00','0','0')";
+			s.executeUpdate(seleccion2);
+			System.out.println("Inventario actualizado");
+			
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION, algo no sirvió");
+        }
+	}
+	
+	
+	
+	
+	//COSAS AGREGADAS POR CAMILO
 	/**
 	 * 
 	 */

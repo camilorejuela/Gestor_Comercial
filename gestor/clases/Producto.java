@@ -12,10 +12,8 @@ public class Producto {
 	private String id;
 	private String nombre;
 	private String productor;
-	private String descripción;
-	private Date vencimiento;
-	private float precioDeCompra;
-	private float precioDeVenta;
+	private String descripcion;
+
 	
 	/**
 	 * 
@@ -23,20 +21,14 @@ public class Producto {
 	 * @param nombre
 	 * @param productor
 	 * @param descripción
-	 * @param vencimiento
-	 * @param precioDeCompra
-	 * @param precioDeVenta
+
 	 */
-	public Producto(String id, String nombre, String productor, String descripción,
-			Date vencimiento, float precioDeCompra, float precioDeVenta)
+	public Producto(String id, String nombre, String descripcion, String productor)
 	{
 		this.id = id; 
 		this.nombre = nombre;
 		this.productor = productor;
-		this.descripción = descripción;
-		this.vencimiento = vencimiento;
-		this.precioDeCompra = precioDeCompra;
-		this.precioDeVenta = precioDeVenta;
+		this.descripcion = descripcion;
 	}
 
 	/**
@@ -63,28 +55,8 @@ public class Producto {
 	/**
 	 * @return the descripción
 	 */
-	public String getDescripción() {
-		return descripción;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	/**
-	 * @return the vencimiento
-	 */
-	public Date getVencimiento() {
-		return vencimiento;
-	}
-
-	/**
-	 * @return the precioDeCompra
-	 */
-	public float getPrecioDeCompra() {
-		return precioDeCompra;
-	}
-
-	/**
-	 * @return the precioDeVenta
-	 */
-	public float getPrecioDeVenta() {
-		return precioDeVenta;
-	}
 }
