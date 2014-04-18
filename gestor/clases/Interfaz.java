@@ -31,6 +31,8 @@ public class Interfaz extends javax.swing.JFrame {
      * Creates new form Interfaz
      */
     public Interfaz() {
+    	setType(Type.UTILITY);
+    	setResizable(false);
     	
         initComponents();
     }
@@ -43,11 +45,8 @@ public class Interfaz extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	
-    	setResizable(false);
-    	setType(Type.UTILITY);
     	setTitle("Gestor Comercial");
-    	setSize(800,800);
+    	setSize(535,418);
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -62,13 +61,13 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra = new javax.swing.JPanel();
         panelInventario = new javax.swing.JPanel();
         lblNombreProducto_Inventario = new javax.swing.JLabel();
-        lblNombreProducto_Inventario.setBounds(20, 30, 92, 14);
+        lblNombreProducto_Inventario.setBounds(20, 30, 100, 25);
         tfNombreProducto_Inventario = new javax.swing.JTextField();
-        tfNombreProducto_Inventario.setBounds(112, 27, 95, 20);
+        tfNombreProducto_Inventario.setBounds(123, 30, 100, 25);
         btnConsultarProducto_Inventario = new javax.swing.JButton();
-        btnConsultarProducto_Inventario.setBounds(217, 26, 79, 23);
+        btnConsultarProducto_Inventario.setBounds(233, 25, 150, 35);
         jScrollPaneInventario = new javax.swing.JScrollPane();
-        jScrollPaneInventario.setBounds(20, 60, 359, 129);
+        jScrollPaneInventario.setBounds(20, 100, 600, 150);
         jTableInventario = new javax.swing.JTable();
         panelContabilidad = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -125,43 +124,173 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTable5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
+        JLabel lblIdCompra_Compra = new JLabel();
+        lblIdCompra_Compra.setBounds(42, 35, 80, 25);
+        lblIdCompra_Compra.setText("Id compra:");
+        
+        JLabel lblNombreProveedor_Compra = new JLabel();
+        lblNombreProveedor_Compra.setBounds(255, 35, 110, 25);
+        lblNombreProveedor_Compra.setText("Nombre proveedor:");
+        
+        JLabel lblIdProducto_Compra = new JLabel();
+        lblIdProducto_Compra.setBounds(42, 58, 80, 25);
+        lblIdProducto_Compra.setText("Id producto:");
+        
+        tfIdProducto_Compra = new JTextField();
+        tfIdProducto_Compra.setBounds(119, 58, 100, 25);
+        
+        JLabel lblNombreProducto_Compra = new JLabel();
+        lblNombreProducto_Compra.setBounds(255, 58, 100, 25);
+        lblNombreProducto_Compra.setText("Nombre producto");
+        
+        tfNombreProducto_Compra = new JTextField();
+        tfNombreProducto_Compra.setBounds(365, 58, 100, 25);
+        
+        JButton btnBuscarProducto_Compra = new JButton();
+        btnBuscarProducto_Compra.setBounds(297, 87, 150, 35);
+        btnBuscarProducto_Compra.setText("Buscar producto");
+        
+        tfCantidad_Compra = new JTextField();
+        tfCantidad_Compra.setBounds(119, 81, 100, 25);
+        
+        JLabel lblCantidad_Compra = new JLabel();
+        lblCantidad_Compra.setBounds(42, 81, 80, 25);
+        lblCantidad_Compra.setText("Cantidad:");
+        
+        JButton btnAgregarProducto_Compra = new JButton();
+        btnAgregarProducto_Compra.setBounds(42, 117, 150, 35);
+        btnAgregarProducto_Compra.setText("Agregar producto");
+        
+        JLabel lblProductosAComprar_Compra = new JLabel();
+        lblProductosAComprar_Compra.setBounds(42, 164, 125, 25);
+        lblProductosAComprar_Compra.setText("Productos a comprar:");
+        
+        JButton btnRealizarCompra = new JButton();
+        btnRealizarCompra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnRealizarCompra.setBounds(42, 346, 150, 35);
+        btnRealizarCompra.setText("Realizar compra");
+
+        panelContenedor.addTab("Compra", panelCompra);
+        panelCompra.setLayout(null);
+        panelCompra.add(lblIdCompra_Compra);
+        panelCompra.add(lblNombreProveedor_Compra);
+        panelCompra.add(lblIdProducto_Compra);
+        panelCompra.add(tfIdProducto_Compra);
+        panelCompra.add(lblNombreProducto_Compra);
+        panelCompra.add(tfNombreProducto_Compra);
+        panelCompra.add(lblCantidad_Compra);
+        panelCompra.add(tfCantidad_Compra);
+        panelCompra.add(btnAgregarProducto_Compra);
+        panelCompra.add(btnBuscarProducto_Compra);
+        panelCompra.add(lblProductosAComprar_Compra);
+        panelCompra.add(btnRealizarCompra);
+        
+        jScrollPaneCompra = new JScrollPane();
+        jScrollPaneCompra.setBounds(42, 190, 600, 150);
+        panelCompra.add(jScrollPaneCompra);
+        
+        jTableCompra = new JTable();
+        jTableCompra.setModel(new DefaultTableModel(
+        	new Object[][] {
+        		{null, null, null, null, null},
+        	},
+        	new String[] {
+        		"Id", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
+        	}
+        ));
+        jTableCompra.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTableCompra.getColumnModel().getColumn(1).setPreferredWidth(140);
+        jTableCompra.getColumnModel().getColumn(2).setPreferredWidth(55);
+        jTableCompra.getColumnModel().getColumn(3).setPreferredWidth(90);
+        jTableCompra.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jScrollPaneCompra.setViewportView(jTableCompra);
+        
+        tfValorTotal_Compra = new JTextField();
+        tfValorTotal_Compra.setBounds(542, 346, 100, 25);
+        panelCompra.add(tfValorTotal_Compra);
+        
+        lblValorTotal_Compra = new JLabel();
+        lblValorTotal_Compra.setText("Valor total:");
+        lblValorTotal_Compra.setBounds(452, 346, 80, 25);
+        panelCompra.add(lblValorTotal_Compra);
+        
+        tfValorCancelado_Compra = new JTextField();
+        tfValorCancelado_Compra.setBounds(320, 346, 100, 25);
+        panelCompra.add(tfValorCancelado_Compra);
+        
+        lblValorCancelado_Compra = new JLabel();
+        lblValorCancelado_Compra.setText("Valor cancelado:");
+        lblValorCancelado_Compra.setBounds(220, 346, 100, 25);
+        panelCompra.add(lblValorCancelado_Compra);
+        
+        tfIdCompra_Compra = new JTextField();
+        tfIdCompra_Compra.setText("'Muestra el id'");
+        tfIdCompra_Compra.setBounds(119, 35, 100, 25);
+        panelCompra.add(tfIdCompra_Compra);
+        tfIdCompra_Compra.setColumns(10);
+        
+        tfRegistrarProveedor_Compra = new JTextField();
+        tfRegistrarProveedor_Compra.setText("'Registra el proveedor'");
+        tfRegistrarProveedor_Compra.setBounds(365, 35, 100, 25);
+        panelCompra.add(tfRegistrarProveedor_Compra);
+        tfRegistrarProveedor_Compra.setColumns(10);
+        
+        JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
+        btnRegistrarProveedor_Compra.setBounds(465, 35, 135, 25);
+        panelCompra.add(btnRegistrarProveedor_Compra);
+
+        lblNombreProducto_Inventario.setText("Nombre producto:");
+
+        tfNombreProducto_Inventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
         panelVenta = new javax.swing.JPanel();
         jScrollPaneVenta = new javax.swing.JScrollPane();
-        jScrollPaneVenta.setBounds(24, 125, 343, 123);
+        jScrollPaneVenta.setBounds(42, 190, 600, 150);
         jTableVenta = new javax.swing.JTable();
         lblIdProducto_Venta = new javax.swing.JLabel();
-        lblIdProducto_Venta.setBounds(22, 33, 73, 17);
+        lblIdProducto_Venta.setBounds(42, 58, 80, 25);
         tfIdProducto_Venta = new javax.swing.JTextField();
-        tfIdProducto_Venta.setBounds(91, 33, 67, 20);
+        tfIdProducto_Venta.setBounds(119, 58, 100, 25);
         lblCantidad_Venta = new javax.swing.JLabel();
-        lblCantidad_Venta.setBounds(24, 53, 47, 14);
+        lblCantidad_Venta.setBounds(42, 81, 80, 25);
         tfCantidad_Venta = new javax.swing.JTextField();
-        tfCantidad_Venta.setBounds(91, 53, 67, 20);
+        tfCantidad_Venta.setBounds(119, 81, 100, 25);
         lblProductosAVender = new javax.swing.JLabel();
-        lblProductosAVender.setBounds(24, 112, 98, 14);
+        lblProductosAVender.setBounds(42, 164, 125, 25);
         btnAgregarProducto_Venta = new javax.swing.JButton();
-        btnAgregarProducto_Venta.setBounds(24, 73, 134, 23);
+        btnAgregarProducto_Venta.setBounds(42, 117, 150, 35);
         btnRealizarVenta = new javax.swing.JButton();
         btnRealizarVenta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         	}
         });
-        btnRealizarVenta.setBounds(24, 249, 115, 23);
+        btnRealizarVenta.setBounds(42, 346, 150, 35);
         
                 jTableVenta.setModel(new DefaultTableModel(
                 	new Object[][] {
-                		{null, null, null, null},
-                		{null, null, null, null},
-                		{null, null, null, null},
-                		{null, null, null, null},
-                		{null, null, null, null},
-                		{null, null, null, null},
+                		{null, null, null, null, null},
+                		{null, null, null, null, null},
+                		{null, null, null, null, null},
+                		{null, null, null, null, null},
+                		{null, null, null, null, null},
+                		{null, null, null, null, null},
                 	},
                 	new String[] {
-                		"Producto", "Cantidad", "Precio Unitario", "Precio Total"
+                		"Id", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
                 	}
                 ));
-                jTableVenta.getColumnModel().getColumn(2).setPreferredWidth(88);
+                jTableVenta.getColumnModel().getColumn(0).setPreferredWidth(50);
+                jTableVenta.getColumnModel().getColumn(1).setPreferredWidth(140);
+                jTableVenta.getColumnModel().getColumn(2).setPreferredWidth(55);
+                jTableVenta.getColumnModel().getColumn(3).setPreferredWidth(90);
+                jTableVenta.getColumnModel().getColumn(4).setPreferredWidth(90);
                 jScrollPaneVenta.setViewportView(jTableVenta);
                 
                         lblIdProducto_Venta.setText("Id producto:");
@@ -192,7 +321,7 @@ public class Interfaz extends javax.swing.JFrame {
                                                                         btnRealizarVenta.setText("Realizar venta");
                                                                         
                                                                         JLabel lblIdVenta = new JLabel();
-                                                                        lblIdVenta.setBounds(24, 14, 47, 14);
+                                                                        lblIdVenta.setBounds(42, 35, 80, 25);
                                                                         lblIdVenta.setText("Id venta:");
                                                                         
                                                                                 panelContenedor.addTab("Venta", panelVenta);
@@ -207,26 +336,18 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 panelVenta.add(btnAgregarProducto_Venta);
                                                                                 panelVenta.add(btnRealizarVenta);
                                                                                 
-                                                                                JLabel lblMuestraElId_Venta = new JLabel("'muestra el id'");
-                                                                                lblMuestraElId_Venta.setBounds(81, 14, 67, 14);
-                                                                                panelVenta.add(lblMuestraElId_Venta);
-                                                                                
-                                                                                JLabel lblregistraElCliente = new JLabel("'registra el cliente'");
-                                                                                lblregistraElCliente.setBounds(286, 14, 94, 14);
-                                                                                panelVenta.add(lblregistraElCliente);
-                                                                                
                                                                                 JLabel lblNombreCliente = new JLabel();
-                                                                                lblNombreCliente.setBounds(197, 14, 79, 14);
+                                                                                lblNombreCliente.setBounds(255, 35, 100, 25);
                                                                                 lblNombreCliente.setText("Nombre cliente:");
                                                                                 panelVenta.add(lblNombreCliente);
                                                                                 
                                                                                 JLabel lblNombreProducto_Venta = new JLabel();
-                                                                                lblNombreProducto_Venta.setText("Nombre producto");
-                                                                                lblNombreProducto_Venta.setBounds(197, 36, 94, 14);
+                                                                                lblNombreProducto_Venta.setText("Nombre producto:");
+                                                                                lblNombreProducto_Venta.setBounds(255, 58, 100, 25);
                                                                                 panelVenta.add(lblNombreProducto_Venta);
                                                                                 
                                                                                 tfNombreProducto_Venta = new JTextField();
-                                                                                tfNombreProducto_Venta.setBounds(286, 33, 94, 20);
+                                                                                tfNombreProducto_Venta.setBounds(365, 58, 100, 25);
                                                                                 panelVenta.add(tfNombreProducto_Venta);
                                                                                 
                                                                                 JButton btnBuscarProducto_Venta = new JButton();
@@ -235,132 +356,33 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 	}
                                                                                 });
                                                                                 btnBuscarProducto_Venta.setText("Buscar producto");
-                                                                                btnBuscarProducto_Venta.setBounds(203, 55, 134, 23);
+                                                                                btnBuscarProducto_Venta.setBounds(297, 87, 150, 35);
                                                                                 panelVenta.add(btnBuscarProducto_Venta);
                                                                                 
-                                                                                tfValorTotal = new JTextField();
-                                                                                tfValorTotal.setBounds(270, 249, 97, 20);
-                                                                                panelVenta.add(tfValorTotal);
+                                                                                tfValorTotal_Venta = new JTextField();
+                                                                                tfValorTotal_Venta.setBounds(542, 346, 100, 25);
+                                                                                panelVenta.add(tfValorTotal_Venta);
                                                                                 
-                                                                                JLabel lblValorTotal = new JLabel();
-                                                                                lblValorTotal.setText("Valor total:");
-                                                                                lblValorTotal.setBounds(205, 251, 61, 17);
-                                                                                panelVenta.add(lblValorTotal);
-        
-        JLabel lblIdCompra_Compra = new JLabel();
-        lblIdCompra_Compra.setBounds(20, 14, 71, 14);
-        lblIdCompra_Compra.setText("Id compra:");
-        
-        JLabel lblMuestraElId_Compra = new JLabel("'muestra el id'");
-        lblMuestraElId_Compra.setBounds(87, 14, 67, 14);
-        
-        JLabel lblNombreProveedor_Compra = new JLabel();
-        lblNombreProveedor_Compra.setBounds(193, 14, 94, 14);
-        lblNombreProveedor_Compra.setText("Nombre proveedor:");
-        
-        JLabel lblregistraElProveedor_Compra = new JLabel("'registra el proveedor'");
-        lblregistraElProveedor_Compra.setBounds(297, 14, 94, 14);
-        
-        JLabel lblIdProducto_Compra = new JLabel();
-        lblIdProducto_Compra.setBounds(20, 35, 73, 17);
-        lblIdProducto_Compra.setText("Id producto:");
-        
-        tfIdProducto_Compra = new JTextField();
-        tfIdProducto_Compra.setBounds(87, 33, 67, 20);
-        
-        JLabel lblNombreProducto_Compra = new JLabel();
-        lblNombreProducto_Compra.setBounds(193, 36, 94, 14);
-        lblNombreProducto_Compra.setText("Nombre producto");
-        
-        tfNombreProducto_Compra = new JTextField();
-        tfNombreProducto_Compra.setBounds(282, 33, 94, 20);
-        
-        JButton btnBuscarProducto_Compra = new JButton();
-        btnBuscarProducto_Compra.setBounds(203, 61, 134, 23);
-        btnBuscarProducto_Compra.setText("Buscar producto");
-        
-        tfCantidad_Compra = new JTextField();
-        tfCantidad_Compra.setBounds(87, 53, 67, 20);
-        
-        JLabel lblCantidad_Compra = new JLabel();
-        lblCantidad_Compra.setBounds(20, 53, 47, 14);
-        lblCantidad_Compra.setText("Cantidad:");
-        
-        JButton btnAgregarProducto_Compra = new JButton();
-        btnAgregarProducto_Compra.setBounds(20, 73, 134, 23);
-        btnAgregarProducto_Compra.setText("Agregar producto");
-        
-        JLabel lblProductosAComprar_Compra = new JLabel();
-        lblProductosAComprar_Compra.setBounds(20, 112, 134, 14);
-        lblProductosAComprar_Compra.setText("Productos a comprar:");
-        
-        JButton btnRealizarCompra = new JButton();
-        btnRealizarCompra.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnRealizarCompra.setBounds(276, 103, 115, 23);
-        btnRealizarCompra.setText("Realizar compra");
-
-        panelContenedor.addTab("Compra", panelCompra);
-        panelCompra.setLayout(null);
-        panelCompra.add(lblIdCompra_Compra);
-        panelCompra.add(lblMuestraElId_Compra);
-        panelCompra.add(lblNombreProveedor_Compra);
-        panelCompra.add(lblregistraElProveedor_Compra);
-        panelCompra.add(lblIdProducto_Compra);
-        panelCompra.add(tfIdProducto_Compra);
-        panelCompra.add(lblNombreProducto_Compra);
-        panelCompra.add(tfNombreProducto_Compra);
-        panelCompra.add(lblCantidad_Compra);
-        panelCompra.add(tfCantidad_Compra);
-        panelCompra.add(btnAgregarProducto_Compra);
-        panelCompra.add(btnBuscarProducto_Compra);
-        panelCompra.add(lblProductosAComprar_Compra);
-        panelCompra.add(btnRealizarCompra);
-        
-        jScrollPaneCompra = new JScrollPane();
-        jScrollPaneCompra.setBounds(20, 127, 356, 111);
-        panelCompra.add(jScrollPaneCompra);
-        
-        jTableCompra = new JTable();
-        jTableCompra.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null, null},
-        	},
-        	new String[] {
-        		"Producto", "Cantidad", "Precio Unitario", "Precio Total"
-        	}
-        ));
-        jTableCompra.getColumnModel().getColumn(2).setPreferredWidth(86);
-        jTableCompra.getColumnModel().getColumn(3).setPreferredWidth(80);
-        jScrollPaneCompra.setViewportView(jTableCompra);
-        
-        tfValorTotal_Compra = new JTextField();
-        tfValorTotal_Compra.setBounds(76, 241, 97, 20);
-        panelCompra.add(tfValorTotal_Compra);
-        
-        lblValorTotal_Compra = new JLabel();
-        lblValorTotal_Compra.setText("Valor total:");
-        lblValorTotal_Compra.setBounds(20, 243, 61, 17);
-        panelCompra.add(lblValorTotal_Compra);
-        
-        tfValorCancelado_Compra = new JTextField();
-        tfValorCancelado_Compra.setBounds(279, 241, 97, 20);
-        panelCompra.add(tfValorCancelado_Compra);
-        
-        lblValorCancelado_Compra = new JLabel();
-        lblValorCancelado_Compra.setText("Valor cancelado:");
-        lblValorCancelado_Compra.setBounds(199, 243, 88, 17);
-        panelCompra.add(lblValorCancelado_Compra);
-
-        lblNombreProducto_Inventario.setText("Nombre producto:");
-
-        tfNombreProducto_Inventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
+                                                                                JLabel lblValorTotal_Venta = new JLabel();
+                                                                                lblValorTotal_Venta.setText("Valor total:");
+                                                                                lblValorTotal_Venta.setBounds(452, 346, 80, 25);
+                                                                                panelVenta.add(lblValorTotal_Venta);
+                                                                                
+                                                                                tfIdVenta_Venta = new JTextField();
+                                                                                tfIdVenta_Venta.setText("'Muestra id'");
+                                                                                tfIdVenta_Venta.setBounds(119, 35, 100, 25);
+                                                                                panelVenta.add(tfIdVenta_Venta);
+                                                                                tfIdVenta_Venta.setColumns(10);
+                                                                                
+                                                                                tfRegistrarCliente = new JTextField();
+                                                                                tfRegistrarCliente.setText("'Registrar el  cliente'");
+                                                                                tfRegistrarCliente.setBounds(365, 35, 100, 25);
+                                                                                panelVenta.add(tfRegistrarCliente);
+                                                                                tfRegistrarCliente.setColumns(10);
+                                                                                
+                                                                                JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
+                                                                                btnRegistrarCliente_Venta.setBounds(465, 35, 125, 25);
+                                                                                panelVenta.add(btnRegistrarCliente_Venta);
 
         btnConsultarProducto_Inventario.setText("Consultar");
 
@@ -385,11 +407,11 @@ public class Interfaz extends javax.swing.JFrame {
         panelInventario.add(jScrollPaneInventario);
         
         JButton btnProductosAVencerse = new JButton("Productos a vencerse");
-        btnProductosAVencerse.setBounds(20, 195, 137, 23);
+        btnProductosAVencerse.setBounds(20, 264, 150, 35);
         panelInventario.add(btnProductosAVencerse);
         
         JButton btnProductosAAcabarse = new JButton("Productos a acabarse");
-        btnProductosAAcabarse.setBounds(20, 229, 137, 23);
+        btnProductosAAcabarse.setBounds(20, 299, 150, 35);
         panelInventario.add(btnProductosAAcabarse);
 
         jLabel12.setText("Generar informe:");
@@ -467,15 +489,15 @@ public class Interfaz extends javax.swing.JFrame {
         panelContenedor.addTab("Contabilidad", panelContabilidad);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelContenedor)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(panelContenedor, GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelContenedor)
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addComponent(panelContenedor, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
         );
+        getContentPane().setLayout(layout);
 
         pack();
         
@@ -659,9 +681,13 @@ public class Interfaz extends javax.swing.JFrame {
     private JTextField tfCantidad_Compra;
     private JScrollPane jScrollPaneCompra;
     private JTable jTableCompra;
-    private JTextField tfValorTotal;
+    private JTextField tfValorTotal_Venta;
     private JTextField tfValorTotal_Compra;
     private JLabel lblValorTotal_Compra;
     private JTextField tfValorCancelado_Compra;
     private JLabel lblValorCancelado_Compra;
+    private JTextField tfIdVenta_Venta;
+    private JTextField tfRegistrarCliente;
+    private JTextField tfIdCompra_Compra;
+    private JTextField tfRegistrarProveedor_Compra;
 }
