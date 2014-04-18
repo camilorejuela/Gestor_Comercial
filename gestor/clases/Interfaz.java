@@ -20,6 +20,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Window.Type;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -517,6 +519,13 @@ public class Interfaz extends javax.swing.JFrame {
         barraMenuPrincipal.add(menuCrear);
         
         JMenuItem menuNuevoAdministrador = new JMenuItem("Nuevo administrador");
+        menuNuevoAdministrador.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		System.out.println("MIERDA; SE SALIÓ");
+        		System.exit(0);
+        	}
+        });
         menuCrear.add(menuNuevoAdministrador);
         
         JMenuItem menuNuevoVendedor = new JMenuItem("Nuevo vendedor");
