@@ -26,6 +26,24 @@ public class Vendedor extends Usuario{
 		super(id, nombre, apellido, fechaNacimiento);
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
+		
+		almacenarEnBD();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getNombreUsuario(){
+		return nombreUsuario;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getContraseña(){
+		return contraseña;
 	}
 	
 	/**
@@ -76,5 +94,17 @@ public class Vendedor extends Usuario{
 	 */
 	public static boolean isAdmin(){
 		return false;
+	}
+	
+	/**
+	 * 
+	 */
+	private void almacenarEnBD()
+	{
+		boolean es_administrador = false;
+		
+		Conexion conexion = new Conexion();
+		conexion.agregarNuevoUsuario(this, es_administrador);
+		conexion.cerrarConexion();
 	}
 }

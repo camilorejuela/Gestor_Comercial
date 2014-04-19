@@ -1,4 +1,8 @@
 package gestor.clases;
+/*import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;*/
+
 /*
  * Clase que realiza la conexión a la base de datos de MySQL.
  * Presupone que el servidor de base de datos está arrancado, disponible,
@@ -103,9 +107,9 @@ public class Conexion {
 	}
 	
 	/**
-	 * Llenado de la BD con datos de prueba
+	 * prueba de guardado (Temporal)
 	 */
-	public void llenarConDatosDePrueba()
+	public void pruebaGuardado()
 	{
 		try{
 	        //insertar algo en la base de datos            
@@ -126,16 +130,71 @@ public class Conexion {
 	 * 
 	 * @param cliente
 	 */
-	public void agregarNuevoCliente(Cliente cliente)
+	public void agregarNuevoUsuario(Cliente cliente)
 	{
-		try{System.out.println("Bien");
+		try{
+			/*Class _class = Class.forName("gestor.clases.Cliente");
+			Field properties[] = _class.getFields();
+			System.out.println("properties.length: " + properties.length);
+            for (int i = 0; i < properties.length; i++) {
+                Field field = properties[i];
+                System.out.println(field.getName() +" > "+field.getType());
+            }
+			//System.out.println("campo: " + properties[0].getName());
+			System.out.println("toStrng: " + cliente.toString());*/
+			
 	        String seleccion = "insert cliente values ('" + cliente.getId() +
 	        		"','" + cliente.getNombre() + "','" + cliente.getApellido() +
-	        		"','" + /*"1993-04-02"*/cliente.getFechaNacimiento() + "','" +
+	        		"','" + cliente.getFechaNacimiento() + "','" +
 	        		cliente.getTelefono() + "','" + cliente.getEmail() + "')";
 	        
 			s.executeUpdate(seleccion);
-			System.out.println("Bien 2");
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION");
+        }
+	}
+	
+	/**
+	 * Agrega un nuevo proveedor a la BD
+	 * 
+	 * @param proveedor
+	 */
+	public void agregarNuevoUsuario(Proveedor proveedor)
+	{
+		try{
+	        String seleccion = "insert proveedor values ('" + proveedor.getId() +
+	        		"','" + proveedor.getTipoDocumento() + "','" +
+	        		proveedor.getNombre() + "','" + proveedor.getApellido() +
+	        		"','" + proveedor.getFechaNacimiento() + "','" +
+	        		proveedor.getTelefono() + "','" + proveedor.getEmail() + "')";
+	        
+			s.executeUpdate(seleccion);
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION");
+        }
+	}
+	
+	/**
+	 * Agrega un nuevo vendedor (puede ser vendedor o administrador) a la BD
+	 * 
+	 * @param vendedor
+	 */
+	public void agregarNuevoUsuario(Vendedor vendedor, boolean es_administrador)
+	{
+		try{
+	        String seleccion = "insert vendedor values ('" + vendedor.getId() +
+	        		"','" + vendedor.getNombre() + "','" + vendedor.getApellido() +
+	        		"','" + vendedor.getFechaNacimiento() + "','" +
+	        		vendedor.getNombreUsuario() + "','" +
+	        		vendedor.getContraseña() + "','" + es_administrador + "')";
+	        
+			s.executeUpdate(seleccion);
 		}
         catch (Exception e)
         {

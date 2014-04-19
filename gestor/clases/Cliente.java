@@ -27,9 +27,7 @@ public class Cliente extends Usuario{
 		this.telefono = telefono;
 		this.email = email;
 		
-		Conexion conexion = new Conexion();
-		conexion.agregarNuevoCliente(this);
-		conexion.cerrarConexion();
+		almacenarEnBD();
 	}
 	
 	/**
@@ -44,5 +42,15 @@ public class Cliente extends Usuario{
 	 */
 	public String getEmail() {
 		return email;
+	}
+	
+	/**
+	 * 
+	 */
+	private void almacenarEnBD()
+	{
+		Conexion conexion = new Conexion();
+		conexion.agregarNuevoUsuario(this);
+		conexion.cerrarConexion();
 	}
 }

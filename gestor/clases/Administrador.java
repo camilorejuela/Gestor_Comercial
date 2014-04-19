@@ -21,6 +21,8 @@ public class Administrador extends Vendedor {
 	public Administrador(String id, String nombre, String apellido, Date fechaNacimiento, 
 			String nombreUsuario, String contraseña){
 		super(id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña);
+		
+		almacenarEnBD();
 	}
 	
 	/**
@@ -131,5 +133,17 @@ public class Administrador extends Vendedor {
 	 */
 	public static boolean isAdmin(){
 		return true;
+	}
+	
+	/**
+	 * 
+	 */
+	private void almacenarEnBD()
+	{
+		boolean es_administrador = true;
+		
+		Conexion conexion = new Conexion();
+		conexion.agregarNuevoUsuario(this, es_administrador);
+		conexion.cerrarConexion();
 	}
 }

@@ -34,6 +34,8 @@ public class Proveedor extends Usuario{
 		this.tipoDocumento = tipoDocumento;
 		this.telefono = telefono;
 		this.email = email;
+		
+		almacenarEnBD();
 	}
 
 	/**
@@ -55,5 +57,15 @@ public class Proveedor extends Usuario{
 	 */
 	public String getEmail() {
 		return email;
+	}
+	
+	/**
+	 * 
+	 */
+	private void almacenarEnBD()
+	{
+		Conexion conexion = new Conexion();
+		conexion.agregarNuevoUsuario(this);
+		conexion.cerrarConexion();
 	}
 }
