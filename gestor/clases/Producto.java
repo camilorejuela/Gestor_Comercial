@@ -58,5 +58,12 @@ public class Producto {
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
+	public boolean AgregarProductoaBD(Producto producto){
+		Conexion con = new Conexion();
+		boolean seAgrego = con.agregarNuevoProducto(producto);
+		con.cerrarConexion();
+		return seAgrego;
+	}
 
 }

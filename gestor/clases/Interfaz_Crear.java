@@ -82,13 +82,12 @@ public class Interfaz_Crear {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		final int id_producto;
+		Conexion con = new Conexion();
+		id_producto = con.obtenerIdProducto();
+		con.cerrarConexion();
+		
 		frmCrear = new JFrame();
-		frmCrear.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-	
-			}
-		});
 		frmCrear.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		frmCrear.setResizable(false);
 		frmCrear.setType(Type.UTILITY);
@@ -413,6 +412,8 @@ public class Interfaz_Crear {
 		tfId_producto.setColumns(10);
 		tfId_producto.setBounds(100, 79, 100, 30);
 		crearProducto.add(tfId_producto);
+		String id = String.valueOf(id_producto);
+		tfId_producto.setText(id);
 		
 		JLabel lblId_producto = new JLabel("Id:");
 		lblId_producto.setBounds(10, 79, 100, 30);
@@ -425,6 +426,18 @@ public class Interfaz_Crear {
 		JButton btnCrear_producto = new JButton("Crear");
 		btnCrear_producto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String id, nombre, descripcion, productor;
+				id = tfId_producto.getText();
+				nombre = tfNombre_producto.getText();
+				descripcion = tfDescripcion_producto.getText();
+				productor = tfProductor_producto.getText();
+				Producto producto = new Producto(id, nombre, descripcion, productor);
+				boolean seAgrego = producto.AgregarProductoaBD(producto);
+				if (seAgrego == true){
+					System.out.println("SE AGREGÓ EXITOSAMENTE");
+				}else{
+					System.out.println("ALGO FALLÓ");
+				}
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
 			}
