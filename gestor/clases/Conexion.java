@@ -121,7 +121,7 @@ public class Conexion {
 		}
 	}
 	
-	public void agregarNuevoProducto(Producto producto)
+	public boolean agregarNuevoProducto(Producto producto)
 	{
 		int contadorId;
 		try{
@@ -142,12 +142,14 @@ public class Conexion {
 			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','0000-00-00','0','0')";
 			s.executeUpdate(seleccion2);
 			System.out.println("Inventario actualizado");
+			return true;
 			
 		}
         catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("EXCEPCION, algo no sirvió");
+            return false;
         }
 	}
 	

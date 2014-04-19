@@ -124,7 +124,7 @@ public class Interfaz extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable5);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JLabel lblIdCompra_Compra = new JLabel();
         lblIdCompra_Compra.setBounds(42, 35, 80, 25);
@@ -594,7 +594,9 @@ public class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interfaz().setVisible(true);
+            	Interfaz nuevo = new Interfaz();
+            	nuevo.setVisible(true);
+                //new Interfaz().setVisible(true);
             }
         });
     }

@@ -30,6 +30,7 @@ public class VentanaPrincipal {
 				try {
 					VentanaPrincipal window = new VentanaPrincipal();
 					window.frmPrincipal.setVisible(true);
+					window.frmPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,7 +53,6 @@ public class VentanaPrincipal {
 		frmPrincipal.setTitle("Principal");
 		frmPrincipal.setResizable(false);
 		frmPrincipal.setBounds(100, 100, 449, 377);
-		frmPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPrincipal.getContentPane().setLayout(null);
 		
 		tfUsuario = new JTextField();
@@ -84,6 +84,7 @@ public class VentanaPrincipal {
 				Interfaz interfaz = new Interfaz();
 				interfaz.setVisible(true);
 				frmPrincipal.setVisible(false);
+				frmPrincipal.dispose();
 			}
 		});
 		btnIngresar.setBounds(43, 237, 100, 35);
