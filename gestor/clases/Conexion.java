@@ -322,4 +322,34 @@ public class Conexion {
 	        System.out.println("EXCEPCION");
 	    }
 	}
+	
+	/**
+	 * Modificar la información de alguna tabla de la BD
+	 * 
+	 * @param nombreTabla El nombre de la tabla que se va a modificar
+	 * @param campoAModificar El nombre del campo que se va a modificar
+	 * @param nuevoValor El valor que queremos asignar
+	 * @param campoABuscarCoincidencia El campo que vamos a filtrar para
+	 * seleccionar el registro a modificar
+	 * @param valorACoincidir El valor a coincidir en el campo a filtrar
+	 */
+	public void modificarInfoTabla(String nombreTabla, String campoAModificar,
+			String nuevoValor, String campoABuscarCoincidencia, String valorACoincidir)
+	{
+		try{		
+			// Ejemplo de instrucción: 
+	        //String instruccionSQL = "UPDATE cliente SET telefono='5468' WHERE id='19'";
+			
+			String instruccionSQL = "UPDATE " + nombreTabla + "SET " + campoAModificar +
+					"='" + nuevoValor + "' WHERE " + campoABuscarCoincidencia + "='" +
+					valorACoincidir + "'";
+	        
+			s.executeUpdate(instruccionSQL);
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION");
+        }
+	}
 }
