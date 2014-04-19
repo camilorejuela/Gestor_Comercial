@@ -13,6 +13,8 @@ public class Vendedor extends Usuario{
 	private String contraseña;
 
 	/**
+	 * Este constructor NO almacena directamente en la base de datos. Se debe
+	 * llamar el método público almacenarEnBD() para que almacene el objeto creado.
 	 * 
 	 * @param id
 	 * @param nombre
@@ -26,8 +28,6 @@ public class Vendedor extends Usuario{
 		super(id, nombre, apellido, fechaNacimiento);
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
-		
-		almacenarEnBD();
 	}
 	
 	/**
@@ -88,21 +88,10 @@ public class Vendedor extends Usuario{
 	}
 	
 	/**
-	 * Es administrador?
-	 * 
-	 * @return
-	 */
-	public static boolean isAdmin(){
-		return false;
-	}
-	
-	/**
 	 * 
 	 */
-	private void almacenarEnBD()
-	{
-		boolean es_administrador = false;
-		
+	public void almacenarEnBD(boolean es_administrador)
+	{	
 		Conexion conexion = new Conexion();
 		conexion.agregarNuevoUsuario(this, es_administrador);
 		conexion.cerrarConexion();

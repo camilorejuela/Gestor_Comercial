@@ -14,6 +14,8 @@ public class Proveedor extends Usuario{
 	private String email;
 
 	/**
+	 * Este constructor inicializa todos los campos y almacena el objeto
+	 * como un registro en la tabla Proveedor de la base de datos.
 	 * 
 	 * NOTA: No manejamos la ínfima posibilidad de que el NIT de una empresa
 	 * coincida con la cédula de una persona. Si eso sucede, no dejará crear
