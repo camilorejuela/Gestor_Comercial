@@ -79,9 +79,10 @@ public class Interfaz_Modificar {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		final int id_producto;
+		final int id_producto, esProducto = 1;
 		Conexion con = new Conexion();
-		id_producto = con.obtenerIdProducto();
+		
+		id_producto = con.obtenerId(esProducto);
 		con.cerrarConexion();
 		
 		frmCrear = new JFrame();
