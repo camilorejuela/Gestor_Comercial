@@ -79,28 +79,56 @@ public class VentanaPrincipal {
 		lblGestorComercial.setBounds(110, 49, 201, 34);
 		frmPrincipal.getContentPane().add(lblGestorComercial);
 		
-		JCheckBox chckbxAdministrador = new JCheckBox("Administrador");
-		chckbxAdministrador.setBounds(170, 197, 125, 25);
-		frmPrincipal.getContentPane().add(chckbxAdministrador);
-		
+		/**
+		 * Botón Ingresar:
+		 * Se encarga de hacer la validación del administrador o el usuario
+		 * para permitir el uso de la aplicación por parte de los mismos
+		 * Metodos usados: verificarUsuario, esAdmin
+		 * 1 es para administrador
+		 * 2 es para vendedor
+		 */
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String usuario, contraseña;
-				Boolean isadmin;
+				String usuario, contraseña, idvendedor;
+				int acceso;
 				usuario = tfUsuario.getText();
-				contraseña = tfContrasena.getSelectedText();
-				//isadmin = chckbxAdministrador.getse
+				contraseña = tfContrasena.getText();
 				
-				Interfaz interfaz = new Interfaz();
-				interfaz.setVisible(true);
-				frmPrincipal.setVisible(false);
-				frmPrincipal.dispose();
+				Conexion con = new Conexion();
+				idvendedor = con.verificarUsuario(usuario, contraseña);
+				if(idvendedor.equals(null)){
+					acceso = 0;
+				}else{
+					acceso = con.esAdmin(idvendedor);
+				}
+				con.cerrarConexion();
+				
+				if(acceso == 1){
+					Interfaz interfaz = new Interfaz();
+					interfaz.setVisible(true);
+					frmPrincipal.setVisible(false);
+					frmPrincipal.dispose();
+					
+				}else if (acceso == 2){
+					Interfaz interfaz = new Interfaz();
+					interfaz.setVisible(true);
+					frmPrincipal.setVisible(false);
+					frmPrincipal.dispose();
+					
+				}else{
+					System.out.println("DATOS INCORRECTOS, VUELVA A INTENTARLO");
+				}
 			}
 		});
 		btnIngresar.setBounds(43, 237, 100, 35);
 		frmPrincipal.getContentPane().add(btnIngresar);
 		
+		/**
+		 * Botón Limpiar:
+		 * Permite limipiar las cajas de texto asociadas a usuario
+		 * y a contraseña
+		 */
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -111,6 +139,10 @@ public class VentanaPrincipal {
 		btnLimpiar.setBounds(170, 237, 100, 35);
 		frmPrincipal.getContentPane().add(btnLimpiar);
 		
+		/**
+		 * Botón Salir:
+		 * Finaliza la aplicación.
+		 */
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

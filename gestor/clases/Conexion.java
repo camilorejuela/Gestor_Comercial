@@ -153,6 +153,65 @@ public class Conexion {
         }
 	}
 	
+	public String verificarUsuario(String usuario, String contraseña){
+		try {
+				String vercontraseña;
+				// Accede y buscar el registro del usuario digitado.
+				rs = s.executeQuery("select * from vendedor where usuario = '"+ usuario +"'");
+				if (rs.next() == true){
+					// Si hay un registro
+					vercontraseña = rs.getString(6);
+					System.out.println("ESTA ES LA CONTRASEÑA QUE DIGITÉ: " + contraseña);
+					System.out.println("ESTA ES LA CONTRASEÑA DE LA BD:" + vercontraseña);
+					if(vercontraseña.equals(contraseña)){
+						//Usuario y contraseña correcta, hay que verificar si es admin o vendedor
+						return rs.getString(1);
+					}else{
+						//El usuario existe, pero la contraseña es incorrecta
+						System.out.println("CONTRASEÑA INCORRECTA");
+						return null;
+					}
+				}else{
+					//El usuario no existe en la BD
+					System.out.println("EL USUARIO DIGITADO NO EXISTE EN LA BASE DE DATOS");
+					return null;
+				}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param idvendedor
+	 * @return Si es administrador o vendedor
+	 */
+	public int esAdmin(String idvendedor){
+		try {
+			int verIsadmin;
+			rs = s.executeQuery("select * from vendedor where id = '"+ idvendedor +"'");
+			if (rs.next() == true){
+				// Si hay un registro
+				verIsadmin = rs.getInt(7);
+				if (verIsadmin == 0){
+					System.out.println("BIENVENIDO VENDEDOR FULANO DE TAL");
+					return 2;
+				}else{
+					System.out.println("BIENVENIDO ADMINISTRADOR FULANO DE TAL");
+					return 1;	
+				}
+			}else{
+				//Esta vacia esta mierda
+				return 0;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	
 	
 	
