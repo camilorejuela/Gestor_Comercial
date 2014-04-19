@@ -36,8 +36,7 @@ public class Administrador extends Vendedor {
 	 * @param email
 	 * @return
 	 */
-	public boolean crearUsuario(String id, String nombre, String apellido, Date fechaNacimiento,
-		String telefono, String email){
+	public boolean crearUsuario(Usuario usuario){
 		return true;
 	}
 	

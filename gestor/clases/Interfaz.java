@@ -3,25 +3,24 @@
  * and open the template in the editor.
  */
 package gestor.clases;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.JRadioButtonMenuItem;
-import java.awt.Window.Type;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -509,81 +508,33 @@ public class Interfaz extends javax.swing.JFrame {
         JMenu menuArchivo = new JMenu("Archivo");
         barraMenuPrincipal.add(menuArchivo);
         
-        JMenuItem menuCerrarSesion = new JMenuItem("Cerrar sesi\u00F3n");
-        menuArchivo.add(menuCerrarSesion);
-        
         JMenuItem menuSalir = new JMenuItem("Salir");
+        menuSalir.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		System.exit(0);
+        	}
+        });
         menuArchivo.add(menuSalir);
         
-        JMenu menuCrear = new JMenu("Crear");
-        barraMenuPrincipal.add(menuCrear);
+        JMenu menuOpciones = new JMenu("Opciones");
+        barraMenuPrincipal.add(menuOpciones);
         
-        JMenuItem menuNuevoAdministrador = new JMenuItem("Nuevo administrador");
-        menuNuevoAdministrador.addMouseListener(new MouseAdapter() {
+        JMenuItem menuCrear = new JMenuItem("Crear");
+        menuCrear.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mousePressed(MouseEvent e) {
         		System.out.println("MIERDA; SE SALIÓ");
         		System.exit(0);
         	}
         });
-        menuCrear.add(menuNuevoAdministrador);
+        menuOpciones.add(menuCrear);
         
-        JMenuItem menuNuevoVendedor = new JMenuItem("Nuevo vendedor");
-        menuCrear.add(menuNuevoVendedor);
+        JMenuItem menuModificar = new JMenuItem("Modificar");
+        menuOpciones.add(menuModificar);
         
-        JMenuItem menuNuevoCliente = new JMenuItem("Nuevo cliente");
-        menuCrear.add(menuNuevoCliente);
-        
-        JMenuItem menuNuevoProveedor = new JMenuItem("Nuevo proveedor");
-        menuCrear.add(menuNuevoProveedor);
-        
-        JSeparator separatorCrear = new JSeparator();
-        menuCrear.add(separatorCrear);
-        
-        JMenuItem menuNuevoProducto = new JMenuItem("Nuevo producto");
-        menuCrear.add(menuNuevoProducto);
-        
-        JMenu menuModificar = new JMenu("Modificar");
-        barraMenuPrincipal.add(menuModificar);
-        
-        JMenuItem menuModAdministrador = new JMenuItem("Administrador");
-        menuModificar.add(menuModAdministrador);
-        
-        JMenuItem menuModVendedor = new JMenuItem("Vendedor");
-        menuModificar.add(menuModVendedor);
-        
-        JMenuItem menuModCliente = new JMenuItem("Cliente");
-        menuModificar.add(menuModCliente);
-        
-        JMenuItem menuModProveedor = new JMenuItem("Proveedor");
-        menuModificar.add(menuModProveedor);
-        
-        JSeparator separatorModificar = new JSeparator();
-        menuModificar.add(separatorModificar);
-        
-        JMenuItem menuModProducto = new JMenuItem("Producto");
-        menuModificar.add(menuModProducto);
-        
-        JMenu menuInhabilitar = new JMenu("Inhabilitar");
-        barraMenuPrincipal.add(menuInhabilitar);
-        
-        JMenuItem menuInAdministrador = new JMenuItem("Administrador");
-        menuInhabilitar.add(menuInAdministrador);
-        
-        JMenuItem menuInVendedor = new JMenuItem("Vendedor");
-        menuInhabilitar.add(menuInVendedor);
-        
-        JMenuItem menuInCliente = new JMenuItem("Cliente");
-        menuInhabilitar.add(menuInCliente);
-        
-        JMenuItem menuInProveedor = new JMenuItem("Proveedor");
-        menuInhabilitar.add(menuInProveedor);
-        
-        JSeparator separatorInhabilitar = new JSeparator();
-        menuInhabilitar.add(separatorInhabilitar);
-        
-        JMenuItem menuInProducto = new JMenuItem("Producto");
-        menuInhabilitar.add(menuInProducto);
+        JMenuItem menuHabilitar = new JMenuItem("Inhabilitar");
+        menuOpciones.add(menuHabilitar);
         
         JMenu menuAyuda = new JMenu("Ayuda");
         barraMenuPrincipal.add(menuAyuda);
