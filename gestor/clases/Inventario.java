@@ -13,8 +13,8 @@ public class Inventario {
 	private float preciocompra, precioventa;
 	private Date fecha_vencimiento;
 	
-	public Inventario(Producto producto, int cantidad, float precioventa, float preciocompra, Date fecha_vencimiento ){
-		this.idproducto = producto.getId();
+	public Inventario(String idproducto, int cantidad, float precioventa, float preciocompra, Date fecha_vencimiento ){
+		this.idproducto = idproducto;
 		this.cantidad = cantidad;
 		this.precioventa = precioventa;
 		this.preciocompra = preciocompra;
