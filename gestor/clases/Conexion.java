@@ -36,18 +36,18 @@ public class Conexion {
         {
             // Se registra el Driver de MySQL
             DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
-            System.out.println("Driver registrado.");
+            //System.out.println("Driver registrado.");
             
             // Se obtiene una conexión con la base de datos. Hay que
             // cambiar el usuario "root" y la clave "la_clave" por las
             // adecuadas a la base de datos que estemos usando.
             conexion = DriverManager.getConnection (
                 "jdbc:mysql://localhost/gestor","root", "australia");
-            System.out.println("Conexión establedida exitosamente.");
+            //System.out.println("Conexión establedida exitosamente.");
             
             // Se crea un Statement, para realizar la consulta
             s = conexion.createStatement();
-            System.out.println("Statement creado exitosamente.");
+            //System.out.println("Statement creado exitosamente.");
 
     		// s.close(); Cierra el statement
         }
@@ -196,9 +196,9 @@ public class Conexion {
 	{
 		try{
 	        //insertar algo en la base de datos            
-	        String seleccion = "insert cliente values ('02','Fernanda','xd'," +
+	        String instruccionSQL = "insert cliente values ('02','Fernanda','xd'," +
 	        		"'1993-04-02','321 598','yo@aja.ya')";
-			s.executeUpdate(seleccion);
+			s.executeUpdate(instruccionSQL);
 			System.out.println("Nuevo valor -> Guardado!");
 		}
         catch (Exception e)
@@ -226,12 +226,12 @@ public class Conexion {
 			//System.out.println("campo: " + properties[0].getName());
 			System.out.println("toStrng: " + cliente.toString());*/
 			
-	        String seleccion = "insert cliente values ('" + cliente.getId() +
+	        String instruccionSQL = "insert cliente values ('" + cliente.getId() +
 	        		"','" + cliente.getNombre() + "','" + cliente.getApellido() +
 	        		"','" + cliente.getFechaNacimiento() + "','" +
 	        		cliente.getTelefono() + "','" + cliente.getEmail() + "')";
 	        
-			s.executeUpdate(seleccion);
+			s.executeUpdate(instruccionSQL);
 		}
         catch (Exception e)
         {
@@ -248,13 +248,13 @@ public class Conexion {
 	public void agregarNuevoUsuario(Proveedor proveedor)
 	{
 		try{
-	        String seleccion = "insert proveedor values ('" + proveedor.getId() +
+	        String instruccionSQL = "insert proveedor values ('" + proveedor.getId() +
 	        		"','" + proveedor.getTipoDocumento() + "','" +
 	        		proveedor.getNombre() + "','" + proveedor.getApellido() +
 	        		"','" + proveedor.getFechaNacimiento() + "','" +
 	        		proveedor.getTelefono() + "','" + proveedor.getEmail() + "')";
 	        
-			s.executeUpdate(seleccion);
+			s.executeUpdate(instruccionSQL);
 		}
         catch (Exception e)
         {
@@ -271,18 +271,55 @@ public class Conexion {
 	public void agregarNuevoUsuario(Vendedor vendedor, boolean es_administrador)
 	{
 		try{
-	        String seleccion = "insert vendedor values ('" + vendedor.getId() +
+			String es_admin;
+			if (es_administrador == true) es_admin = "1";
+			else es_admin = "0";
+			
+	        String instruccionSQL = "insert vendedor values ('" + vendedor.getId() +
 	        		"','" + vendedor.getNombre() + "','" + vendedor.getApellido() +
 	        		"','" + vendedor.getFechaNacimiento() + "','" +
 	        		vendedor.getNombreUsuario() + "','" +
-	        		vendedor.getContraseña() + "','" + es_administrador + "')";
+	        		vendedor.getContraseña() + "','" + es_admin + "')";
 	        
-			s.executeUpdate(seleccion);
+			s.executeUpdate(instruccionSQL);
 		}
         catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("EXCEPCION");
         }
+	}
+	
+	/**
+	 * Elimina todos los registros de las tablas
+	 */
+	public void limpiarTablas()
+	{
+		try{
+			//truncate table nom_tabla;  Se usa para borrar la información de una tabla.
+			String instruccionSQL = "truncate table cliente";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table compra";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table inventario";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table producto";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table producto_compra";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table producto_venta";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table proveedor";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table vendedor";
+			s.executeUpdate(instruccionSQL);
+			instruccionSQL = "truncate table venta";
+			s.executeUpdate(instruccionSQL);
+		}
+	    catch (Exception e)
+	    {
+	        e.printStackTrace();
+	        System.out.println("EXCEPCION");
+	    }
 	}
 }

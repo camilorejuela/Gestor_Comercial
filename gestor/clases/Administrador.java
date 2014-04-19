@@ -10,6 +10,9 @@ import java.sql.Date;
 public class Administrador extends Vendedor {
 	
 	/**
+	 * Este constructor NO almacena directamente en la base de datos. Se debe
+	 * llamar el método público heredado almacenarEnBD() para que almacene el
+	 * objeto creado.
 	 * 
 	 * @param id
 	 * @param nombre
@@ -21,8 +24,6 @@ public class Administrador extends Vendedor {
 	public Administrador(String id, String nombre, String apellido, Date fechaNacimiento, 
 			String nombreUsuario, String contraseña){
 		super(id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña);
-		
-		almacenarEnBD();
 	}
 	
 	/**
@@ -123,26 +124,5 @@ public class Administrador extends Vendedor {
 	 * Genera el informe deseado por el usuario
 	 */
 	public void generarInforme(){
-	}
-	
-	/**
-	 * Es administrador?
-	 * 
-	 * @return
-	 */
-	public static boolean isAdmin(){
-		return true;
-	}
-	
-	/**
-	 * 
-	 */
-	private void almacenarEnBD()
-	{
-		boolean es_administrador = true;
-		
-		Conexion conexion = new Conexion();
-		conexion.agregarNuevoUsuario(this, es_administrador);
-		conexion.cerrarConexion();
 	}
 }

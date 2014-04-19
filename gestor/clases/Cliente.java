@@ -13,6 +13,8 @@ public class Cliente extends Usuario{
 	private String email;
 	
 	/**
+	 * Este constructor inicializa todos los campos y almacena el objeto
+	 * como un registro en la tabla Cliente de la base de datos.
 	 * 
 	 * @param id La cédula del cliente
 	 * @param nombre
