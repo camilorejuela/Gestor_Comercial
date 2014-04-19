@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
+import java.awt.Color;
 
 public class Interfaz_Crear {
 
@@ -46,7 +47,6 @@ public class Interfaz_Crear {
 	private JTextField tfProductor_producto;
 	private JTextField tfDescripcion_producto;
 	private JTextField tfNombre_producto;
-	private JTextField tfId_producto;
 	private JTextField tfTipoDeDocumento_proveedor;
 	
    
@@ -102,7 +102,7 @@ public class Interfaz_Crear {
 		panelContenedor.addTab("Administrador", null, crearAdministrador, null);
 		crearAdministrador.setLayout(null);
 		
-		JLabel lblId_admin = new JLabel("Id:");
+		JLabel lblId_admin = new JLabel("Id: *");
 		lblId_admin.setBounds(10, 65, 100, 30);
 		crearAdministrador.add(lblId_admin);
 		
@@ -120,7 +120,7 @@ public class Interfaz_Crear {
 		tfFechaNac_admin.setBounds(336, 65, 100, 30);
 		crearAdministrador.add(tfFechaNac_admin);
 		
-		JLabel lblNuevoUsuario_admin = new JLabel("Nuevo usuario:");
+		JLabel lblNuevoUsuario_admin = new JLabel("Nuevo usuario: *");
 		lblNuevoUsuario_admin.setBounds(220, 106, 100, 30);
 		crearAdministrador.add(lblNuevoUsuario_admin);
 		
@@ -134,11 +134,11 @@ public class Interfaz_Crear {
 		tfNombre_admin.setBounds(90, 106, 100, 30);
 		crearAdministrador.add(tfNombre_admin);
 		
-		JLabel lblNombre_admin = new JLabel("Nombre:");
+		JLabel lblNombre_admin = new JLabel("Nombre: *");
 		lblNombre_admin.setBounds(10, 106, 100, 30);
 		crearAdministrador.add(lblNombre_admin);
 		
-		JLabel lblNuevaContrasena_admin = new JLabel("Nueva contrase\u00F1a:");
+		JLabel lblNuevaContrasena_admin = new JLabel("Nueva contrase\u00F1a: *");
 		lblNuevaContrasena_admin.setBounds(220, 147, 110, 30);
 		crearAdministrador.add(lblNuevaContrasena_admin);
 		
@@ -152,7 +152,7 @@ public class Interfaz_Crear {
 		tfApellido_admin.setBounds(90, 147, 100, 30);
 		crearAdministrador.add(tfApellido_admin);
 		
-		JLabel lblApellido_admin = new JLabel("Apellido:");
+		JLabel lblApellido_admin = new JLabel("Apellido: *");
 		lblApellido_admin.setBounds(10, 147, 100, 30);
 		crearAdministrador.add(lblApellido_admin);
 		
@@ -191,7 +191,7 @@ public class Interfaz_Crear {
 		panelContenedor.addTab("Vendedor", null, crearVendedor, null);
 		crearVendedor.setLayout(null);
 		
-		JLabel lblId_vend = new JLabel("Id:");
+		JLabel lblId_vend = new JLabel("Id: *");
 		lblId_vend.setBounds(10, 64, 100, 30);
 		crearVendedor.add(lblId_vend);
 		
@@ -200,7 +200,7 @@ public class Interfaz_Crear {
 		tfId_vend.setBounds(90, 64, 100, 30);
 		crearVendedor.add(tfId_vend);
 		
-		JLabel lblNombre_vend = new JLabel("Nombre:");
+		JLabel lblNombre_vend = new JLabel("Nombre: *");
 		lblNombre_vend.setBounds(10, 105, 100, 30);
 		crearVendedor.add(lblNombre_vend);
 		
@@ -209,7 +209,7 @@ public class Interfaz_Crear {
 		tfNombre_vend.setBounds(90, 105, 100, 30);
 		crearVendedor.add(tfNombre_vend);
 		
-		JLabel lblApellido_vend = new JLabel("Apellido:");
+		JLabel lblApellido_vend = new JLabel("Apellido: *");
 		lblApellido_vend.setBounds(10, 146, 100, 30);
 		crearVendedor.add(lblApellido_vend);
 		
@@ -317,15 +317,15 @@ public class Interfaz_Crear {
 		tfId_cliente.setBounds(90, 52, 100, 30);
 		crearCliente.add(tfId_cliente);
 		
-		JLabel lblId_cliente = new JLabel("Id:");
+		JLabel lblId_cliente = new JLabel("Id: *");
 		lblId_cliente.setBounds(10, 52, 100, 30);
 		crearCliente.add(lblId_cliente);
 		
-		JLabel lblNombre_cliente = new JLabel("Nombre:");
+		JLabel lblNombre_cliente = new JLabel("Nombre: *");
 		lblNombre_cliente.setBounds(10, 93, 100, 30);
 		crearCliente.add(lblNombre_cliente);
 		
-		JLabel lblApellido_cliente = new JLabel("Apellido:");
+		JLabel lblApellido_cliente = new JLabel("Apellido: *");
 		lblApellido_cliente.setBounds(10, 134, 100, 30);
 		crearCliente.add(lblApellido_cliente);
 		
@@ -406,15 +406,15 @@ public class Interfaz_Crear {
 		tfId_proveedor.setBounds(90, 51, 100, 30);
 		crearProveedor.add(tfId_proveedor);
 		
-		JLabel lblId_Proveedor = new JLabel("Id:");
+		JLabel lblId_Proveedor = new JLabel("Id: *");
 		lblId_Proveedor.setBounds(10, 51, 100, 30);
 		crearProveedor.add(lblId_Proveedor);
 		
-		JLabel lblNombre_proveedor = new JLabel("Nombre:");
+		JLabel lblNombre_proveedor = new JLabel("Nombre: *");
 		lblNombre_proveedor.setBounds(10, 92, 100, 30);
 		crearProveedor.add(lblNombre_proveedor);
 		
-		JLabel lblApellido_proveedor = new JLabel("Apellido:");
+		JLabel lblApellido_proveedor = new JLabel("Apellido: *");
 		lblApellido_proveedor.setBounds(10, 133, 100, 30);
 		crearProveedor.add(lblApellido_proveedor);
 		
@@ -461,7 +461,7 @@ public class Interfaz_Crear {
 		tfTipoDeDocumento_proveedor.setBounds(135, 174, 100, 30);
 		crearProveedor.add(tfTipoDeDocumento_proveedor);
 		
-		JLabel lblTipoDeDocumento_proveedor = new JLabel("Tipo de documento:");
+		JLabel lblTipoDeDocumento_proveedor = new JLabel("Tipo de documento: *");
 		lblTipoDeDocumento_proveedor.setBounds(10, 174, 120, 30);
 		crearProveedor.add(lblTipoDeDocumento_proveedor);
 		
@@ -479,11 +479,11 @@ public class Interfaz_Crear {
 		tfDescripcion_producto.setBounds(336, 79, 100, 30);
 		crearProducto.add(tfDescripcion_producto);
 		
-		JLabel lblDescripcion_producto = new JLabel("Descripci\u00F3n:");
+		JLabel lblDescripcion_producto = new JLabel("Descripci\u00F3n: *");
 		lblDescripcion_producto.setBounds(228, 79, 100, 30);
 		crearProducto.add(lblDescripcion_producto);
 		
-		JLabel lblProductor_producto = new JLabel("Productor:");
+		JLabel lblProductor_producto = new JLabel("Productor: *");
 		lblProductor_producto.setBounds(228, 120, 100, 30);
 		crearProducto.add(lblProductor_producto);
 		
@@ -491,33 +491,33 @@ public class Interfaz_Crear {
 		tfNombre_producto.setColumns(10);
 		tfNombre_producto.setBounds(100, 120, 100, 30);
 		crearProducto.add(tfNombre_producto);
-		
-		tfId_producto = new JTextField();
-		tfId_producto.setColumns(10);
-		tfId_producto.setBounds(100, 79, 100, 30);
-		crearProducto.add(tfId_producto);
 		String id = String.valueOf(id_producto);
-		tfId_producto.setText(id);
 		
 		JLabel lblId_producto = new JLabel("Id:");
 		lblId_producto.setBounds(10, 79, 100, 30);
 		crearProducto.add(lblId_producto);
 		
-		JLabel lblNombre_producto = new JLabel("Nombre:");
+		JLabel lblNombre_producto = new JLabel("Nombre: *");
 		lblNombre_producto.setBounds(10, 120, 100, 30);
 		crearProducto.add(lblNombre_producto);
+		
+		final JLabel lbl_producto = new JLabel("");
+		lbl_producto.setBackground(Color.ORANGE);
+		lbl_producto.setBounds(100, 79, 100, 30);
+		crearProducto.add(lbl_producto);
+		lbl_producto.setText(id);
 		
 		JButton btnCrear_producto = new JButton("Crear");
 		btnCrear_producto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id, nombre, descripcion, productor;
-				id = tfId_producto.getText();
+				id = lbl_producto.getText();
 				nombre = tfNombre_producto.getText();
 				descripcion = tfDescripcion_producto.getText();
 				productor = tfProductor_producto.getText();
 				Producto producto = new Producto(id, nombre, descripcion, productor);
 				boolean seAgrego = false;
-				seAgrego = producto.AgregarProductoaBD();
+				seAgrego = producto.agregarProductoaBD();
 				if (seAgrego == true){
 					System.out.println("SE AGREGÓ EXITOSAMENTE");
 				}else{
@@ -529,5 +529,6 @@ public class Interfaz_Crear {
 		});
 		btnCrear_producto.setBounds(169, 205, 125, 35);
 		crearProducto.add(btnCrear_producto);
+		
 	}
 }

@@ -17,7 +17,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -28,13 +27,25 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Interfaz extends javax.swing.JFrame {
 
+	private static String idvendedor; 
+	private static int isadmin;
+	
     /**
      * Creates new form Interfaz
      */
-    public Interfaz() {
+    public Interfaz(String idvendedor, int isadmin) {
+    	this.idvendedor = idvendedor; //Guarda el id del usuario que inició sesión
+    	this.isadmin = isadmin; //Guarda si el usuario que inició sesión es un admin o un vendedor
     	setResizable(false);
-    	
         initComponents();
+    }
+    
+    public int getIsAdmin(){
+    	return isadmin;
+    }
+    
+    public String getIdVendedor(){
+    	return idvendedor;
     }
 
     /**
@@ -45,6 +56,17 @@ public class Interfaz extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+    	
+    	final int id_venta, id_compra;
+		Conexion con = new Conexion();
+		int esCompra = 3;
+		int esVenta = 4; 
+		id_compra = con.obtenerId(esCompra);
+		id_venta = con.obtenerId(esVenta);
+		con.cerrarConexion();
+    	
+    	System.out.println("El usuario identificado con id " + getIdVendedor() + " ha iniciado sesión");
+    	System.out.println(getIsAdmin());
     	setTitle("Gestor Comercial");
     	setSize(535,418);
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -61,11 +83,11 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra = new javax.swing.JPanel();
         panelInventario = new javax.swing.JPanel();
         lblNombreProducto_Inventario = new javax.swing.JLabel();
-        lblNombreProducto_Inventario.setBounds(20, 30, 100, 25);
+        lblNombreProducto_Inventario.setBounds(20, 30, 115, 25);
         tfNombreProducto_Inventario = new javax.swing.JTextField();
-        tfNombreProducto_Inventario.setBounds(123, 30, 100, 25);
+        tfNombreProducto_Inventario.setBounds(143, 30, 100, 25);
         btnConsultarProducto_Inventario = new javax.swing.JButton();
-        btnConsultarProducto_Inventario.setBounds(233, 25, 150, 35);
+        btnConsultarProducto_Inventario.setBounds(268, 25, 150, 35);
         jScrollPaneInventario = new javax.swing.JScrollPane();
         jScrollPaneInventario.setBounds(20, 100, 600, 150);
         jTableInventario = new javax.swing.JTable();
@@ -130,7 +152,7 @@ public class Interfaz extends javax.swing.JFrame {
         lblIdCompra_Compra.setText("Id compra:");
         
         JLabel lblNombreProveedor_Compra = new JLabel();
-        lblNombreProveedor_Compra.setBounds(255, 35, 110, 25);
+        lblNombreProveedor_Compra.setBounds(255, 35, 120, 25);
         lblNombreProveedor_Compra.setText("Nombre proveedor:");
         
         JLabel lblIdProducto_Compra = new JLabel();
@@ -141,11 +163,11 @@ public class Interfaz extends javax.swing.JFrame {
         tfIdProducto_Compra.setBounds(119, 58, 100, 25);
         
         JLabel lblNombreProducto_Compra = new JLabel();
-        lblNombreProducto_Compra.setBounds(255, 58, 100, 25);
+        lblNombreProducto_Compra.setBounds(255, 58, 110, 25);
         lblNombreProducto_Compra.setText("Nombre producto");
         
         tfNombreProducto_Compra = new JTextField();
-        tfNombreProducto_Compra.setBounds(365, 58, 100, 25);
+        tfNombreProducto_Compra.setBounds(375, 58, 100, 25);
         
         JButton btnBuscarProducto_Compra = new JButton();
         btnBuscarProducto_Compra.setBounds(297, 87, 150, 35);
@@ -227,21 +249,18 @@ public class Interfaz extends javax.swing.JFrame {
         lblValorCancelado_Compra.setBounds(220, 346, 100, 25);
         panelCompra.add(lblValorCancelado_Compra);
         
-        tfIdCompra_Compra = new JTextField();
-        tfIdCompra_Compra.setText("'Muestra el id'");
-        tfIdCompra_Compra.setBounds(119, 35, 100, 25);
-        panelCompra.add(tfIdCompra_Compra);
-        tfIdCompra_Compra.setColumns(10);
-        
-        tfRegistrarProveedor_Compra = new JTextField();
-        tfRegistrarProveedor_Compra.setText("'Registra el proveedor'");
-        tfRegistrarProveedor_Compra.setBounds(365, 35, 100, 25);
-        panelCompra.add(tfRegistrarProveedor_Compra);
-        tfRegistrarProveedor_Compra.setColumns(10);
-        
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
-        btnRegistrarProveedor_Compra.setBounds(465, 35, 145, 25);
+        btnRegistrarProveedor_Compra.setBounds(524, 35, 145, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
+        
+        lblCompra_compra = new JLabel("");
+        lblCompra_compra.setBounds(119, 35, 100, 25);
+        panelCompra.add(lblCompra_compra);
+        lblCompra_compra.setText(String.valueOf(id_compra));
+        
+        lblRegistrarProveedor_compra = new JLabel("'Registra el proveedor'");
+        lblRegistrarProveedor_compra.setBounds(375, 35, 125, 25);
+        panelCompra.add(lblRegistrarProveedor_compra);
 
         lblNombreProducto_Inventario.setText("Nombre producto:");
 
@@ -337,17 +356,17 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 panelVenta.add(btnRealizarVenta);
                                                                                 
                                                                                 JLabel lblNombreCliente = new JLabel();
-                                                                                lblNombreCliente.setBounds(255, 35, 100, 25);
+                                                                                lblNombreCliente.setBounds(255, 35, 110, 25);
                                                                                 lblNombreCliente.setText("Nombre cliente:");
                                                                                 panelVenta.add(lblNombreCliente);
                                                                                 
                                                                                 JLabel lblNombreProducto_Venta = new JLabel();
                                                                                 lblNombreProducto_Venta.setText("Nombre producto:");
-                                                                                lblNombreProducto_Venta.setBounds(255, 58, 100, 25);
+                                                                                lblNombreProducto_Venta.setBounds(255, 58, 110, 25);
                                                                                 panelVenta.add(lblNombreProducto_Venta);
                                                                                 
                                                                                 tfNombreProducto_Venta = new JTextField();
-                                                                                tfNombreProducto_Venta.setBounds(365, 58, 100, 25);
+                                                                                tfNombreProducto_Venta.setBounds(376, 58, 100, 25);
                                                                                 panelVenta.add(tfNombreProducto_Venta);
                                                                                 
                                                                                 JButton btnBuscarProducto_Venta = new JButton();
@@ -368,21 +387,18 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 lblValorTotal_Venta.setBounds(452, 346, 80, 25);
                                                                                 panelVenta.add(lblValorTotal_Venta);
                                                                                 
-                                                                                tfIdVenta_Venta = new JTextField();
-                                                                                tfIdVenta_Venta.setText("'Muestra id'");
-                                                                                tfIdVenta_Venta.setBounds(119, 35, 100, 25);
-                                                                                panelVenta.add(tfIdVenta_Venta);
-                                                                                tfIdVenta_Venta.setColumns(10);
-                                                                                
-                                                                                tfRegistrarCliente = new JTextField();
-                                                                                tfRegistrarCliente.setText("'Registrar el  cliente'");
-                                                                                tfRegistrarCliente.setBounds(365, 35, 100, 25);
-                                                                                panelVenta.add(tfRegistrarCliente);
-                                                                                tfRegistrarCliente.setColumns(10);
-                                                                                
                                                                                 JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
-                                                                                btnRegistrarCliente_Venta.setBounds(465, 35, 135, 25);
+                                                                                btnRegistrarCliente_Venta.setBounds(534, 35, 135, 25);
                                                                                 panelVenta.add(btnRegistrarCliente_Venta);
+                                                                                
+                                                                                lblVenta_venta = new JLabel("");
+                                                                                lblVenta_venta.setBounds(119, 35, 100, 25);
+                                                                                panelVenta.add(lblVenta_venta);
+                                                                                lblVenta_venta.setText(String.valueOf(id_venta));
+                                                                                
+                                                                                lblRegistrarCliente_venta = new JLabel("'Registrar el  cliente'");
+                                                                                lblRegistrarCliente_venta.setBounds(376, 35, 125, 25);
+                                                                                panelVenta.add(lblRegistrarCliente_venta);
 
         btnConsultarProducto_Inventario.setText("Consultar");
 
@@ -407,11 +423,11 @@ public class Interfaz extends javax.swing.JFrame {
         panelInventario.add(jScrollPaneInventario);
         
         JButton btnProductosAVencerse = new JButton("Productos a vencerse");
-        btnProductosAVencerse.setBounds(20, 264, 150, 35);
+        btnProductosAVencerse.setBounds(20, 264, 170, 35);
         panelInventario.add(btnProductosAVencerse);
         
         JButton btnProductosAAcabarse = new JButton("Productos a acabarse");
-        btnProductosAAcabarse.setBounds(20, 299, 150, 35);
+        btnProductosAAcabarse.setBounds(20, 299, 170, 35);
         panelInventario.add(btnProductosAAcabarse);
 
         jLabel12.setText("Generar informe:");
@@ -597,7 +613,7 @@ public class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            	Interfaz nuevo = new Interfaz();
+            	Interfaz nuevo = new Interfaz(idvendedor, isadmin);
             	nuevo.setVisible(true);
                 //new Interfaz().setVisible(true);
             }
@@ -651,8 +667,8 @@ public class Interfaz extends javax.swing.JFrame {
     private JLabel lblValorTotal_Compra;
     private JTextField tfValorCancelado_Compra;
     private JLabel lblValorCancelado_Compra;
-    private JTextField tfIdVenta_Venta;
-    private JTextField tfRegistrarCliente;
-    private JTextField tfIdCompra_Compra;
-    private JTextField tfRegistrarProveedor_Compra;
+    private JLabel lblVenta_venta;
+    private JLabel lblRegistrarCliente_venta;
+    private JLabel lblCompra_compra;
+    private JLabel lblRegistrarProveedor_compra;
 }

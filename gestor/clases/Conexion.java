@@ -75,6 +75,32 @@ public class Conexion {
 	}
 	// COSAS AGREGRADAS POR FRANK
 	
+	public int obtenerId(int esAlgo){
+		int contadorId = 1;
+		String tabla="";
+		try{
+			if(esAlgo == 1) {tabla = "producto";}
+			else if(esAlgo == 2) {tabla = "inventario";}
+			else if(esAlgo == 3) {tabla = "compra";}
+			else if(esAlgo == 4) {tabla = "venta";}
+			rs = s.executeQuery("select * from " + tabla);
+	        if (rs.next() == true){
+	        	// inventario no está vacio
+	           	while (rs.next()){ contadorId++;}
+	           	contadorId = contadorId + 1;
+	        }else {
+	           	// inventario está vacio
+	        }
+	        return contadorId;
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		    System.out.println("EXCEPCION, algo no sirvió");
+		    return 0;
+		}
+	}
+	
+	
 	/**
 	 * Obtiene el id próximo para guardar en la tabla producto
 	 * @return id (tabla producto)
@@ -121,6 +147,11 @@ public class Conexion {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param producto
+	 * @return
+	 */
 	public boolean agregarNuevoProducto(Producto producto)
 	{
 		int contadorId;
@@ -153,6 +184,12 @@ public class Conexion {
         }
 	}
 	
+	/**
+	 * 
+	 * @param usuario
+	 * @param contraseña
+	 * @return
+	 */
 	public String verificarUsuario(String usuario, String contraseña){
 		try {
 				String vercontraseña;

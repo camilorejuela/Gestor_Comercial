@@ -97,21 +97,21 @@ public class VentanaPrincipal {
 				
 				Conexion con = new Conexion();
 				idvendedor = con.verificarUsuario(usuario, contraseña);
-				if(idvendedor.equals(null)){
-					acceso = 0;
-				}else{
+				if(idvendedor != null){
 					acceso = con.esAdmin(idvendedor);
+				}else{
+					acceso = 0;
 				}
 				con.cerrarConexion();
 				
 				if(acceso == 1){
-					Interfaz interfaz = new Interfaz();
+					Interfaz interfaz = new Interfaz(idvendedor, acceso);
 					interfaz.setVisible(true);
 					frmPrincipal.setVisible(false);
 					frmPrincipal.dispose();
 					
 				}else if (acceso == 2){
-					Interfaz interfaz = new Interfaz();
+					Interfaz interfaz = new Interfaz(idvendedor, acceso);
 					interfaz.setVisible(true);
 					frmPrincipal.setVisible(false);
 					frmPrincipal.dispose();
