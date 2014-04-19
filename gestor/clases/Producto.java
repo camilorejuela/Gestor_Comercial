@@ -59,9 +59,9 @@ public class Producto {
 		return descripcion;
 	}
 	
-	public boolean AgregarProductoaBD(Producto producto){
+	public boolean AgregarProductoaBD(){
 		Conexion con = new Conexion();
-		boolean seAgrego = con.agregarNuevoProducto(producto);
+		boolean seAgrego = con.agregarNuevoProducto(this);
 		con.cerrarConexion();
 		return seAgrego;
 	}

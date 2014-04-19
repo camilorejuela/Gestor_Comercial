@@ -28,8 +28,6 @@ public class Cliente extends Usuario{
 		super(id, nombre, apellido, fechaNacimiento);
 		this.telefono = telefono;
 		this.email = email;
-		
-		almacenarEnBD();
 	}
 	
 	/**
@@ -47,12 +45,14 @@ public class Cliente extends Usuario{
 	}
 	
 	/**
-	 * 
+	 * Almacena el cliente en la BD
 	 */
-	private void almacenarEnBD()
+	public boolean almacenarEnBD()
 	{
+		boolean seAgrego = false;
 		Conexion conexion = new Conexion();
-		conexion.agregarNuevoUsuario(this);
+		seAgrego = conexion.agregarNuevoUsuario(this);
 		conexion.cerrarConexion();
+		return seAgrego;
 	}
 }

@@ -271,8 +271,9 @@ public class Conexion {
 	 * Agrega un nuevo cliente a la BD
 	 * 
 	 * @param cliente
+	 * @return
 	 */
-	public void agregarNuevoUsuario(Cliente cliente)
+	public boolean agregarNuevoUsuario(Cliente cliente)
 	{
 		try{
 			/*Class _class = Class.forName("gestor.clases.Cliente");
@@ -291,11 +292,13 @@ public class Conexion {
 	        		cliente.getTelefono() + "','" + cliente.getEmail() + "')";
 	        
 			s.executeUpdate(instruccionSQL);
+			return true;
 		}
         catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("EXCEPCION");
+            return false;
         }
 	}
 	
@@ -303,8 +306,9 @@ public class Conexion {
 	 * Agrega un nuevo proveedor a la BD
 	 * 
 	 * @param proveedor
+	 * @return
 	 */
-	public void agregarNuevoUsuario(Proveedor proveedor)
+	public boolean agregarNuevoUsuario(Proveedor proveedor)
 	{
 		try{
 	        String instruccionSQL = "insert proveedor values ('" + proveedor.getId() +
@@ -314,11 +318,13 @@ public class Conexion {
 	        		proveedor.getTelefono() + "','" + proveedor.getEmail() + "')";
 	        
 			s.executeUpdate(instruccionSQL);
+			return true;
 		}
         catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("EXCEPCION");
+            return false;
         }
 	}
 	
@@ -326,8 +332,10 @@ public class Conexion {
 	 * Agrega un nuevo vendedor (puede ser vendedor o administrador) a la BD
 	 * 
 	 * @param vendedor
+	 * @param es_administrador
+	 * @return
 	 */
-	public void agregarNuevoUsuario(Vendedor vendedor, boolean es_administrador)
+	public boolean agregarNuevoUsuario(Vendedor vendedor, boolean es_administrador)
 	{
 		try{
 			String es_admin;
@@ -341,11 +349,13 @@ public class Conexion {
 	        		vendedor.getContraseña() + "','" + es_admin + "')";
 	        
 			s.executeUpdate(instruccionSQL);
+			return true;
 		}
         catch (Exception e)
         {
             e.printStackTrace();
             System.out.println("EXCEPCION");
+            return false;
         }
 	}
 	

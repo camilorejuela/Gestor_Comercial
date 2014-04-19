@@ -419,7 +419,7 @@ public class Interfaz_Modificar {
 				descripcion = tfDescripcion_producto.getText();
 				productor = tfProductor_producto.getText();
 				Producto producto = new Producto(id, nombre, descripcion, productor);
-				boolean seAgrego = producto.AgregarProductoaBD(producto);
+				boolean seAgrego = producto.AgregarProductoaBD();
 				if (seAgrego == true){
 					System.out.println("SE AGREGÓ EXITOSAMENTE");
 				}else{
