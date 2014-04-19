@@ -32,7 +32,6 @@ public class Interfaz extends javax.swing.JFrame {
      * Creates new form Interfaz
      */
     public Interfaz() {
-    	setType(Type.UTILITY);
     	setResizable(false);
     	
         initComponents();
@@ -241,7 +240,7 @@ public class Interfaz extends javax.swing.JFrame {
         tfRegistrarProveedor_Compra.setColumns(10);
         
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
-        btnRegistrarProveedor_Compra.setBounds(465, 35, 135, 25);
+        btnRegistrarProveedor_Compra.setBounds(465, 35, 145, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
 
         lblNombreProducto_Inventario.setText("Nombre producto:");
@@ -382,7 +381,7 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 tfRegistrarCliente.setColumns(10);
                                                                                 
                                                                                 JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
-                                                                                btnRegistrarCliente_Venta.setBounds(465, 35, 125, 25);
+                                                                                btnRegistrarCliente_Venta.setBounds(465, 35, 135, 25);
                                                                                 panelVenta.add(btnRegistrarCliente_Venta);
 
         btnConsultarProducto_Inventario.setText("Consultar");
@@ -531,10 +530,14 @@ public class Interfaz extends javax.swing.JFrame {
         menuOpciones.add(menuCrear);
         
         JMenuItem menuModificar = new JMenuItem("Modificar");
+        menuModificar.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent arg0) {
+        		Interfaz_Modificar interfaz = new Interfaz_Modificar();
+        		interfaz.main(null);
+        	}
+        });
         menuOpciones.add(menuModificar);
-        
-        JMenuItem menuHabilitar = new JMenuItem("Inhabilitar");
-        menuOpciones.add(menuHabilitar);
         
         JMenu menuAyuda = new JMenu("Ayuda");
         barraMenuPrincipal.add(menuAyuda);

@@ -3,15 +3,20 @@ package gestor.clases;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
+
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -81,6 +86,12 @@ public class VentanaPrincipal {
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String usuario, contraseña;
+				Boolean isadmin;
+				usuario = tfUsuario.getText();
+				contraseña = tfContrasena.getSelectedText();
+				//isadmin = chckbxAdministrador.getse
+				
 				Interfaz interfaz = new Interfaz();
 				interfaz.setVisible(true);
 				frmPrincipal.setVisible(false);
