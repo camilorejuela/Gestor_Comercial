@@ -14,6 +14,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 
 public class Interfaz_Crear {
 
@@ -160,6 +161,27 @@ public class Interfaz_Crear {
 			public void actionPerformed(ActionEvent arg0) {
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
+				
+				String id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña;
+				id = tfId_admin.getText();
+				nombre = tfNombre_admin.getText();
+				apellido = tfApellido_admin.getText();
+				fechaNacimiento = tfFechaNac_admin.getText(); // formato: AAAA-MM-DD
+				nombreUsuario = tfNuevoUsuario_admin.getText();
+				contraseña = tfNuevaContrasena_admin.getText();
+				
+				Date fechaNac = Date.valueOf(fechaNacimiento);
+				
+				Administrador administrador = new Administrador(id, nombre, apellido,
+						fechaNac, nombreUsuario, contraseña);
+				
+				boolean es_administrador = true, seAgrego = false;
+				seAgrego = administrador.almacenarEnBD(es_administrador);
+				if (seAgrego == true){
+					System.out.println("SE AGREGÓ EXITOSAMENTE");
+				}else{
+					System.out.println("ALGO FALLÓ");
+				}
 			}
 		});
 		btnCrear_admin.setBounds(169, 211, 125, 35);
@@ -228,6 +250,27 @@ public class Interfaz_Crear {
 			public void actionPerformed(ActionEvent e) {
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
+				
+				String id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña;
+				id = tfId_vend.getText();
+				nombre = tfNombre_vend.getText();
+				apellido = tfApellido_vend.getText();
+				fechaNacimiento = tfFechaNac_vend.getText(); // formato: AAAA-MM-DD
+				nombreUsuario = tfNuevoUsuario_vend.getText();
+				contraseña = tfNuevaContrasena_vend.getText();
+				
+				Date fechaNac = Date.valueOf(fechaNacimiento);
+				
+				Vendedor vendedor = new Vendedor(id, nombre, apellido,
+						fechaNac, nombreUsuario, contraseña);
+				
+				boolean es_administrador = false, seAgrego = false;
+				seAgrego = vendedor.almacenarEnBD(es_administrador);
+				if (seAgrego == true){
+					System.out.println("SE AGREGÓ EXITOSAMENTE");
+				}else{
+					System.out.println("ALGO FALLÓ");
+				}
 			}
 		});
 		btnCrear_vend.setBounds(169, 211, 125, 35);
@@ -296,6 +339,27 @@ public class Interfaz_Crear {
 			public void actionPerformed(ActionEvent e) {
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
+				
+				String id, nombre, apellido, fechaNacimiento, telefono, email;
+				id = tfId_cliente.getText();
+				nombre = tfNombre_cliente.getText();
+				apellido = tfApellido_cliente.getText();
+				fechaNacimiento = tfFechaNac_cliente.getText(); // formato: AAAA-MM-DD
+				telefono = tfTelefono_cliente.getText();
+				email = tfEmail_cliente.getText();
+				
+				Date fechaNac = Date.valueOf(fechaNacimiento);
+				
+				Cliente cliente = new Cliente(id, nombre, apellido, fechaNac,
+						telefono, email);
+				
+				boolean seAgrego = false;
+				seAgrego = cliente.almacenarEnBD();
+				if (seAgrego == true){
+					System.out.println("SE AGREGÓ EXITOSAMENTE");
+				}else{
+					System.out.println("ALGO FALLÓ");
+				}
 			}
 		});
 		btnCrear_cliente.setBounds(169, 199, 125, 35);
@@ -364,6 +428,29 @@ public class Interfaz_Crear {
 			public void actionPerformed(ActionEvent e) {
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
+				
+				String id, nombre, apellido, fechaNacimiento, telefono, email,
+					tipoDeDocumento;
+				id = tfId_proveedor.getText();
+				nombre = tfNombre_proveedor.getText();
+				apellido = tfApellido_proveedor.getText();
+				fechaNacimiento = tfFechaNac_proveedor.getText(); // formato: AAAA-MM-DD
+				telefono = tfTelefono_proveedor.getText();
+				email = tfEmail_proveedor.getText();
+				tipoDeDocumento = tfTipoDeDocumento_proveedor.getText();
+				
+				Date fechaNac = Date.valueOf(fechaNacimiento);
+				
+				Proveedor proveedor = new Proveedor(id, nombre, apellido, fechaNac,
+						tipoDeDocumento, telefono, email);
+				
+				boolean seAgrego = false;
+				seAgrego = proveedor.almacenarEnBD();
+				if (seAgrego == true){
+					System.out.println("SE AGREGÓ EXITOSAMENTE");
+				}else{
+					System.out.println("ALGO FALLÓ");
+				}
 			}
 		});
 		btnCrear_proveedor.setBounds(294, 204, 125, 35);
@@ -429,7 +516,8 @@ public class Interfaz_Crear {
 				descripcion = tfDescripcion_producto.getText();
 				productor = tfProductor_producto.getText();
 				Producto producto = new Producto(id, nombre, descripcion, productor);
-				boolean seAgrego = producto.AgregarProductoaBD(producto);
+				boolean seAgrego = false;
+				seAgrego = producto.AgregarProductoaBD();
 				if (seAgrego == true){
 					System.out.println("SE AGREGÓ EXITOSAMENTE");
 				}else{

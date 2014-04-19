@@ -36,8 +36,6 @@ public class Proveedor extends Usuario{
 		this.tipoDocumento = tipoDocumento;
 		this.telefono = telefono;
 		this.email = email;
-		
-		almacenarEnBD();
 	}
 
 	/**
@@ -64,10 +62,12 @@ public class Proveedor extends Usuario{
 	/**
 	 * 
 	 */
-	private void almacenarEnBD()
+	public boolean almacenarEnBD()
 	{
+		boolean seAgrego = false;
 		Conexion conexion = new Conexion();
-		conexion.agregarNuevoUsuario(this);
+		seAgrego = conexion.agregarNuevoUsuario(this);
 		conexion.cerrarConexion();
+		return seAgrego;
 	}
 }

@@ -90,10 +90,12 @@ public class Vendedor extends Usuario{
 	/**
 	 * 
 	 */
-	public void almacenarEnBD(boolean es_administrador)
+	public boolean almacenarEnBD(boolean es_administrador)
 	{	
+		boolean seAgrego = false;
 		Conexion conexion = new Conexion();
-		conexion.agregarNuevoUsuario(this, es_administrador);
+		seAgrego = conexion.agregarNuevoUsuario(this, es_administrador);
 		conexion.cerrarConexion();
+		return seAgrego;
 	}
 }
