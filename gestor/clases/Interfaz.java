@@ -524,8 +524,8 @@ public class Interfaz extends javax.swing.JFrame {
         menuCrear.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mousePressed(MouseEvent e) {
-        		System.out.println("MIERDA; SE SALIÓ");
-        		System.exit(0);
+        		Interfaz_Crear interfaz = new Interfaz_Crear();
+        		interfaz.main(null);
         	}
         });
         menuOpciones.add(menuCrear);
