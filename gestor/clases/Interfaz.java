@@ -1,8 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gestor.clases;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,14 +18,21 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author Yo
+ * @author 
  */
 public class Interfaz extends javax.swing.JFrame {
 
 	private static String idvendedor; 
 	private static int isadmin;
+	
+	private static ArrayList<ItemTransaccion> itemsVenta;
+	private static String idCliente;
+	private static ArrayList<ItemTransaccion> itemsCompra;
+	private static String idProveedor;
 	
     /**
      * Creates new form Interfaz
@@ -181,6 +185,12 @@ public class Interfaz extends javax.swing.JFrame {
         lblCantidad_Compra.setText("Cantidad:");
         
         JButton btnAgregarProducto_Compra = new JButton();
+        btnAgregarProducto_Compra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		
+        	}
+        });
         btnAgregarProducto_Compra.setBounds(42, 117, 150, 35);
         btnAgregarProducto_Compra.setText("Agregar producto");
         
@@ -250,6 +260,10 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(lblValorCancelado_Compra);
         
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
+        btnRegistrarProveedor_Compra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnRegistrarProveedor_Compra.setBounds(524, 35, 145, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
         
