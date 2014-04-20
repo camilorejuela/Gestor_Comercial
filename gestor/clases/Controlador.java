@@ -1,6 +1,8 @@
 package gestor.clases;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
 
 /**
  * @author 
@@ -19,7 +21,57 @@ public class Controlador {
 		
 	}
 	
+	public static Time horaSistema(){
+		Calendar calendario = Calendar.getInstance();
+		int hora, minutos, segundos;
+		String Shora = null, Sminutos = null, Ssegundos = null, cadena = null;
+		Time tiempo;
+		hora = calendario.get(Calendar.HOUR);
+		if (hora<10){
+			Shora = String.valueOf(hora);
+			Shora = "0" + Shora;}
+		else 
+			Shora = String.valueOf(hora);
+		minutos = calendario.get(Calendar.MINUTE);
+		if (minutos<10){
+			Sminutos = String.valueOf(minutos);
+			Sminutos = "0" + Sminutos;}
+		else Sminutos = String.valueOf(minutos);
+		segundos = calendario.get(Calendar.SECOND);
+		if (segundos<10){
+			Ssegundos = String.valueOf(segundos);
+			Ssegundos = "0" + Ssegundos;}
+		else Ssegundos = String.valueOf(segundos);
+		
+		cadena = Shora + ":" + Sminutos + ":" + Ssegundos;
+		tiempo = Time.valueOf(cadena);
+		return tiempo;
+	} 
 	
+	public static Date fechaSistema(){
+		Calendar calendario = Calendar.getInstance();
+		int dia, mes, año;
+		Date fecha;
+	    String Sdia = null, Smes = null, Saño = null, cadena = null;
+	    dia = calendario.get(Calendar.DATE);
+		if (dia<10) {
+			Sdia = String.valueOf(dia);
+			Sdia = "0" + Sdia;}
+		else Sdia = String.valueOf(dia);
+		mes = calendario.get(Calendar.MONTH);
+		if (mes<10) {
+			Smes = String.valueOf(mes);
+			Smes = "0" + Smes;}
+		else Smes = String.valueOf(mes);
+		año = calendario.get(Calendar.YEAR);
+		if (año<10){
+			Saño = String.valueOf(año);
+			Saño = "0" + Saño;}
+		else Saño = String.valueOf(año);
+		cadena = Saño + "-" + Smes + "-" + Sdia;
+		fecha = Date.valueOf(cadena);
+		return fecha;
+	}
 	/**
 	 * Crea 5 objetos Cliente agregandolos a la BD, 5 Proveedor
 	 * y 10 Vendedor (5 vends y 5 admis) (TEMPORAL - Para pruebas)

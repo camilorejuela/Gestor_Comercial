@@ -1,7 +1,5 @@
 package gestor.clases;
 
-import java.sql.Date;
-
 /**
  * 
  * @author 
@@ -14,7 +12,6 @@ public class Producto {
 	private String productor;
 	private String descripcion;
 
-	
 	/**
 	 * 
 	 * @param id

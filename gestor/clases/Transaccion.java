@@ -3,9 +3,6 @@
  */
 package gestor.clases;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
 
 /**
  * 
@@ -14,19 +11,19 @@ import java.util.ArrayList;
  */
 public abstract class Transaccion {
 	
-	protected String idVendedor;
+	protected int idVendedor;
 	
 	/**
 	 * 
 	 * @param id Id generado automáticamente
 	 * @param vendedor
 	 */
-	public Transaccion(String idVendedor)
+	public Transaccion(int idVendedor)
 	{
 		this.idVendedor = idVendedor;
 	}
 	
-	public String getIdVendedor(){
+	public int getIdVendedor(){
 		return idVendedor;
 	}
 	

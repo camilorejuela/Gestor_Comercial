@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -259,25 +260,40 @@ public class Interfaz extends javax.swing.JFrame {
         		ItemTransaccion item;
         		int idRegistroInventario, cantidadexistente;
         		float precioVenta;
+        		boolean actualizarInventario, actualizarProductoCompra;
+        		Date fechaActual;
+        		Time horaActual;
         		//ACA ESTÁ LA MAGIA (Y)
         		Iterator it = itemsCompra.iterator();
         		while(it.hasNext()){
-        			//la BD inventario se actualiza acá
+        			
         			Conexion con = new Conexion();
         			item = (ItemTransaccion) it.next();
         			idRegistroInventario = con.actualizarOCrearNuevoRegistroInventario(Integer.parseInt(item.getIdProducto()), 
         					item.getPrecioUnitario(), item.getFechaVencimiento()); //obtiene el IdRegistroInventario
         			cantidadexistente = con.sumarCantidadExistenteInventario(idRegistroInventario); //si hay cantidad existentes las guarda, si no = 0
         			precioVenta = con.obtenerPrecioVentaInventario(idRegistroInventario);
-        			con.cerrarConexion();
+        			
         			Inventario inventario = new Inventario(idRegistroInventario, Integer.parseInt(item.getIdProducto()),
         					(item.getCantidad()+cantidadexistente), item.getFechaVencimiento(), item.getPrecioUnitario(),
         		     		precioVenta);
         			
+        			//la BD inventario se actualiza acá
+        			actualizarInventario = con.actualizarInventario(inventario);
+        			if (actualizarInventario) System.out.println("SE ACTUALIZÓ EL INVENTARIO CORRECTAMENTE");
+        			else System.out.println("NO ACTUALIZÓ INVENTARIO, PASÓ ALGO :s");
+        			
         			//la BD producto_compra se actualiza acá.
+        			actualizarProductoCompra = con.actualizarProductoCompra(id_compra, Integer.parseInt(item.getIdProducto()), item.getCantidad());
+        			if (actualizarProductoCompra) System.out.println("SE ACTUALIZÓ PRODUCTO_COMPRA CORRECTAMENTE");
+        			else System.out.println("NO ACTUALIZÓ PRODUCTO_COMPRA, PASÓ ALGO :s");
+        			con.cerrarConexion();
         		}
+        		// la BD compra se guarda despues del iterator
+        		fechaActual = Controlador.fechaSistema();
+				horaActual = Controlador.horaSistema();
+        		
         	}
-        	// la BD compra se guarda despues del iterator
         });
         btnRealizarCompra.setBounds(44, 372, 150, 30);
         btnRealizarCompra.setText("Realizar compra");

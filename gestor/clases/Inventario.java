@@ -21,7 +21,7 @@ public class Inventario {
 		this.preciocompra = preciocompra;
 		this.fecha_vencimiento = fecha_vencimiento;
 	}
-	public int getIdRegistroProducto(){
+	public int getIdRegistroInventario(){
 		return idRegistroInventario;
 	}
 
