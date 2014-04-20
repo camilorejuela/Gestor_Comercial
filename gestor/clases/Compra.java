@@ -9,7 +9,7 @@ import java.sql.Time;
  */
 public class Compra extends Transaccion{
 
-	private String idCompra, idProveedor;
+	private int idCompra, idProveedor;
 	private float totalCompra, Saldo;
 	private Date fechaCompra;
 	private Time horaCompra;
@@ -18,7 +18,7 @@ public class Compra extends Transaccion{
 	 * @param id Id generado automáticamente
 	 * @param vendedor
 	 */
-	public Compra(String idCompra, String idVendedor, String idProveedor, float totalCompra, Date fechaCompra, Time horaCompra, float Saldo){
+	public Compra(int idCompra, int idVendedor, int idProveedor, float totalCompra, Date fechaCompra, Time horaCompra, float Saldo){
 		super(idVendedor);
 		this.idCompra = idCompra;
 		this.totalCompra = totalCompra;
@@ -29,13 +29,13 @@ public class Compra extends Transaccion{
 	
 	
 	
-	public String getIdCompra() {
+	public int getIdCompra() {
 		return idCompra;
 	}
 
 
 
-	public String getIdProveedor() {
+	public int getIdProveedor() {
 		return idProveedor;
 	}
 

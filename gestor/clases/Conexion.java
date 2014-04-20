@@ -255,13 +255,44 @@ public class Conexion {
 	 * Se encarga de actualizar inventario al momento de comprar
 	 * @param inventario
 	 */
-	public void actualizarInventario(Inventario inventario){
+	public boolean actualizarInventario(Inventario inventario){
 		try {
-			rs = s.executeQuery ("select * from inventario where id_producto = '"+ inventario.getIdproducto() +"'");
+			rs = s.executeQuery ("select * from inventario where id_registro_inventario = '"+ inventario.getIdRegistroInventario() +"'");
+			if (rs.next())
+				rr = r.executeQuery ("update inventario set cantidad = '" + inventario.getCantidad() + "' where id_registro_inventario = '" + inventario.getIdRegistroInventario() + "'");
+			else
+				rr = r.executeQuery ("insert inventario values ('" + inventario.getIdRegistroInventario() + "', '" + inventario.getIdproducto() + "', '" 
+				+ inventario.getCantidad() + "', '" + inventario.getFecha_vencimiento() + "', '" + inventario.getPreciocompra() + "', '" 
+				+ inventario.getPrecioventa() + "'");		
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+	}
+	
+	/**
+	 * Se encarga de actualizar la tabla producto_compra cuando se hace la compra.
+	 * @param idCompra
+	 * @param idProducto
+	 * @param cantidad
+	 * @return
+	 */
+	public boolean actualizarProductoCompra(int idCompra, int idProducto, int cantidad){
+		try {
+			rs = s.executeQuery ("insert producto_compra values ('" + idCompra + "', '" + idProducto + "', '" + cantidad + "')");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean actualizarCompra(Compra compra){
+		//insert producto_compra values ('" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "')
+		return true;
 	}
 	
 	/**
