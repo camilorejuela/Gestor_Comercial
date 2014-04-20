@@ -19,6 +19,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.SwingConstants;
+
+import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +46,9 @@ public class Interfaz extends javax.swing.JFrame {
     	this.isadmin = isadmin; //Guarda si el usuario que inició sesión es un admin o un vendedor
     	setResizable(false);
         initComponents();
+        
+        itemsVenta = new ArrayList<ItemTransaccion>();
+    	itemsCompra = new ArrayList<ItemTransaccion>();
     }
     
     public int getIsAdmin(){
@@ -201,6 +208,29 @@ public class Interfaz extends javax.swing.JFrame {
         lblCantidad_Compra.setText("Cantidad:");
         
         JButton btnAgregarProducto_Compra = new JButton();
+        btnAgregarProducto_Compra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		String idProducto = tfIdProducto_Compra.getText();
+        		int cantidad = Integer.parseInt(tfCantidad_Compra.getText());
+        		float precioUnitario = Float.parseFloat(tfPrecioUnidad_Compra.getText());
+        		Date fecha = Date.valueOf(tfFechaVencimiento_Compra.getText());
+        		
+        		float precioTotal = precioUnitario * cantidad;
+        		
+        		String nombreProducto = Producto.getNombreProducto(idProducto);
+        		
+        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto,
+        				nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
+        		
+        		boolean seAgrego = false;
+        		seAgrego = itemsCompra.add(itemCompra);
+        		
+        		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
+        		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+        	}
+        });
+
         btnAgregarProducto_Compra.setBounds(42, 119, 220, 35);
         btnAgregarProducto_Compra.setText("Agregar producto");
         
@@ -267,6 +297,12 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(lblValorCancelado_Compra);
         
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
+        btnRegistrarProveedor_Compra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//String idCliente, idProveedor;
+        	}
+        });
+
         btnRegistrarProveedor_Compra.setBounds(299, 35, 50, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
         
@@ -289,14 +325,14 @@ public class Interfaz extends javax.swing.JFrame {
         lblPrecio.setBounds(382, 58, 100, 25);
         panelCompra.add(lblPrecio);
         
-        textField = new JTextField();
-        textField.setBounds(502, 58, 100, 25);
-        panelCompra.add(textField);
+        tfPrecioUnidad_Compra = new JTextField();
+        tfPrecioUnidad_Compra.setBounds(502, 58, 100, 25);
+        panelCompra.add(tfPrecioUnidad_Compra);
         
-        textField_1 = new JTextField();
-        textField_1.setBounds(502, 82, 100, 25);
-        panelCompra.add(textField_1);
-
+        tfFechaVencimiento_Compra = new JTextField();
+        tfFechaVencimiento_Compra.setBounds(502, 82, 100, 25);
+        panelCompra.add(tfFechaVencimiento_Compra);
+        
         lblNombreProducto_Inventario.setText("Nombre producto:");
 
         tfNombreProducto_Inventario.addActionListener(new java.awt.event.ActionListener() {
@@ -691,7 +727,9 @@ public class Interfaz extends javax.swing.JFrame {
     private JLabel lblRegistrarCliente_venta;
     private JLabel lblCompra_compra;
     private JLabel lblRegistrarProveedor_compra;
-    private JTextField textField;
-    private JTextField textField_1;
+    private JTextField tfPrecioUnidad_Compra;
+    private JTextField tfFechaVencimiento_Compra;
+    private JLabel lblRealizarConsulta;
+    private JLabel lblConsultar;
 	private DefaultTableModel modelo;
 }

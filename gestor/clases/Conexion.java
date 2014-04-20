@@ -256,6 +256,7 @@ public class Conexion {
 	
 	//COSAS AGREGADAS POR CAMILO
 	/**
+	 * PRUEBA
 	 * 
 	 */
 	public void consulta()
@@ -432,6 +433,25 @@ public class Conexion {
 	}
 	
 	/**
+	 * Retorna el nombre de un producto apartir de su id
+	 * 
+	 * @param idProducto
+	 * @return
+	 */
+	public String getNombreProducto(String idProducto)
+	{
+		String nombreTabla = "producto";
+		String campoABuscarCoincidencia = "id";
+		String valorACoincidir = idProducto;
+		String campoAConsultar = "nombre";
+		
+		String nombre = consultarCampoEnTabla(nombreTabla, campoABuscarCoincidencia,
+				valorACoincidir, campoAConsultar);
+		
+		return nombre;
+	}
+	
+	/**
 	 * Modificar la información de alguna tabla de la BD
 	 * 
 	 * @param nombreTabla El nombre de la tabla que se va a modificar
@@ -441,7 +461,7 @@ public class Conexion {
 	 * seleccionar el registro a modificar
 	 * @param valorACoincidir El valor a coincidir en el campo a filtrar
 	 */
-	public void modificarInfoTabla(String nombreTabla, String campoAModificar,
+	private void modificarInfoTabla(String nombreTabla, String campoAModificar,
 			String nuevoValor, String campoABuscarCoincidencia, String valorACoincidir)
 	{
 		try{		
@@ -458,6 +478,45 @@ public class Conexion {
         {
             e.printStackTrace();
             System.out.println("EXCEPCION");
+        }
+	}
+	
+	/**
+	 * Realizar la consulta de algún campo en alguna tabla de la BD
+	 * 
+	 * @param nombreTabla El nombre de la tabla que se va a modificar
+	 * @param campoABuscarCoincidencia El campo que vamos a filtrar para
+	 * seleccionar el registro a modificar
+	 * @param valorACoincidir El valor a coincidir en el campo a filtrar
+	 * @param campoAConsultar El campo que queremos consultar
+	 */
+	private String consultarCampoEnTabla(String nombreTabla, String campoABuscarCoincidencia,
+			String valorACoincidir, String campoAConsultar)
+	{
+		try{		
+			// Ejemplo de instrucción: 
+	        //String instruccionSQL = "SELECT nombre FROM cliente WHERE id='19'";
+			
+			String instruccionSQL = "SELECT " + campoAConsultar + " FROM " + nombreTabla +
+					" WHERE " + campoABuscarCoincidencia + "='" + valorACoincidir + "'";
+	        
+			rs = s.executeQuery(instruccionSQL);
+			//System.out.println("Consulta realizada exitosamente.");
+			
+			String nombre = "";
+			
+			if(rs.next())
+				nombre = rs.getString(1);
+			
+			//System.out.println("Nombre: " + nombre);
+	        
+			return nombre;
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION");
+            return null;
         }
 	}
 }

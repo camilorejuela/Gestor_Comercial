@@ -65,5 +65,18 @@ public class Producto {
 		con.cerrarConexion();
 		return seAgrego;
 	}
-
+	
+	/**
+	 * Retorna el nombre de un producto apartir de su id
+	 * 
+	 * @param idProducto
+	 * @return
+	 */
+	public static String getNombreProducto(String idProducto){
+		String nombreProducto;
+		Conexion conexion = new Conexion();
+		nombreProducto = conexion.getNombreProducto(idProducto);
+		conexion.cerrarConexion();
+		return nombreProducto;
+	}
 }
