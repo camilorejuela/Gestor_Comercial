@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,9 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.SwingConstants;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -95,11 +94,27 @@ public class Interfaz extends javax.swing.JFrame {
         btnConsultarProducto_Inventario = new javax.swing.JButton();
         btnConsultarProducto_Inventario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		// Consulta al inventario
+        		ArrayList<ItemConsulta> consulta = new ArrayList<ItemConsulta>();
+        		ItemConsulta filaConsulta;
         		String nomconsulta = tfNombreProducto_Inventario.getText();
+        		//Hace la conexión a la base de datos
         		Conexion con = new Conexion();
-        		con.generarConsultaInventario(nomconsulta);
+        		consulta = con.generarConsultaInventario(nomconsulta);
         		con.cerrarConexion();
-        		
+        		//Usa Iterator para cada leer cada objeto ItemConsulta del arraylist
+        		Iterator it = consulta.iterator();
+        		while(it.hasNext()){
+        			Object [] fila = new Object[6];
+        			filaConsulta = (ItemConsulta) it.next();
+        			fila[0] = filaConsulta.getIdProducto();
+        			fila[1] = filaConsulta.getNombre();
+        			fila[2] = filaConsulta.getProductor();
+        			fila[3] = filaConsulta.getPrecio();
+        			fila[4] = filaConsulta.getCantidad();
+        			fila[5] = filaConsulta.getVencimiento();
+        			modelo.addRow(fila);
+        		}
         	}
         });
         btnConsultarProducto_Inventario.setBounds(268, 25, 150, 35);

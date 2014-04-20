@@ -12,6 +12,7 @@ import java.util.logging.Logger;*/
  */
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Clase de conexión con la base de datos MySQL
@@ -22,8 +23,8 @@ import java.sql.*;
 public class Conexion {
 	
 	private Connection conexion;
-	private Statement s;
-	private ResultSet rs;
+	private Statement s, r;
+	private ResultSet rs, rr;
 	
 	/** 
      * Crea una instancia de la clase MySQL y realiza todo el código 
@@ -47,6 +48,7 @@ public class Conexion {
             
             // Se crea un Statement, para realizar la consulta
             s = conexion.createStatement();
+            r = conexion.createStatement();
             //System.out.println("Statement creado exitosamente.");
 
     		// s.close(); Cierra el statement
@@ -75,10 +77,52 @@ public class Conexion {
 	}
 	// COSAS AGREGRADAS POR FRANK
 	
-	public void generarConsultaInventario(String nomconsulta){
+	/**
+	 * Genera consultas de inventario
+	 * @param nomconsulta
+	 * @return
+	 */
+	public ArrayList<ItemConsulta> generarConsultaInventario(String nomconsulta){
+		final ArrayList<ItemConsulta> consulta = new ArrayList<ItemConsulta>();
+		int cantidad, idtemporal;
+		String nombre, productor;
+		float precio;
+		Date vencimiento;
 		
+		try {
+			//sobre producto
+			rs = s.executeQuery("select * from producto where nombre like '%"+ nomconsulta +"%'"); 
+			while (rs.next()){
+				System.out.println("ENTRÓ");
+				idtemporal = rs.getInt(1);
+				nombre = rs.getString(2);
+				productor =  rs.getString(4);
+				//sobre inventario
+				rr = r.executeQuery("select precioventa, cantidad, vencimiento from inventario where id_producto = '"+ idtemporal +"'"); 
+				if(rr.next()){
+					precio = rr.getFloat(1);
+					cantidad = rr.getInt(2);
+					vencimiento = rr.getDate(3);
+					System.out.println("id:"+ idtemporal + " nombre:" + nombre + " productor:" + productor + " precio:" + precio + " cantidad:" + cantidad + " vencimiento:" + vencimiento);
+					ItemConsulta nuevaConsulta = new ItemConsulta(idtemporal, nombre, productor, precio, cantidad, vencimiento);
+					consulta.add(nuevaConsulta);
+					System.out.println("PORQUE NO FUNCIONA SAPO HIJUEPUTA, PORQUE? CHILLIN");
+				}	
+			}
+			return consulta;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
 	}
 	
+	/**
+	 * 
+	 * @param esAlgo
+	 * @return
+	 */
 	public int obtenerId(int esAlgo){
 		int contadorId = 1;
 		String tabla="";
@@ -128,7 +172,7 @@ public class Conexion {
 			
 			//Agrega el nuevo producto al inventario
 			System.out.println("Actualiza producto en la tabla /inventario/");
-			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','0000-00-00','0','0')";
+			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','1900-01-01','0','0')";
 			s.executeUpdate(seleccion2);
 			System.out.println("Inventario actualizado");
 			return true;
