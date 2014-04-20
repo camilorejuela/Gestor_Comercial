@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -125,9 +126,14 @@ public class Interfaz_RegistrarProveedor {
 					nombreAVerificar = lblNombre_RegistrarProveedor.getText();
 					
 					if (nombreAVerificar.equals(nombreParaIdNoIngresado) ||
-							nombreAVerificar.equals(nombreParaIdIncorrecto))
-						System.out.println("POR FAVOR, INGRESE UN ID VÁLIDO O SELECCIONE" +
-								" LA OPCIÓN DE -NO REGISTRAR PROVEEDOR-");
+							nombreAVerificar.equals(nombreParaIdIncorrecto)){
+						//System.out.println("POR FAVOR, INGRESE UN ID VÁLIDO O SELECCIONE" +
+							//	" LA OPCIÓN DE -NO REGISTRAR PROVEEDOR-");
+						JOptionPane.showMessageDialog(frmRegistrarProveedor,
+								"Por favor, ingrese un id" +
+								" válido o seleccione la opción de -No registrar " +
+								"proveedor-", "El id ingresado no es válido", JOptionPane.INFORMATION_MESSAGE);
+						}
 					else {
 						nombreProveedor = nombreAVerificar;
 						System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
@@ -148,9 +154,6 @@ public class Interfaz_RegistrarProveedor {
 					// variable estática "idProveedor" y puedo accederlo desde la
 					// interfaz principal.
 				}
-				
-				// JOptionPane.showMessageDialog(frmJwc, "Fallo grave", "Error",
-				// 	JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnAceptar_RegistrarProveedor.setBounds(145, 194, 89, 23);
