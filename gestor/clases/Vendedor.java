@@ -61,12 +61,13 @@ public class Vendedor extends Usuario{
 	 * 
 	 * @return
 	 */
+	/*
 	public boolean hacerVenta(){
 		String id = "01";
 		Venta venta = new Venta(id, this);
 		//venta.agregarProducto(productoAAgregar, cantidad);
 		return true;
-	}
+	}*/
 	
 	/**
 	 * Realiza una compra
@@ -80,7 +81,7 @@ public class Vendedor extends Usuario{
 	/**
 	 * Cancela (paga) alguna compra pendiente de pagar
 	 * 
-	 * @param compraAPagar La compra que va a pagar
+	 * @param compraAPagar La compra que va a pagar Estatico
 	 * @return
 	 */
 	public boolean cancelarCuentaPorPagar(Compra compraAPagar){

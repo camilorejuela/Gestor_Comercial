@@ -1,35 +1,73 @@
 package gestor.clases;
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  * @author 
  *
  */
 public class Compra extends Transaccion{
 
-	private Proveedor proveedor;
-	
+	private String idCompra, idProveedor;
+	private float totalCompra, Saldo;
+	private Date fechaCompra;
+	private Time horaCompra;
 	/**
 	 * 
 	 * @param id Id generado automáticamente
 	 * @param vendedor
 	 */
-	public Compra(String id, Vendedor vendedor){
-		super(id, vendedor);
+	public Compra(String idCompra, String idVendedor, String idProveedor, float totalCompra, Date fechaCompra, Time horaCompra, float Saldo){
+		super(idVendedor);
+		this.idCompra = idCompra;
+		this.totalCompra = totalCompra;
+		this.fechaCompra = fechaCompra;
+		this.horaCompra = horaCompra;
+		this.Saldo = Saldo;
 	}
 	
-	/**
-	 * Asignar proveedor a la venta
-	 * 
-	 * @param proveedor
-	 */
-	public void setProveedor(Proveedor proveedor)
-	{
-		this.proveedor = proveedor;
-	}
 	
+	
+	public String getIdCompra() {
+		return idCompra;
+	}
+
+
+
+	public String getIdProveedor() {
+		return idProveedor;
+	}
+
+
+
+	public float getTotalCompra() {
+		return totalCompra;
+	}
+
+
+
+	public float getSaldo() {
+		return Saldo;
+	}
+
+
+
+	public Date getFechaCompra() {
+		return fechaCompra;
+	}
+
+
+
+	public Time getHoraCompra() {
+		return horaCompra;
+	}
+
+
+
 	/**
 	 * Confirmar la compra con los datos y productos especificados
-	 * 
+	 * Podria ser confirmarTransacción y abstract
 	 * @return
 	 */
 	public boolean confirmarCompra()

@@ -117,7 +117,6 @@ public class Conexion {
 	}
 	
 	/**
-	 * 
 	 * @param esAlgo
 	 * @return
 	 */
@@ -250,6 +249,83 @@ public class Conexion {
 		}
 	}
 	
+	/////////////COMPRA///////////////////
+	
+	/**
+	 * Se encarga de actualizar inventario al momento de comprar
+	 * @param inventario
+	 */
+	public void actualizarInventario(Inventario inventario){
+		try {
+			rs = s.executeQuery ("select * from inventario where id_producto = '"+ inventario.getIdproducto() +"'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Se encarga de definir si hay que actualizar el registro del producto o crear uno nuevo en Inventario
+	 * @param idProducto
+	 * @param precio
+	 * @param fecha
+	 * @return
+	 */
+	public int actualizarOCrearNuevoRegistroInventario(int idProducto, float precio, Date fecha){
+		int idRegistroInventario = 0, esInventario = 2;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
+			if(rs.next()){
+				if(rs.getDate(4) == fecha && rs.getFloat(5) == precio) idRegistroInventario = rs.getInt(1);
+				else idRegistroInventario = this.obtenerId(esInventario);
+			}
+			return idRegistroInventario;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Si se va a actualizar un registro de inventario, obtiene la cantidad asociada a eso registro
+	 * si se va a crear un registro nuevo, duvuelve 0;
+	 * @param idRegistroInventario
+	 * @return
+	 */
+	public int sumarCantidadExistenteInventario(int idRegistroInventario){
+		int cantidad;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_registro_inventario = '"+ idRegistroInventario +"'");
+			if (rs.next())	cantidad = rs.getInt(3);
+			else cantidad = 0;
+			return cantidad;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
+	 * Si el registro se va a actualizar, sobreescribe el mismo precio
+	 * Si se va a crear un nuevo registro, el precio es 0
+	 * @param idRegistroInventario
+	 * @return
+	 */
+	public float obtenerPrecioVentaInventario(int idRegistroInventario){
+		float precioVenta;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_registro_inventario = '"+ idRegistroInventario +"'");
+			if (rs.next()) precioVenta = rs.getFloat(6);
+			else precioVenta = 0;
+			return precioVenta;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	
 	
 	//COSAS AGREGADAS POR CAMILO

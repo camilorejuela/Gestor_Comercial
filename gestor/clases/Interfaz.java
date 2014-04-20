@@ -256,7 +256,28 @@ public class Interfaz extends javax.swing.JFrame {
         JButton btnRealizarCompra = new JButton();
         btnRealizarCompra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		ItemTransaccion item;
+        		int idRegistroInventario, cantidadexistente;
+        		float precioVenta;
+        		//ACA ESTÁ LA MAGIA (Y)
+        		Iterator it = itemsCompra.iterator();
+        		while(it.hasNext()){
+        			//la BD inventario se actualiza acá
+        			Conexion con = new Conexion();
+        			item = (ItemTransaccion) it.next();
+        			idRegistroInventario = con.actualizarOCrearNuevoRegistroInventario(Integer.parseInt(item.getIdProducto()), 
+        					item.getPrecioUnitario(), item.getFechaVencimiento()); //obtiene el IdRegistroInventario
+        			cantidadexistente = con.sumarCantidadExistenteInventario(idRegistroInventario); //si hay cantidad existentes las guarda, si no = 0
+        			precioVenta = con.obtenerPrecioVentaInventario(idRegistroInventario);
+        			con.cerrarConexion();
+        			Inventario inventario = new Inventario(idRegistroInventario, Integer.parseInt(item.getIdProducto()),
+        					(item.getCantidad()+cantidadexistente), item.getFechaVencimiento(), item.getPrecioUnitario(),
+        		     		precioVenta);
+        			
+        			//la BD producto_compra se actualiza acá.
+        		}
         	}
+        	// la BD compra se guarda despues del iterator
         });
         btnRealizarCompra.setBounds(44, 372, 150, 30);
         btnRealizarCompra.setText("Realizar compra");

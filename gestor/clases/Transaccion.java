@@ -14,23 +14,20 @@ import java.util.ArrayList;
  */
 public abstract class Transaccion {
 	
-	protected String id;
-	protected Vendedor vendedor;
-	protected ArrayList<Producto> productos;
-	protected int valor;
-	protected Date fecha;
-	protected Time hora;
+	protected String idVendedor;
 	
 	/**
 	 * 
 	 * @param id Id generado automáticamente
 	 * @param vendedor
 	 */
-	public Transaccion(String id, Vendedor vendedor)
+	public Transaccion(String idVendedor)
 	{
-		this.id = id;
-		this.vendedor = vendedor;
-		productos = new ArrayList<Producto>();
+		this.idVendedor = idVendedor;
+	}
+	
+	public String getIdVendedor(){
+		return idVendedor;
 	}
 	
 	/**

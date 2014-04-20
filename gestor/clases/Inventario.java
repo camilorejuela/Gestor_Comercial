@@ -8,20 +8,24 @@ import java.sql.Date;
  */
 public class Inventario {
 
-	private String idproducto;
-	private int cantidad;
+	private int idproducto;
+	private int cantidad, idRegistroInventario;
 	private float preciocompra, precioventa;
 	private Date fecha_vencimiento;
 	
-	public Inventario(String idproducto, int cantidad, float precioventa, float preciocompra, Date fecha_vencimiento ){
+	public Inventario(int idRegistroInventario, int idproducto, int cantidad, Date fecha_vencimiento, float preciocompra, float precioventa){
 		this.idproducto = idproducto;
+		this.idRegistroInventario = idRegistroInventario;
 		this.cantidad = cantidad;
 		this.precioventa = precioventa;
 		this.preciocompra = preciocompra;
 		this.fecha_vencimiento = fecha_vencimiento;
 	}
+	public int getIdRegistroProducto(){
+		return idRegistroInventario;
+	}
 
-	public String getIdproducto() {
+	public int getIdproducto() {
 		return idproducto;
 	}
 
