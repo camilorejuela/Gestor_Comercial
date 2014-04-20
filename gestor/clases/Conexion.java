@@ -75,6 +75,10 @@ public class Conexion {
 	}
 	// COSAS AGREGRADAS POR FRANK
 	
+	public void generarConsultaInventario(String nomconsulta){
+		
+	}
+	
 	public int obtenerId(int esAlgo){
 		int contadorId = 1;
 		String tabla="";
