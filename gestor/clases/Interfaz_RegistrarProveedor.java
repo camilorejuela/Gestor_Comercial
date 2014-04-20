@@ -23,7 +23,7 @@ public class Interfaz_RegistrarProveedor {
 	private JTextField tfId_RegistrarProveedor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
-	private static String idProveedor = "";
+	//private static String idProveedor = "";
 
 	/**
 	 * Launch the application.
@@ -80,7 +80,8 @@ public class Interfaz_RegistrarProveedor {
 				String nombreProveedor = Proveedor.getNombreProveedor(idProveedorIngresado);
 				if (nombreProveedor != ""){
 					lblNombre_RegistrarProveedor.setText(nombreProveedor);
-					idProveedor = idProveedorIngresado;
+					//idProveedor = idProveedorIngresado;
+					Interfaz.setIdProveedor(idProveedorIngresado);
 				}
 				else lblNombre_RegistrarProveedor.setText("(No existe un proveedor con este id)");
 			}
@@ -140,7 +141,8 @@ public class Interfaz_RegistrarProveedor {
 					nombreProveedor = nombreProveedorPorDefecto;
 					System.out.println("SELECCIONADO -> NO REGISTRAR PROVEEDOR -> " +
 						"NOMBRE DE PROVEEDOR POR DEFECTO ENVIADO: " + nombreProveedor);
-					idProveedor = idProveedorPorDefecto;
+					//idProveedor = idProveedorPorDefecto;
+					Interfaz.setIdProveedor(idProveedorPorDefecto);
 					// "ENVÍO idProveedorPorDefecto", es decir, que ya está en la
 					// variable estática "idProveedor" y puedo accederlo desde la
 					// interfaz principal.
@@ -157,8 +159,8 @@ public class Interfaz_RegistrarProveedor {
 	 * 
 	 * @return
 	 */
-	public static String getIdProveedor()
+/*	public static String getIdProveedor()
 	{
 		return idProveedor;
-	} 
+	}*/ 
 }
