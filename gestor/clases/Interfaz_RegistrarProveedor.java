@@ -14,11 +14,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JToggleButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Interfaz_RegistrarProveedor {
 
 	private JFrame frmRegistrarProveedor;
-	private JTextField textField;
+	private JTextField tfId_RegistrarProveedor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
@@ -49,42 +51,51 @@ public class Interfaz_RegistrarProveedor {
 	 */
 	private void initialize() {
 		frmRegistrarProveedor = new JFrame();
+		frmRegistrarProveedor.setResizable(false);
 		frmRegistrarProveedor.setTitle("Registrar proveedor");
 		frmRegistrarProveedor.setBounds(100, 100, 386, 278);
-		frmRegistrarProveedor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRegistrarProveedor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmRegistrarProveedor.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Id:");
-		lblNewLabel.setBounds(102, 28, 33, 14);
-		frmRegistrarProveedor.getContentPane().add(lblNewLabel);
+		JLabel lblId_RegistrarProveedor = new JLabel("Id:");
+		lblId_RegistrarProveedor.setBounds(102, 28, 33, 14);
+		frmRegistrarProveedor.getContentPane().add(lblId_RegistrarProveedor);
 		
-		textField = new JTextField();
-		textField.setBounds(145, 25, 120, 20);
-		frmRegistrarProveedor.getContentPane().add(textField);
-		textField.setColumns(10);
+		tfId_RegistrarProveedor = new JTextField();
+		tfId_RegistrarProveedor.setBounds(145, 25, 120, 20);
+		frmRegistrarProveedor.getContentPane().add(tfId_RegistrarProveedor);
+		tfId_RegistrarProveedor.setColumns(10);
 		
-		JLabel lblnoExisteUn = new JLabel("(No existe un proveedor con este id)");
-		lblnoExisteUn.setToolTipText("");
-		lblnoExisteUn.setBounds(127, 115, 221, 23);
-		frmRegistrarProveedor.getContentPane().add(lblnoExisteUn);
+		final JLabel lblNombre_RegistrarProveedor = new JLabel("---");
+		lblNombre_RegistrarProveedor.setToolTipText("");
+		lblNombre_RegistrarProveedor.setBounds(127, 115, 221, 23);
+		frmRegistrarProveedor.getContentPane().add(lblNombre_RegistrarProveedor);
 		
-		JButton btnVerificar = new JButton("Verificar");
-		btnVerificar.setBounds(145, 67, 89, 23);
-		frmRegistrarProveedor.getContentPane().add(btnVerificar);
+		JButton btnVerificar_RegistrarProveedor = new JButton("Verificar");
+		btnVerificar_RegistrarProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String idProveedor = tfId_RegistrarProveedor.getText();
+				String nombreProveedor = Proveedor.getNombreProveedor(idProveedor);
+				if (nombreProveedor != "") lblNombre_RegistrarProveedor.setText(nombreProveedor);
+				else lblNombre_RegistrarProveedor.setText("(No existe un proveedor con este id)");
+			}
+		});
+		btnVerificar_RegistrarProveedor.setBounds(145, 67, 89, 23);
+		frmRegistrarProveedor.getContentPane().add(btnVerificar_RegistrarProveedor);
 		
-		JRadioButtonMenuItem rdbtnmntmNewRadioItem = new JRadioButtonMenuItem("No registrar proveedor");
-		buttonGroup.add(rdbtnmntmNewRadioItem);
-		rdbtnmntmNewRadioItem.setBounds(39, 149, 201, 19);
-		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNewRadioItem);
+		JRadioButtonMenuItem rdbtnmntmNoRegistrar_RegistrarProveedor = new JRadioButtonMenuItem("No registrar proveedor");
+		buttonGroup.add(rdbtnmntmNoRegistrar_RegistrarProveedor);
+		rdbtnmntmNoRegistrar_RegistrarProveedor.setBounds(39, 149, 201, 19);
+		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNoRegistrar_RegistrarProveedor);
 		
-		JRadioButtonMenuItem rdbtnmntmNewRadioItem_1 = new JRadioButtonMenuItem("Nombre:");
-		rdbtnmntmNewRadioItem_1.setSelected(true);
-		buttonGroup.add(rdbtnmntmNewRadioItem_1);
-		rdbtnmntmNewRadioItem_1.setBounds(39, 116, 78, 19);
-		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNewRadioItem_1);
+		JRadioButtonMenuItem rdbtnmntmNombre_RegistrarProveedor = new JRadioButtonMenuItem("Nombre:");
+		rdbtnmntmNombre_RegistrarProveedor.setSelected(true);
+		buttonGroup.add(rdbtnmntmNombre_RegistrarProveedor);
+		rdbtnmntmNombre_RegistrarProveedor.setBounds(39, 116, 78, 19);
+		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNombre_RegistrarProveedor);
 		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(145, 194, 89, 23);
-		frmRegistrarProveedor.getContentPane().add(btnAceptar);
+		JButton btnAceptar_RegistrarProveedor = new JButton("Aceptar");
+		btnAceptar_RegistrarProveedor.setBounds(145, 194, 89, 23);
+		frmRegistrarProveedor.getContentPane().add(btnAceptar_RegistrarProveedor);
 	}
 }

@@ -452,6 +452,25 @@ public class Conexion {
 	}
 	
 	/**
+	 * Retorna el nombre de un proveedor apartir de su id
+	 * 
+	 * @param idProveedor
+	 * @return
+	 */
+	public String getNombreProveedor(String idProveedor)
+	{
+		String nombreTabla = "proveedor";
+		String campoABuscarCoincidencia = "id";
+		String valorACoincidir = idProveedor;
+		String campoAConsultar = "nombre";
+		
+		String nombre = consultarCampoEnTabla(nombreTabla, campoABuscarCoincidencia,
+				valorACoincidir, campoAConsultar);
+		
+		return nombre;
+	}
+	
+	/**
 	 * Modificar la información de alguna tabla de la BD
 	 * 
 	 * @param nombreTabla El nombre de la tabla que se va a modificar

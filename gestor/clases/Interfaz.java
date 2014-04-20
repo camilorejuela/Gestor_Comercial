@@ -297,6 +297,13 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(lblValorCancelado_Compra);
         
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
+        btnRegistrarProveedor_Compra.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent arg0) {
+        		Interfaz_RegistrarProveedor interfazRegProv = new Interfaz_RegistrarProveedor();
+        		interfazRegProv.main(null);
+        	}
+        });
         btnRegistrarProveedor_Compra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//String idCliente, idProveedor;

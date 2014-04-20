@@ -70,4 +70,18 @@ public class Proveedor extends Usuario{
 		conexion.cerrarConexion();
 		return seAgrego;
 	}
+	
+	/**
+	 * 
+	 * @param idProveedor
+	 * @return
+	 */
+	public static String getNombreProveedor(String idProveedor)
+	{
+		String nombreProveedor;
+		Conexion conexion = new Conexion();
+		nombreProveedor = conexion.getNombreProveedor(idProveedor);
+		conexion.cerrarConexion();
+		return nombreProveedor;
+	}
 }
