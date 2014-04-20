@@ -1,8 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gestor.clases;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,14 +19,21 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author Yo
+ * @author 
  */
 public class Interfaz extends javax.swing.JFrame {
 
 	private static String idvendedor; 
 	private static int isadmin;
+	
+	private static ArrayList<ItemTransaccion> itemsVenta;
+	private static String idCliente;
+	private static ArrayList<ItemTransaccion> itemsCompra;
+	private static String idProveedor;
 	
     /**
      * Creates new form Interfaz
