@@ -575,6 +575,27 @@ public class Conexion {
 		return nombre;
 	}
 	
+	// TODO Este método se puede unir con el anterior y se pasa un parámetro adicional
+	// de tipo boolean que defina si es un cliente o un proveedor
+	/**
+	 * Retorna el nombre de un cliente apartir de su id
+	 * 
+	 * @param idCliente
+	 * @return
+	 */
+	public String getNombreCliente(String idCliente)
+	{
+		String nombreTabla = "cliente";
+		String campoABuscarCoincidencia = "id";
+		String valorACoincidir = idCliente;
+		String campoAConsultar = "nombre";
+		
+		String nombre = consultarCampoEnTabla(nombreTabla, campoABuscarCoincidencia,
+				valorACoincidir, campoAConsultar);
+		
+		return nombre;
+	}
+	
 	/**
 	 * Modificar la información de alguna tabla de la BD
 	 * 
