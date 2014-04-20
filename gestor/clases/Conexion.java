@@ -76,7 +76,7 @@ public class Conexion {
 	// COSAS AGREGRADAS POR FRANK
 	
 	public int obtenerId(int esAlgo){
-		int contadorId = 1, esInventario = 2;
+		int contadorId = 1;
 		String tabla="";
 		try{
 			if(esAlgo == 1) {tabla = "producto";}
