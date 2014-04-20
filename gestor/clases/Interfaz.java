@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class Interfaz extends javax.swing.JFrame {
 
 	private static String idvendedor; 
-	private static int isadmin;
+	private static int isadmin, valortotal;
 	
 	private static ArrayList<ItemTransaccion> itemsVenta;
 	private static String idCliente;
@@ -101,14 +101,19 @@ public class Interfaz extends javax.swing.JFrame {
         btnConsultarProducto_Inventario = new javax.swing.JButton();
         btnConsultarProducto_Inventario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// Consulta al inventario
+        		//Limpia la tabla
+        		int numfilas = modelo.getRowCount()-1;
+        		for(int i=numfilas; i>=0; i--) modelo.removeRow(i);
+        		
         		ArrayList<ItemConsulta> consulta = new ArrayList<ItemConsulta>();
         		ItemConsulta filaConsulta;
         		String nomconsulta = tfNombreProducto_Inventario.getText();
+        		
         		//Hace la conexión a la base de datos
         		Conexion con = new Conexion();
         		consulta = con.generarConsultaInventario(nomconsulta);
         		con.cerrarConexion();
+        		
         		//Usa Iterator para cada leer cada objeto ItemConsulta del arraylist
         		Iterator it = consulta.iterator();
         		while(it.hasNext()){
@@ -124,6 +129,8 @@ public class Interfaz extends javax.swing.JFrame {
         		}
         	}
         });
+        
+        
         btnConsultarProducto_Inventario.setBounds(268, 25, 150, 35);
         jScrollPaneInventario = new javax.swing.JScrollPane();
         jScrollPaneInventario.setBounds(20, 100, 600, 150);
@@ -210,21 +217,29 @@ public class Interfaz extends javax.swing.JFrame {
         JButton btnAgregarProducto_Compra = new JButton();
         btnAgregarProducto_Compra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
         		String idProducto = tfIdProducto_Compra.getText();
         		int cantidad = Integer.parseInt(tfCantidad_Compra.getText());
         		float precioUnitario = Float.parseFloat(tfPrecioUnidad_Compra.getText());
         		Date fecha = Date.valueOf(tfFechaVencimiento_Compra.getText());
-        		
         		float precioTotal = precioUnitario * cantidad;
         		
         		String nombreProducto = Producto.getNombreProducto(idProducto);
         		
-        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto,
-        				nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
-        		
+        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
         		boolean seAgrego = false;
         		seAgrego = itemsCompra.add(itemCompra);
+        		
+        		Object [] fila = new Object[6];
+        		fila[0] = itemCompra.getIdProducto();
+        		fila[1] = itemCompra.getNombreProducto();
+        		fila[2] = itemCompra.getCantidad();
+        		fila[3] = itemCompra.getFechaVencimiento();
+        		fila[4] = itemCompra.getPrecioUnitario();
+        		fila[5] = itemCompra.getPrecioTotal();
+        		modeloCompra.addRow(fila);
+        		valortotal+= itemCompra.getPrecioTotal();
+        		tfValorTotal_Compra.setText(String.valueOf(valortotal));
+    
         		
         		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
         		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
@@ -262,20 +277,15 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPaneCompra.setBounds(44, 216, 600, 150);
         panelCompra.add(jScrollPaneCompra);
         
-        jTableCompra = new JTable();
-        jTableCompra.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null, null, null},
-        	},
-        	new String[] {
-        		"Id", "Producto", "Cantidad", "Precio Unitario", "Precio Total"
-        	}
-        ));
-        jTableCompra.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTableCompra.getColumnModel().getColumn(1).setPreferredWidth(140);
-        jTableCompra.getColumnModel().getColumn(2).setPreferredWidth(55);
-        jTableCompra.getColumnModel().getColumn(3).setPreferredWidth(90);
-        jTableCompra.getColumnModel().getColumn(4).setPreferredWidth(90);
+        modeloCompra = new DefaultTableModel();
+        jTableCompra = new JTable(modeloCompra);
+  
+        modeloCompra.addColumn("Id");
+        modeloCompra.addColumn("Nombre");
+        modeloCompra.addColumn("Cantidad");
+        modeloCompra.addColumn("Fecha Vencimiento");
+        modeloCompra.addColumn("Precio Unitario");
+        modeloCompra.addColumn("Precio Total");
         jScrollPaneCompra.setViewportView(jTableCompra);
         
         tfValorTotal_Compra = new JTextField();
@@ -307,7 +317,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(btnRegistrarProveedor_Compra);
         
         lblCompra_compra = new JLabel("");
-        lblCompra_compra.setBounds(164, 59, 100, 25);
+        lblCompra_compra.setBounds(174, 59, 100, 25);
         panelCompra.add(lblCompra_compra);
         lblCompra_compra.setText(String.valueOf(id_compra));
         
@@ -445,7 +455,7 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 panelVenta.add(btnRegistrarCliente_Venta);
                                                                                 
                                                                                 lblVenta_venta = new JLabel("");
-                                                                                lblVenta_venta.setBounds(163, 59, 100, 25);
+                                                                                lblVenta_venta.setBounds(168, 59, 100, 25);
                                                                                 panelVenta.add(lblVenta_venta);
                                                                                 lblVenta_venta.setText(String.valueOf(id_venta));
                                                                                 
@@ -462,15 +472,6 @@ public class Interfaz extends javax.swing.JFrame {
 	    modelo.addColumn("Precio Unitario");
 	    modelo.addColumn("Existencias");
 	    modelo.addColumn("Vencimiento");
-        /*
-        jTableInventario.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null, null, null, null},
-        	},
-        	new String[] {
-        		"Id producto", "Nombre", "Productor", "Precio", "Existencias", "Vencimiento"
-        	}
-        ));*/
         jScrollPaneInventario.setViewportView(jTableInventario);
 
         panelContenedor.addTab("Inventario", panelInventario);
@@ -732,4 +733,6 @@ public class Interfaz extends javax.swing.JFrame {
     private JLabel lblRealizarConsulta;
     private JLabel lblConsultar;
 	private DefaultTableModel modelo;
+	private DefaultTableModel modeloCompra;
+	private DefaultTableModel modeloVenta;
 }

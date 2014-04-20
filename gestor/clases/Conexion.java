@@ -93,7 +93,6 @@ public class Conexion {
 			//sobre producto
 			rs = s.executeQuery("select * from producto where nombre like '%"+ nomconsulta +"%'"); 
 			while (rs.next()){
-				System.out.println("ENTRÓ");
 				idtemporal = rs.getInt(1);
 				nombre = rs.getString(2);
 				productor =  rs.getString(4);
@@ -106,7 +105,6 @@ public class Conexion {
 					System.out.println("id:"+ idtemporal + " nombre:" + nombre + " productor:" + productor + " precio:" + precio + " cantidad:" + cantidad + " vencimiento:" + vencimiento);
 					ItemConsulta nuevaConsulta = new ItemConsulta(idtemporal, nombre, productor, precio, cantidad, vencimiento);
 					consulta.add(nuevaConsulta);
-					System.out.println("PORQUE NO FUNCIONA SAPO HIJUEPUTA, PORQUE? CHILLIN");
 				}	
 			}
 			return consulta;
