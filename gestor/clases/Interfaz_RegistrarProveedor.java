@@ -134,7 +134,8 @@ public class Interfaz_RegistrarProveedor {
 							nombreProveedor);
 						// "ENVÍO EL ID DEL PROVEEDOR", es decir, que ya está en la
 						// variable estática "idProveedor" y puedo accederlo desde la
-						// interfaz principal.
+						// interfaz principal. Éste ya se asignó en el código del
+						// botón "Verificar".
 					}
 				}
 				else if (rdbtnmntmNoRegistrar_RegistrarProveedor.isSelected()){
@@ -147,13 +148,16 @@ public class Interfaz_RegistrarProveedor {
 					// variable estática "idProveedor" y puedo accederlo desde la
 					// interfaz principal.
 				}
+				
+				// JOptionPane.showMessageDialog(frmJwc, "Fallo grave", "Error",
+				// 	JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnAceptar_RegistrarProveedor.setBounds(145, 194, 89, 23);
 		frmRegistrarProveedor.getContentPane().add(btnAceptar_RegistrarProveedor);
 	}
 	
-	/**
+	/*
 	 * Retorma el id del proveedor, ya sea que es un proveedor existente verificado
 	 * o el proveedor por defecto.
 	 * 

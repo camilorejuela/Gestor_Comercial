@@ -196,10 +196,6 @@ public class Interfaz extends javax.swing.JFrame {
         lblIdCompra_Compra.setBounds(44, 59, 80, 25);
         lblIdCompra_Compra.setText("Id compra:");
         
-        JLabel lblNombreProveedor_Compra = new JLabel();
-        lblNombreProveedor_Compra.setBounds(44, 35, 120, 25);
-        lblNombreProveedor_Compra.setText("Nombre proveedor:");
-        
         JLabel lblIdProducto_Compra = new JLabel();
         lblIdProducto_Compra.setBounds(44, 82, 80, 25);
         lblIdProducto_Compra.setText("Id producto:");
@@ -285,7 +281,6 @@ public class Interfaz extends javax.swing.JFrame {
         panelContenedor.addTab("Compra", panelCompra);
         panelCompra.setLayout(null);
         panelCompra.add(lblIdCompra_Compra);
-        panelCompra.add(lblNombreProveedor_Compra);
         panelCompra.add(lblIdProducto_Compra);
         panelCompra.add(tfIdProducto_Compra);
         panelCompra.add(lblCantidad_Compra);
@@ -341,17 +336,13 @@ public class Interfaz extends javax.swing.JFrame {
         	}
         });
 
-        btnRegistrarProveedor_Compra.setBounds(299, 35, 50, 25);
+        btnRegistrarProveedor_Compra.setBounds(42, 35, 222, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
         
         lblCompra_compra = new JLabel("");
         lblCompra_compra.setBounds(174, 59, 100, 25);
         panelCompra.add(lblCompra_compra);
         lblCompra_compra.setText(String.valueOf(id_compra));
-        
-        lblRegistrarProveedor_compra = new JLabel("'Registra el proveedor'");
-        lblRegistrarProveedor_compra.setBounds(164, 35, 125, 25);
-        panelCompra.add(lblRegistrarProveedor_compra);
         
         JLabel lblFechaVencimiento = new JLabel();
         lblFechaVencimiento.setText("Fecha vencimiento:");
@@ -464,11 +455,6 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 panelVenta.add(btnAgregarProducto_Venta);
                                                                                 panelVenta.add(btnRealizarVenta);
                                                                                 
-                                                                                JLabel lblNombreCliente = new JLabel();
-                                                                                lblNombreCliente.setBounds(43, 35, 110, 25);
-                                                                                lblNombreCliente.setText("Nombre cliente:");
-                                                                                panelVenta.add(lblNombreCliente);
-                                                                                
                                                                                 tfValorTotal_Venta = new JTextField();
                                                                                 tfValorTotal_Venta.setBounds(543, 372, 100, 25);
                                                                                 panelVenta.add(tfValorTotal_Venta);
@@ -479,17 +465,24 @@ public class Interfaz extends javax.swing.JFrame {
                                                                                 panelVenta.add(lblValorTotal_Venta);
                                                                                 
                                                                                 JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
-                                                                                btnRegistrarCliente_Venta.setBounds(285, 35, 50, 25);
+                                                                                btnRegistrarCliente_Venta.addMouseListener(new MouseAdapter() {
+                                                                                	@Override
+                                                                                	public void mousePressed(MouseEvent e) {
+                                                                                		Interfaz_RegistrarCliente interfazRegClie = new Interfaz_RegistrarCliente();
+                                                                                		interfazRegClie.main(null);
+                                                                                	}
+                                                                                });
+                                                                                btnRegistrarCliente_Venta.addActionListener(new ActionListener() {
+                                                                                	public void actionPerformed(ActionEvent arg0) {
+                                                                                	}
+                                                                                });
+                                                                                btnRegistrarCliente_Venta.setBounds(41, 33, 222, 25);
                                                                                 panelVenta.add(btnRegistrarCliente_Venta);
                                                                                 
                                                                                 lblVenta_venta = new JLabel("");
                                                                                 lblVenta_venta.setBounds(168, 59, 100, 25);
                                                                                 panelVenta.add(lblVenta_venta);
                                                                                 lblVenta_venta.setText(String.valueOf(id_venta));
-                                                                                
-                                                                                lblRegistrarCliente_venta = new JLabel("'Registrar el  cliente'");
-                                                                                lblRegistrarCliente_venta.setBounds(164, 35, 125, 25);
-                                                                                panelVenta.add(lblRegistrarCliente_venta);
 
         btnConsultarProducto_Inventario.setText("Consultar");
         
@@ -655,6 +648,25 @@ public class Interfaz extends javax.swing.JFrame {
     	idProveedor = idProveedorRegistrado;
     }
     
+    /**
+     * Modifica la variable estática "idCliente"
+     * 
+     * @param idClienteRegistrado
+     */
+    public static void setIdCliente(String idClienteRegistrado){
+    	idCliente = idClienteRegistrado;
+    }
+    
+    /*
+     * Método que actualiza el label "Nombre proveedor" justo después de registrarlo
+     * en la ventana "Interfaz_RegistrarProveedor" quien es la que lo llama.
+     * 
+     * @param nombreProveedor
+     */
+    /*public void actualizarLabelNombreProveedor(String nombreProveedor){
+    	this.lblRegistrarProveedor_compra.setText(nombreProveedor);
+    }*/
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -762,9 +774,7 @@ public class Interfaz extends javax.swing.JFrame {
     private JTextField tfValorCancelado_Compra;
     private JLabel lblValorCancelado_Compra;
     private JLabel lblVenta_venta;
-    private JLabel lblRegistrarCliente_venta;
     private JLabel lblCompra_compra;
-    private JLabel lblRegistrarProveedor_compra;
     private JTextField tfPrecioUnidad_Compra;
     private JTextField tfFechaVencimiento_Compra;
     private JLabel lblRealizarConsulta;

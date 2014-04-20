@@ -55,4 +55,18 @@ public class Cliente extends Usuario{
 		conexion.cerrarConexion();
 		return seAgrego;
 	}
+	
+	/**
+	 * 
+	 * @param idCliente
+	 * @return
+	 */
+	public static String getNombreCliente(String idCliente)
+	{
+		String nombreCliente;
+		Conexion conexion = new Conexion();
+		nombreCliente = conexion.getNombreCliente(idCliente);
+		conexion.cerrarConexion();
+		return nombreCliente;
+	}
 }
