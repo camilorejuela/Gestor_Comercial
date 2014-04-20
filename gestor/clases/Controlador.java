@@ -14,9 +14,8 @@ public class Controlador {
 	public static void main(String[] args) {
 		
 		//limpiarTodasLasTablas();
-		llenarConDatosDePrueba();
-				
-		/**/
+		//llenarConDatosDePrueba();
+		crearClienteYProveedorPorDefecto();
 		
 	}
 	
@@ -68,5 +67,16 @@ public class Controlador {
 		conexion.limpiarTablas();
 		conexion.cerrarConexion();
 	}
-
+	
+	/**
+	 * Crea el cliente y el proveedor por defecto
+	 * (TEMPORAL - Para pruebas, aunque se podría usar en algún código que se ejecutara
+	 * en la "instalación" del software. Es decir, solo una vez, al comienzo del uso de
+	 * este.)
+	 */
+	private static void crearClienteYProveedorPorDefecto(){
+		Conexion conexion = new Conexion();
+		conexion.registrarProveedorYClientePorDefecto();
+		conexion.cerrarConexion();
+	}	
 }

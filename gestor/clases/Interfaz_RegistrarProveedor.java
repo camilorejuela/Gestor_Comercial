@@ -22,6 +22,8 @@ public class Interfaz_RegistrarProveedor {
 	private JFrame frmRegistrarProveedor;
 	private JTextField tfId_RegistrarProveedor;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
+	//private static String idProveedor = "";
 
 	/**
 	 * Launch the application.
@@ -74,28 +76,91 @@ public class Interfaz_RegistrarProveedor {
 		JButton btnVerificar_RegistrarProveedor = new JButton("Verificar");
 		btnVerificar_RegistrarProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String idProveedor = tfId_RegistrarProveedor.getText();
-				String nombreProveedor = Proveedor.getNombreProveedor(idProveedor);
-				if (nombreProveedor != "") lblNombre_RegistrarProveedor.setText(nombreProveedor);
+				String idProveedorIngresado = tfId_RegistrarProveedor.getText();
+				String nombreProveedor = Proveedor.getNombreProveedor(idProveedorIngresado);
+				if (nombreProveedor != ""){
+					lblNombre_RegistrarProveedor.setText(nombreProveedor);
+					//idProveedor = idProveedorIngresado;
+					Interfaz.setIdProveedor(idProveedorIngresado);
+				}
 				else lblNombre_RegistrarProveedor.setText("(No existe un proveedor con este id)");
 			}
 		});
 		btnVerificar_RegistrarProveedor.setBounds(145, 67, 89, 23);
 		frmRegistrarProveedor.getContentPane().add(btnVerificar_RegistrarProveedor);
 		
-		JRadioButtonMenuItem rdbtnmntmNoRegistrar_RegistrarProveedor = new JRadioButtonMenuItem("No registrar proveedor");
+		final JRadioButtonMenuItem rdbtnmntmNoRegistrar_RegistrarProveedor = new JRadioButtonMenuItem("No registrar proveedor");
 		buttonGroup.add(rdbtnmntmNoRegistrar_RegistrarProveedor);
 		rdbtnmntmNoRegistrar_RegistrarProveedor.setBounds(39, 149, 201, 19);
 		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNoRegistrar_RegistrarProveedor);
 		
-		JRadioButtonMenuItem rdbtnmntmNombre_RegistrarProveedor = new JRadioButtonMenuItem("Nombre:");
+		final JRadioButtonMenuItem rdbtnmntmNombre_RegistrarProveedor = new JRadioButtonMenuItem("Nombre:");
 		rdbtnmntmNombre_RegistrarProveedor.setSelected(true);
 		buttonGroup.add(rdbtnmntmNombre_RegistrarProveedor);
 		rdbtnmntmNombre_RegistrarProveedor.setBounds(39, 116, 78, 19);
 		frmRegistrarProveedor.getContentPane().add(rdbtnmntmNombre_RegistrarProveedor);
 		
 		JButton btnAceptar_RegistrarProveedor = new JButton("Aceptar");
+		btnAceptar_RegistrarProveedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmRegistrarProveedor.dispose();
+				
+				// TODO
+				// Los valores del proveedor por defecto ya están almacenados en la BD,
+				// y son los declarados acá abajo. Sin embargo, para reducir el
+				// acoplamiento, no se deben asignar de esa manera sino que se deben
+				// obtener consultando a la base de datos, que puede ser con métodos get.
+				String nombreProveedorPorDefecto = "NoRegistrado";
+				String idProveedorPorDefecto = "10000";
+				
+				// TODO estas dos cadenas deberían obtenerse de donde se crearon primero,
+				// para reducir acoplamiento.
+				String nombreParaIdNoIngresado = "---";
+				String nombreParaIdIncorrecto = "(No existe un proveedor con este id)";
+				
+				String nombreProveedor = "";
+				String nombreAVerificar = "";
+				
+				if (rdbtnmntmNombre_RegistrarProveedor.isSelected()){
+					nombreAVerificar = lblNombre_RegistrarProveedor.getText();
+					
+					if (nombreAVerificar.equals(nombreParaIdNoIngresado) ||
+							nombreAVerificar.equals(nombreParaIdIncorrecto))
+						System.out.println("POR FAVOR, INGRESE UN ID VÁLIDO O SELECCIONE" +
+								" LA OPCIÓN DE -NO REGISTRAR PROVEEDOR-");
+					else {
+						nombreProveedor = nombreAVerificar;
+						System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
+							nombreProveedor);
+						// "ENVÍO EL ID DEL PROVEEDOR", es decir, que ya está en la
+						// variable estática "idProveedor" y puedo accederlo desde la
+						// interfaz principal.
+					}
+				}
+				else if (rdbtnmntmNoRegistrar_RegistrarProveedor.isSelected()){
+					nombreProveedor = nombreProveedorPorDefecto;
+					System.out.println("SELECCIONADO -> NO REGISTRAR PROVEEDOR -> " +
+						"NOMBRE DE PROVEEDOR POR DEFECTO ENVIADO: " + nombreProveedor);
+					//idProveedor = idProveedorPorDefecto;
+					Interfaz.setIdProveedor(idProveedorPorDefecto);
+					// "ENVÍO idProveedorPorDefecto", es decir, que ya está en la
+					// variable estática "idProveedor" y puedo accederlo desde la
+					// interfaz principal.
+				}
+			}
+		});
 		btnAceptar_RegistrarProveedor.setBounds(145, 194, 89, 23);
 		frmRegistrarProveedor.getContentPane().add(btnAceptar_RegistrarProveedor);
 	}
+	
+	/**
+	 * Retorma el id del proveedor, ya sea que es un proveedor existente verificado
+	 * o el proveedor por defecto.
+	 * 
+	 * @return
+	 */
+/*	public static String getIdProveedor()
+	{
+		return idProveedor;
+	}*/ 
 }

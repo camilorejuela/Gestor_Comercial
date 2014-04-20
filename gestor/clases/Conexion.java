@@ -612,4 +612,27 @@ public class Conexion {
             return null;
         }
 	}
+	
+	/**
+	 * Registra en la BD el cliente y el proveedor por defecto
+	 */
+	public void registrarProveedorYClientePorDefecto()
+	{
+		try{
+	        String instruccionSQL = "insert proveedor values ('10000','C.C.'," +
+	        		"'NoRegistrado', 'NoRegistrado','1900-01-01','-','-')";
+			s.executeUpdate(instruccionSQL);
+			
+			instruccionSQL = "insert cliente values ('10000','NoRegistrado'," +
+					"'NoRegistrado','1900-01-01','-','-')";
+			s.executeUpdate(instruccionSQL);
+			
+			System.out.println("Cliente y proveedor por defecto -> Creados!");
+		}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.out.println("EXCEPCION");
+        }
+	}
 }
