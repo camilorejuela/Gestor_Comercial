@@ -408,7 +408,19 @@ public class Interfaz extends javax.swing.JFrame {
         });
         btnRealizarVenta.setBounds(43, 372, 150, 30);
         
-                jTableVenta.setModel(new DefaultTableModel(
+        
+        modeloVenta = new DefaultTableModel();
+        jTableVenta = new JTable(modeloVenta);
+  
+        modeloVenta.addColumn("Id");
+        modeloVenta.addColumn("Nombre");
+        modeloVenta.addColumn("Cantidad");
+        modeloVenta.addColumn("Fecha Vencimiento");
+        modeloVenta.addColumn("Precio Unitario");
+        modeloVenta.addColumn("Precio Total");
+        jScrollPaneVenta.setViewportView(jTableVenta);
+        
+                /*jTableVenta.setModel(new DefaultTableModel(
                 	new Object[][] {
                 		{null, null, null, null, null},
                 		{null, null, null, null, null},
@@ -425,7 +437,7 @@ public class Interfaz extends javax.swing.JFrame {
                 jTableVenta.getColumnModel().getColumn(1).setPreferredWidth(140);
                 jTableVenta.getColumnModel().getColumn(2).setPreferredWidth(55);
                 jTableVenta.getColumnModel().getColumn(3).setPreferredWidth(90);
-                jTableVenta.getColumnModel().getColumn(4).setPreferredWidth(90);
+                jTableVenta.getColumnModel().getColumn(4).setPreferredWidth(90);*/
                 jScrollPaneVenta.setViewportView(jTableVenta);
                 
                         lblIdProducto_Venta.setText("Id producto:");
@@ -449,7 +461,43 @@ public class Interfaz extends javax.swing.JFrame {
                                                                 btnAgregarProducto_Venta.setText("Agregar producto");
                                                                 btnAgregarProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
                                                                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                        jButton1ActionPerformed(evt);
+                                                                        //jButton1ActionPerformed(evt);
+                                                                    	
+                                                                    	String idProducto = tfIdProducto_Venta.getText();
+                                                                		int cantidad = Integer.parseInt(tfCantidad_Venta.getText());
+                                                                		
+                                                                		String nombreProducto = Producto.getNombreProducto(idProducto);
+                                                                		// TODO En las dos siguientes llamadas de métodos estáticos de 
+                                                                		// Inventario se realizan consultas a la tabla inventario en la
+                                                                		// BD. Dicha tabla puede tener varios registros con el mismo
+                                                                		// id de producto. TENEMOS QUE validar que nos consulte y trabaje
+                                                                		// con el de fecha de vencimiento más próxima. En este caso, sin
+                                                                		// haberse hecho esta validación al parecer trabaja con el primer
+                                                                		// registro que coincide con el id, y eso está bien por ahora.
+                                                                		float precioUnitario = Inventario.getPrecioDeVenta(idProducto);
+                                                                		Date fecha = Inventario.getFechaVencimiento(idProducto);
+                                                                		
+                                                                		float precioTotal = precioUnitario * cantidad;
+                                                                		
+                                                                		ItemTransaccion itemVenta = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
+                                                                		boolean seAgrego = false;
+                                                                		seAgrego = itemsVenta.add(itemVenta);
+                                                                		
+                                                                		Object [] fila = new Object[6];
+                                                                		fila[0] = itemVenta.getIdProducto();
+                                                                		fila[1] = itemVenta.getNombreProducto();
+                                                                		fila[2] = itemVenta.getCantidad();
+                                                                		fila[3] = itemVenta.getFechaVencimiento();
+                                                                		fila[4] = itemVenta.getPrecioUnitario();
+                                                                		fila[5] = itemVenta.getPrecioTotal();
+                                                                		modeloVenta.addRow(fila);
+                                                                		valortotal+= itemVenta.getPrecioTotal();
+                                                                		tfValorTotal_Venta.setText(String.valueOf(valortotal));
+                                                            
+                                                                		
+                                                                		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
+                                                                		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+                                                                    	
                                                                     }
                                                                 });
                                                                 

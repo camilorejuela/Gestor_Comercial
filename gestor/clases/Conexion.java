@@ -402,6 +402,8 @@ public class Conexion {
 	        //insertar algo en la base de datos            
 	        String instruccionSQL = "insert cliente values ('02','Fernanda','xd'," +
 	        		"'1993-04-02','321 598','yo@aja.ya')";
+	        //insert inventario values ('10', '1', '1', '2014-10-02','3200','4200');
+	        
 			s.executeUpdate(instruccionSQL);
 			System.out.println("Nuevo valor -> Guardado!");
 		}
@@ -597,6 +599,51 @@ public class Conexion {
 	}
 	
 	/**
+	 * Retorna el precio de venta de un producto apartir de su id
+	 * 
+	 * @param idProducto
+	 * @return
+	 */
+	public float getPrecioVentaProducto(String idProducto)
+	{
+		String nombreTabla = "inventario";
+		String campoABuscarCoincidencia = "id_producto";
+		String valorACoincidir = idProducto;
+		String campoAConsultar = "precioventa";
+		
+		String precio = consultarCampoEnTabla(nombreTabla, campoABuscarCoincidencia,
+				valorACoincidir, campoAConsultar);
+		
+		float precioDeVenta = 0;
+		
+		if(!precio.equals(""))
+			precioDeVenta = Float.parseFloat(precio);
+		
+		return precioDeVenta;
+	}
+	
+	/**
+	 * Retorna la fecha de vencimiento de un producto apartir de su id
+	 * 
+	 * @param idProducto
+	 * @return
+	 */
+	public Date getFechaVencimientoProducto(String idProducto)
+	{
+		String nombreTabla = "inventario";
+		String campoABuscarCoincidencia = "id_producto";
+		String valorACoincidir = idProducto;
+		String campoAConsultar = "vencimiento";
+		
+		String vencimiento = consultarCampoEnTabla(nombreTabla, campoABuscarCoincidencia,
+				valorACoincidir, campoAConsultar);
+		
+		Date fechaVencimiento = Date.valueOf(vencimiento);
+		
+		return fechaVencimiento;
+	}
+	
+	/**
 	 * Modificar la información de alguna tabla de la BD
 	 * 
 	 * @param nombreTabla El nombre de la tabla que se va a modificar
@@ -633,7 +680,8 @@ public class Conexion {
 	 * @param campoABuscarCoincidencia El campo que vamos a filtrar para
 	 * seleccionar el registro a modificar
 	 * @param valorACoincidir El valor a coincidir en el campo a filtrar
-	 * @param campoAConsultar El campo que queremos consultar
+	 * @param campoAConsultar El campo que queremos consultar. Este puedes
+	 * ser String u otro (ya he probado que funciona con float y Date).
 	 */
 	private String consultarCampoEnTabla(String nombreTabla, String campoABuscarCoincidencia,
 			String valorACoincidir, String campoAConsultar)
