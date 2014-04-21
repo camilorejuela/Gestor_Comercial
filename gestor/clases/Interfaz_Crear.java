@@ -3,6 +3,7 @@ package gestor.clases;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 
@@ -171,18 +172,55 @@ public class Interfaz_Crear {
 				nombreUsuario = tfNuevoUsuario_admin.getText();
 				contraseña = tfNuevaContrasena_admin.getText();
 				
-				Date fechaNac = Date.valueOf(fechaNacimiento);
+				// TODO La mayoría del código que sigue para este botón, consiste en validación.
+				// Éste se debe convertir en un método aparte (lo que se pueda) para que pueda
+				// ser utilizado por las otras funciones crear de esta ventana.
 				
-				Administrador administrador = new Administrador(id, nombre, apellido,
-						fechaNac, nombreUsuario, contraseña);
+				Date fechaNac = null;
 				
-				boolean es_administrador = true, seAgrego = false;
-				seAgrego = administrador.almacenarEnBD(es_administrador);
-				if (seAgrego == true){
-					System.out.println("SE AGREGÓ EXITOSAMENTE");
-				}else{
-					System.out.println("ALGO FALLÓ");
+				String error = "";
+				
+				if (!fechaNacimiento.equals(""))
+				{
+					try{
+						fechaNac = Date.valueOf(fechaNacimiento);
+					}
+					catch(IllegalArgumentException e)
+					{
+						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
+					}
 				}
+				
+				if (error.equals("")){
+					if (id.equals("")) error = "No ha ingresado id. Por favor llene todos los campos obligatorios.";
+					else if (nombre.equals("")) error = "No ha ingresado nombre. Por favor llene todos los campos obligatorios.";
+					else if (apellido.equals("")) error = "No ha ingresado apellido. Por favor llene todos los campos obligatorios.";
+					else if (nombreUsuario.equals("")) error = "No ha ingresado nombre de usuario. Por favor llene todos los campos obligatorios.";
+					else if (contraseña.equals("")) error = "No ha ingresado contraseña. Por favor llene todos los campos obligatorios.";
+					else {
+						Administrador administrador = new Administrador(id, nombre, apellido,
+								fechaNac, nombreUsuario, contraseña);
+						
+						boolean es_administrador = true, seAgrego = false;
+						
+						seAgrego = administrador.almacenarEnBD(es_administrador);
+						
+						if (seAgrego == true){
+							//System.out.println("SE AGREGÓ EXITOSAMENTE");
+							JOptionPane.showMessageDialog(frmCrear, "El usuario administrador ha sido" +
+									" creado exitosamente.", "Administrador creado",
+									JOptionPane.INFORMATION_MESSAGE);
+						}else{
+							//System.out.println("ALGO FALLÓ");
+							JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el administrador.",
+									"Error", JOptionPane.INFORMATION_MESSAGE);
+						}
+					}
+				}
+				
+				if (!error.equals(""))
+					JOptionPane.showMessageDialog(frmCrear, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnCrear_admin.setBounds(169, 211, 125, 35);

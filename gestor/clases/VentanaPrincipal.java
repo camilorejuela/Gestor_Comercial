@@ -10,6 +10,7 @@ import java.sql.Time;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -111,7 +112,10 @@ public class VentanaPrincipal {
 					frmPrincipal.dispose();
 					
 				}else{
-					System.out.println("DATOS INCORRECTOS, VUELVA A INTENTARLO");
+					//System.out.println("DATOS INCORRECTOS, VUELVA A INTENTARLO");
+					JOptionPane.showMessageDialog(frmPrincipal, "Combinación de nombre de usuario" +
+							" y contraseña incorrecta",
+							"Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

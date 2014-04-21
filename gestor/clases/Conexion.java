@@ -14,6 +14,8 @@ import java.util.logging.Logger;*/
 import java.sql.*;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 /**
  * Clase de conexión con la base de datos MySQL
  * 
@@ -450,9 +452,23 @@ public class Conexion {
 			//System.out.println("campo: " + properties[0].getName());
 			System.out.println("toStrng: " + cliente.toString());*/
 			
+			String cadenaFecha = "";
+			try{
+			cadenaFecha = cliente.getFechaNacimiento().toString();
+			}
+			catch(NullPointerException e)
+			{
+				// No hace nada, es decir, deja cademaFecha como "".
+				
+				// TODO Debido a error de MySQL con '' para el campo fecha, dejo éste
+				// año temporalmente (2099-01-01). Pero toca corregir esto, para que
+				// se pueda dejar el campo fecha vacío.
+				cadenaFecha = "2099-01-01";
+			}
+			
 	        String instruccionSQL = "insert cliente values ('" + cliente.getId() +
 	        		"','" + cliente.getNombre() + "','" + cliente.getApellido() +
-	        		"','" + cliente.getFechaNacimiento() + "','" +
+	        		"','" + cadenaFecha + "','" +
 	        		cliente.getTelefono() + "','" + cliente.getEmail() + "')";
 	        
 			s.executeUpdate(instruccionSQL);
@@ -475,10 +491,24 @@ public class Conexion {
 	public boolean agregarNuevoUsuario(Proveedor proveedor)
 	{
 		try{
+			String cadenaFecha = "";
+			try{
+			cadenaFecha = proveedor.getFechaNacimiento().toString();
+			}
+			catch(NullPointerException e)
+			{
+				// No hace nada, es decir, deja cademaFecha como "".
+				
+				// TODO Debido a error de MySQL con '' para el campo fecha, dejo éste
+				// año temporalmente (2099-01-01). Pero toca corregir esto, para que
+				// se pueda dejar el campo fecha vacío.
+				cadenaFecha = "2099-01-01";
+			}
+			
 	        String instruccionSQL = "insert proveedor values ('" + proveedor.getId() +
 	        		"','" + proveedor.getTipoDocumento() + "','" +
 	        		proveedor.getNombre() + "','" + proveedor.getApellido() +
-	        		"','" + proveedor.getFechaNacimiento() + "','" +
+	        		"','" + cadenaFecha + "','" +
 	        		proveedor.getTelefono() + "','" + proveedor.getEmail() + "')";
 	        
 			s.executeUpdate(instruccionSQL);
@@ -506,9 +536,23 @@ public class Conexion {
 			if (es_administrador == true) es_admin = "1";
 			else es_admin = "0";
 			
+			String cadenaFecha = "";
+			try{
+			cadenaFecha = vendedor.getFechaNacimiento().toString();
+			}
+			catch(NullPointerException e)
+			{
+				// No hace nada, es decir, deja cademaFecha como "".
+				
+				// TODO Debido a error de MySQL con '' para el campo fecha, dejo éste
+				// año temporalmente (2099-01-01). Pero toca corregir esto, para que
+				// se pueda dejar el campo fecha vacío.
+				cadenaFecha = "2099-01-01";
+			}
+			
 	        String instruccionSQL = "insert vendedor values ('" + vendedor.getId() +
 	        		"','" + vendedor.getNombre() + "','" + vendedor.getApellido() +
-	        		"','" + vendedor.getFechaNacimiento() + "','" +
+	        		"','" + cadenaFecha + "','" +
 	        		vendedor.getNombreUsuario() + "','" +
 	        		vendedor.getContraseña() + "','" + es_admin + "')";
 	        
