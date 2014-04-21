@@ -211,32 +211,39 @@ public class Interfaz extends javax.swing.JFrame {
         JButton btnAgregarProducto_Compra = new JButton();
         btnAgregarProducto_Compra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		boolean existeProducto;
         		String idProducto = tfIdProducto_Compra.getText();
         		int cantidad = Integer.parseInt(tfCantidad_Compra.getText());
         		float precioUnitario = Float.parseFloat(tfPrecioUnidad_Compra.getText());
         		Date fecha = Date.valueOf(tfFechaVencimiento_Compra.getText());
         		float precioTotal = precioUnitario * cantidad;
-        		
-        		String nombreProducto = Producto.getNombreProducto(idProducto);
-        		
-        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
-        		boolean seAgrego = false;
-        		seAgrego = itemsCompra.add(itemCompra);
-        		
-        		Object [] fila = new Object[6];
-        		fila[0] = itemCompra.getIdProducto();
-        		fila[1] = itemCompra.getNombreProducto();
-        		fila[2] = itemCompra.getCantidad();
-        		fila[3] = itemCompra.getFechaVencimiento();
-        		fila[4] = itemCompra.getPrecioUnitario();
-        		fila[5] = itemCompra.getPrecioTotal();
-        		modeloCompra.addRow(fila);
-        		valortotal+= itemCompra.getPrecioTotal();
-        		tfValorTotal_Compra.setText(String.valueOf(valortotal));
-    
-        		
-        		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
-        		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+        		Conexion con = new Conexion();
+        		existeProducto = con.existeProducto(Integer.valueOf(idProducto));
+        		con.cerrarConexion();
+        		if(existeProducto){
+	        		String nombreProducto = Producto.getNombreProducto(idProducto);
+	        		
+	        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
+	        		boolean seAgrego = false;
+	        		seAgrego = itemsCompra.add(itemCompra);
+	        		
+	        		Object [] fila = new Object[6];
+	        		fila[0] = itemCompra.getIdProducto();
+	        		fila[1] = itemCompra.getNombreProducto();
+	        		fila[2] = itemCompra.getCantidad();
+	        		fila[3] = itemCompra.getFechaVencimiento();
+	        		fila[4] = itemCompra.getPrecioUnitario();
+	        		fila[5] = itemCompra.getPrecioTotal();
+	        		modeloCompra.addRow(fila);
+	        		valortotal+= itemCompra.getPrecioTotal();
+	        		tfValorTotal_Compra.setText(String.valueOf(valortotal));
+	        		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
+	        		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+	         		tfIdProducto_Compra.setText("");
+	        		tfCantidad_Compra.setText("");
+	        		tfPrecioUnidad_Compra.setText("");
+	        		tfFechaVencimiento_Compra.setText("");
+        		}else System.out.println("PARCERO, EL PRODUCTO NO EXISTE");
         	}
         });
 
@@ -311,6 +318,12 @@ public class Interfaz extends javax.swing.JFrame {
         		con.cerrarConexion();
         		if (actualizarCompra) System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
     			else System.out.println("NO ACTUALIZÓ COMPRA, PASÓ ALGO :s");
+        		tfIdProducto_Compra.setText("");
+        		tfCantidad_Compra.setText("");
+        		tfPrecioUnidad_Compra.setText("");
+        		tfFechaVencimiento_Compra.setText("");
+        		tfValorCancelado_Compra.setText("0");
+        		tfValorTotal_Compra.setText("");
         	}
         });
         btnRealizarCompra.setBounds(44, 372, 150, 30);
@@ -408,32 +421,10 @@ public class Interfaz extends javax.swing.JFrame {
                 jTextField7ActionPerformed(evt);
             }
         });
-        panelVenta = new javax.swing.JPanel();
-        jScrollPaneVenta = new javax.swing.JScrollPane();
-        jScrollPaneVenta.setBounds(43, 216, 600, 150);
         jTableVenta = new javax.swing.JTable();
-        lblIdProducto_Venta = new javax.swing.JLabel();
-        lblIdProducto_Venta.setBounds(43, 82, 80, 25);
-        tfIdProducto_Venta = new javax.swing.JTextField();
-        tfIdProducto_Venta.setBounds(163, 82, 100, 25);
-        lblCantidad_Venta = new javax.swing.JLabel();
-        lblCantidad_Venta.setBounds(43, 105, 80, 25);
-        tfCantidad_Venta = new javax.swing.JTextField();
-        tfCantidad_Venta.setBounds(163, 106, 100, 25);
-        lblProductosAVender = new javax.swing.JLabel();
-        lblProductosAVender.setBounds(43, 190, 125, 25);
-        btnAgregarProducto_Venta = new javax.swing.JButton();
-        btnAgregarProducto_Venta.setBounds(43, 133, 220, 35);
-        btnRealizarVenta = new javax.swing.JButton();
-        btnRealizarVenta.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        	}
-        });
-        btnRealizarVenta.setBounds(43, 372, 150, 30);
         
         
         modeloVenta = new DefaultTableModel();
-        jTableVenta = new JTable(modeloVenta);
   
         modeloVenta.addColumn("Id");
         modeloVenta.addColumn("Nombre");
@@ -441,7 +432,6 @@ public class Interfaz extends javax.swing.JFrame {
         modeloVenta.addColumn("Fecha Vencimiento");
         modeloVenta.addColumn("Precio Unitario");
         modeloVenta.addColumn("Precio Total");
-        jScrollPaneVenta.setViewportView(jTableVenta);
         
                 /*jTableVenta.setModel(new DefaultTableModel(
                 	new Object[][] {
@@ -461,115 +451,6 @@ public class Interfaz extends javax.swing.JFrame {
                 jTableVenta.getColumnModel().getColumn(2).setPreferredWidth(55);
                 jTableVenta.getColumnModel().getColumn(3).setPreferredWidth(90);
                 jTableVenta.getColumnModel().getColumn(4).setPreferredWidth(90);*/
-                jScrollPaneVenta.setViewportView(jTableVenta);
-                
-                        lblIdProducto_Venta.setText("Id producto:");
-                        
-                                tfIdProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
-                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                        jTextField1ActionPerformed(evt);
-                                    }
-                                });
-                                
-                                        lblCantidad_Venta.setText("Cantidad:");
-                                        
-                                                tfCantidad_Venta.addActionListener(new java.awt.event.ActionListener() {
-                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                        jTextField2ActionPerformed(evt);
-                                                    }
-                                                });
-                                                
-                                                        lblProductosAVender.setText("Productos a vender:");
-                                                        
-                                                                btnAgregarProducto_Venta.setText("Agregar producto");
-                                                                btnAgregarProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
-                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                        //jButton1ActionPerformed(evt);
-                                                                    	
-                                                                    	String idProducto = tfIdProducto_Venta.getText();
-                                                                		int cantidad = Integer.parseInt(tfCantidad_Venta.getText());
-                                                                		
-                                                                		String nombreProducto = Producto.getNombreProducto(idProducto);
-                                                                		// TODO En las dos siguientes llamadas de métodos estáticos de 
-                                                                		// Inventario se realizan consultas a la tabla inventario en la
-                                                                		// BD. Dicha tabla puede tener varios registros con el mismo
-                                                                		// id de producto. TENEMOS QUE validar que nos consulte y trabaje
-                                                                		// con el de fecha de vencimiento más próxima. En este caso, sin
-                                                                		// haberse hecho esta validación al parecer trabaja con el primer
-                                                                		// registro que coincide con el id, y eso está bien por ahora.
-                                                                		float precioUnitario = Inventario.getPrecioDeVenta(idProducto);
-                                                                		Date fecha = Inventario.getFechaVencimiento(idProducto);
-                                                                		
-                                                                		float precioTotal = precioUnitario * cantidad;
-                                                                		
-                                                                		ItemTransaccion itemVenta = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
-                                                                		boolean seAgrego = false;
-                                                                		seAgrego = itemsVenta.add(itemVenta);
-                                                                		
-                                                                		Object [] fila = new Object[6];
-                                                                		fila[0] = itemVenta.getIdProducto();
-                                                                		fila[1] = itemVenta.getNombreProducto();
-                                                                		fila[2] = itemVenta.getCantidad();
-                                                                		fila[3] = itemVenta.getFechaVencimiento();
-                                                                		fila[4] = itemVenta.getPrecioUnitario();
-                                                                		fila[5] = itemVenta.getPrecioTotal();
-                                                                		modeloVenta.addRow(fila);
-                                                                		valortotal+= itemVenta.getPrecioTotal();
-                                                                		tfValorTotal_Venta.setText(String.valueOf(valortotal));
-                                                            
-                                                                		
-                                                                		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
-                                                                		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
-                                                                    	
-                                                                    }
-                                                                });
-                                                                
-                                                                        btnRealizarVenta.setText("Realizar venta");
-                                                                        
-                                                                        JLabel lblIdVenta = new JLabel();
-                                                                        lblIdVenta.setBounds(43, 59, 80, 25);
-                                                                        lblIdVenta.setText("Id venta:");
-                                                                        
-                                                                                panelContenedor.addTab("Venta", panelVenta);
-                                                                                panelVenta.setLayout(null);
-                                                                                panelVenta.add(lblIdVenta);
-                                                                                panelVenta.add(lblIdProducto_Venta);
-                                                                                panelVenta.add(tfIdProducto_Venta);
-                                                                                panelVenta.add(lblCantidad_Venta);
-                                                                                panelVenta.add(tfCantidad_Venta);
-                                                                                panelVenta.add(lblProductosAVender);
-                                                                                panelVenta.add(jScrollPaneVenta);
-                                                                                panelVenta.add(btnAgregarProducto_Venta);
-                                                                                panelVenta.add(btnRealizarVenta);
-                                                                                
-                                                                                tfValorTotal_Venta = new JTextField();
-                                                                                tfValorTotal_Venta.setBounds(543, 372, 100, 25);
-                                                                                panelVenta.add(tfValorTotal_Venta);
-                                                                                
-                                                                                JLabel lblValorTotal_Venta = new JLabel();
-                                                                                lblValorTotal_Venta.setText("Valor total:");
-                                                                                lblValorTotal_Venta.setBounds(453, 372, 80, 25);
-                                                                                panelVenta.add(lblValorTotal_Venta);
-                                                                                
-                                                                                JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
-                                                                                btnRegistrarCliente_Venta.addMouseListener(new MouseAdapter() {
-                                                                                	@Override
-                                                                                	public void mousePressed(MouseEvent e) {
-                                                                                		Interfaz_RegistrarCliente interfazRegClie = new Interfaz_RegistrarCliente();
-                                                                                		interfazRegClie.main(null);
-                                                                                	}
-                                                                                });
-                                                                                btnRegistrarCliente_Venta.addActionListener(new ActionListener() {
-                                                                                	public void actionPerformed(ActionEvent arg0) {
-                                                                                	}
-                                                                                });
-                                                                                btnRegistrarCliente_Venta.setBounds(41, 33, 222, 25);
-                                                                                panelVenta.add(btnRegistrarCliente_Venta);
-                                                                                
-                                                                                lblVenta_venta = new JLabel("");
-                                                                                lblVenta_venta.setBounds(168, 59, 100, 25);
-                                                                                panelVenta.add(lblVenta_venta);
-                                                                                lblVenta_venta.setText(String.valueOf(id_venta));
 
         btnConsultarProducto_Inventario.setText("Consultar");
         
@@ -580,6 +461,212 @@ public class Interfaz extends javax.swing.JFrame {
 	    modelo.addColumn("Precio Unitario");
 	    modelo.addColumn("Existencias");
 	    modelo.addColumn("Vencimiento");
+        panelVenta = new javax.swing.JPanel();
+        jScrollPaneVenta = new javax.swing.JScrollPane();
+        jScrollPaneVenta.setBounds(43, 216, 600, 150);
+        lblIdProducto_Venta = new javax.swing.JLabel();
+        lblIdProducto_Venta.setBounds(43, 82, 80, 25);
+        tfIdProducto_Venta = new javax.swing.JTextField();
+        tfIdProducto_Venta.setBounds(163, 82, 100, 25);
+        lblCantidad_Venta = new javax.swing.JLabel();
+        lblCantidad_Venta.setBounds(43, 105, 80, 25);
+        tfCantidad_Venta = new javax.swing.JTextField();
+        tfCantidad_Venta.setBounds(163, 106, 100, 25);
+        lblProductosAVender = new javax.swing.JLabel();
+        lblProductosAVender.setBounds(43, 190, 125, 25);
+        btnAgregarProducto_Venta = new javax.swing.JButton();
+        btnAgregarProducto_Venta.setBounds(43, 133, 220, 35);
+        btnRealizarVenta = new javax.swing.JButton();
+        btnRealizarVenta.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		////////////////////////// LA MAGIA DE LAS VENTAS //////////////////////
+        		ItemTransaccion item;
+        		int idRegistroInventario, cantidadexistente;
+        		float precioCompra, totalVenta;
+        		boolean actualizarInventario, actualizarProductoVenta, actualizarCompra;
+        		Date fechaActual;
+        		Time horaActual;
+        		//ACA ESTÁ LA MAGIA (Y)
+        		Iterator it = itemsVenta.iterator();
+        		while(it.hasNext()){
+        			Conexion con = new Conexion();
+        			item = (ItemTransaccion) it.next();
+        			System.out.println(item.getIdProducto()+ " " + item.getPrecioUnitario() + " " + item.getFechaVencimiento());
+        			
+        			//Nuevo método
+        			idRegistroInventario = con.escogerProductoAVender(Integer.valueOf(item.getIdProducto()));
+        			System.out.println(idRegistroInventario);
+        			//Otro método para obtener registro inventario
+        			//idRegistroInventario = con.actualizarOCrearNuevoRegistroInventario(Integer.parseInt(item.getIdProducto()), 
+        			//		item.getPrecioUnitario(), item.getFechaVencimiento()); //obtiene el IdRegistroInventario
+        			
+        			//Mismo método Compra
+        			cantidadexistente = con.sumarCantidadExistenteInventario(idRegistroInventario); //si hay cantidad existentes las guarda, si no = 0
+        			System.out.println("LA CANTIDAD EXISTENTE ES: " +cantidadexistente);
+
+        			precioCompra = con.obtenerPrecioCompraInventario(idRegistroInventario);
+        			System.out.println("EL PRECIO DE COMPRA ES: " +precioCompra);
+        			Inventario inventario = new Inventario(idRegistroInventario, Integer.parseInt(item.getIdProducto()),
+        					(cantidadexistente-item.getCantidad()), item.getFechaVencimiento(), precioCompra , item.getPrecioUnitario());
+        			System.out.println("IDREGISTROINVENTARIO: "+idRegistroInventario);
+        			System.out.println("IDPRODUCTO: "+Integer.parseInt(item.getIdProducto()));
+        			System.out.println("CANTIDAD: "+(item.getCantidad()+cantidadexistente));
+        			System.out.println("FECHA VENC: "+item.getFechaVencimiento());
+        			System.out.println("PRECIO VENTA: "+item.getPrecioUnitario());
+        			System.out.println("PRECIO COMPRA: "+precioCompra);
+        			
+        			//la BD inventario se actualiza acá
+        			actualizarInventario = con.actualizarInventario(inventario);
+        			if (actualizarInventario) System.out.println("SE ACTUALIZÓ EL INVENTARIO CORRECTAMENTE");
+        			else System.out.println("NO ACTUALIZÓ INVENTARIO, PASÓ ALGO :s");
+        			
+        			//la BD producto_ se actualiza acá.
+        			actualizarProductoVenta = con.actualizarProductoVenta(id_venta, Integer.parseInt(item.getIdProducto()), item.getCantidad());
+        			if (actualizarProductoVenta) System.out.println("SE ACTUALIZÓ PRODUCTO_COMPRA CORRECTAMENTE");
+        			else System.out.println("NO ACTUALIZÓ PRODUCTO_COMPRA, PASÓ ALGO :s");
+        			con.cerrarConexion();
+        		}
+        		// la BD compra se guarda despues del iterator
+        		fechaActual = Controlador.fechaSistema();
+				horaActual = Controlador.horaSistema();
+				totalVenta = Float.valueOf(tfValorTotal_Venta.getText());
+				System.out.println("id_compra: "+id_venta);
+    			System.out.println("id_vendedor: "+idvendedor);
+    			System.out.println("idcliente: "+idCliente);
+    			System.out.println("total compra: "+totalVenta);
+    			System.out.println("fecha actual: "+fechaActual);
+    			System.out.println("hora actual: "+horaActual);
+    			
+        		Venta venta = new Venta(id_venta, idvendedor, idCliente, totalVenta, fechaActual, horaActual);
+        		Conexion con = new Conexion();
+        		actualizarCompra = con.actualizarVenta(venta);
+        		con.cerrarConexion();
+        		if (actualizarCompra) System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+    			else System.out.println("NO ACTUALIZÓ COMPRA, PASÓ ALGO :s");
+        		tfIdProducto_Venta.setText("");
+        		tfCantidad_Venta.setText("");
+        		tfValorTotal_Venta.setText("");
+        		
+        	}
+        });
+        btnRealizarVenta.setBounds(43, 372, 150, 30);
+        jTableVenta = new JTable(modeloVenta);
+        jScrollPaneVenta.setViewportView(jTableVenta);
+        jScrollPaneVenta.setViewportView(jTableVenta);
+        
+                lblIdProducto_Venta.setText("Id producto:");
+                
+                        tfIdProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jTextField1ActionPerformed(evt);
+                            }
+                        });
+                        
+                                lblCantidad_Venta.setText("Cantidad:");
+                                
+                                        tfCantidad_Venta.addActionListener(new java.awt.event.ActionListener() {
+                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                jTextField2ActionPerformed(evt);
+                                            }
+                                        });
+                                        
+                                                lblProductosAVender.setText("Productos a vender:");
+                                                
+                                                        btnAgregarProducto_Venta.setText("Agregar producto");
+                                                        btnAgregarProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
+                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                //jButton1ActionPerformed(evt);
+                                                            	boolean existeProducto; 
+                                                            	int hayCantidades;
+                                                            	//ArrayList<Integer> hayCantidades;
+                                                            	String idProducto = tfIdProducto_Venta.getText();
+                                                        		int cantidad = Integer.parseInt(tfCantidad_Venta.getText());
+                                                        		
+                                                        		Conexion con = new Conexion();
+                                                        		existeProducto = con.existeProducto(Integer.valueOf(idProducto));
+                                                        		hayCantidades = con.hayCantidades(Integer.valueOf(idProducto));
+                                                        		con.cerrarConexion();
+                                                        		if(existeProducto && hayCantidades>0){
+	                                                                		String nombreProducto = Producto.getNombreProducto(idProducto);
+	                                                                		// TODO En las dos siguientes llamadas de métodos estáticos de 
+	                                                                		// Inventario se realizan consultas a la tabla inventario en la
+	                                                                		// BD. Dicha tabla puede tener varios registros con el mismo
+	                                                                		// id de producto. TENEMOS QUE validar que nos consulte y trabaje
+	                                                                		// con el de fecha de vencimiento más próxima. En este caso, sin
+	                                                                		// haberse hecho esta validación al parecer trabaja con el primer
+	                                                                		// registro que coincide con el id, y eso está bien por ahora.
+	                                                                		float precioUnitario = Inventario.getPrecioDeVenta(idProducto);
+	                                                                		Date fecha = Inventario.getFechaVencimiento(idProducto);
+	                                                                		
+	                                                                		float precioTotal = precioUnitario * cantidad;
+	                                                                		
+	                                                                		ItemTransaccion itemVenta = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
+	                                                                		boolean seAgrego = false;
+	                                                                		seAgrego = itemsVenta.add(itemVenta);
+	                                                                		
+	                                                                		Object [] fila = new Object[6];
+	                                                                		fila[0] = itemVenta.getIdProducto();
+	                                                                		fila[1] = itemVenta.getNombreProducto();
+	                                                                		fila[2] = itemVenta.getCantidad();
+	                                                                		fila[3] = itemVenta.getFechaVencimiento();
+	                                                                		fila[4] = itemVenta.getPrecioUnitario();
+	                                                                		fila[5] = itemVenta.getPrecioTotal();
+	                                                                		modeloVenta.addRow(fila);
+	                                                                		valortotal+= itemVenta.getPrecioTotal();
+	                                                                		tfValorTotal_Venta.setText(String.valueOf(valortotal));
+	                                                            
+	                                                                		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
+	                                                                		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+                                                        		}else System.out.println("PARCERO, EL PRODUCTO NO EXISTE O ESTÁ AGOTADO");
+                                                            }
+                                                        });
+                                                        
+                                                                btnRealizarVenta.setText("Realizar venta");
+                                                                
+                                                                JLabel lblIdVenta = new JLabel();
+                                                                lblIdVenta.setBounds(43, 59, 80, 25);
+                                                                lblIdVenta.setText("Id venta:");
+                                                                
+                                                                        panelContenedor.addTab("Venta", panelVenta);
+                                                                        panelVenta.setLayout(null);
+                                                                        panelVenta.add(lblIdVenta);
+                                                                        panelVenta.add(lblIdProducto_Venta);
+                                                                        panelVenta.add(tfIdProducto_Venta);
+                                                                        panelVenta.add(lblCantidad_Venta);
+                                                                        panelVenta.add(tfCantidad_Venta);
+                                                                        panelVenta.add(lblProductosAVender);
+                                                                        panelVenta.add(jScrollPaneVenta);
+                                                                        panelVenta.add(btnAgregarProducto_Venta);
+                                                                        panelVenta.add(btnRealizarVenta);
+                                                                        
+                                                                        tfValorTotal_Venta = new JTextField();
+                                                                        tfValorTotal_Venta.setBounds(543, 372, 100, 25);
+                                                                        panelVenta.add(tfValorTotal_Venta);
+                                                                        
+                                                                        JLabel lblValorTotal_Venta = new JLabel();
+                                                                        lblValorTotal_Venta.setText("Valor total:");
+                                                                        lblValorTotal_Venta.setBounds(453, 372, 80, 25);
+                                                                        panelVenta.add(lblValorTotal_Venta);
+                                                                        
+                                                                        JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
+                                                                        btnRegistrarCliente_Venta.addMouseListener(new MouseAdapter() {
+                                                                        	@Override
+                                                                        	public void mousePressed(MouseEvent e) {
+                                                                        		Interfaz_RegistrarCliente interfazRegClie = new Interfaz_RegistrarCliente();
+                                                                        		interfazRegClie.main(null);
+                                                                        	}
+                                                                        });
+                                                                        btnRegistrarCliente_Venta.addActionListener(new ActionListener() {
+                                                                        	public void actionPerformed(ActionEvent arg0) {
+                                                                        	}
+                                                                        });
+                                                                        btnRegistrarCliente_Venta.setBounds(41, 33, 222, 25);
+                                                                        panelVenta.add(btnRegistrarCliente_Venta);
+                                                                        
+                                                                        lblVenta_venta = new JLabel("");
+                                                                        lblVenta_venta.setBounds(168, 59, 100, 25);
+                                                                        panelVenta.add(lblVenta_venta);
+                                                                        lblVenta_venta.setText(String.valueOf(id_venta));
         jScrollPaneInventario.setViewportView(jTableInventario);
 
         panelContenedor.addTab("Inventario", panelInventario);
