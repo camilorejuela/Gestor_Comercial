@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -117,6 +118,63 @@ public class Conexion {
 			}
 			return consulta;
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
+	}
+
+	public ArrayList<Venta> generarConsultaVenta(){
+		final ArrayList<Venta> venta = new ArrayList<Venta>();
+		int idVenta;
+		Time horaVenta;
+		Date fechaVenta;
+		String idVendedor, idCliente;
+		float totalVenta;
+		try {
+			//sobre venta
+			rs = s.executeQuery("select * from venta"); 
+			while (rs.next()){
+				idVenta = rs.getInt(1);
+				idVendedor = rs.getString(2);
+				idCliente =  rs.getString(3);
+				totalVenta =  rs.getFloat(4);
+				fechaVenta =  rs.getDate(5);
+				horaVenta =  rs.getTime(6);
+				Venta itemVenta = new Venta(idVenta, idVendedor, idCliente, totalVenta, fechaVenta, horaVenta);
+				venta.add(itemVenta);
+			}
+			return venta;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
+	}
+	
+	public ArrayList<Compra> generarConsultaCompra(){
+		final ArrayList<Compra> compra = new ArrayList<Compra>();
+		int idCompra;
+		Time horaCompra;
+		Date fechaCompra;
+		String idVendedor, idProveedor;
+		float totalCompra, saldo;
+		try {
+			//sobre compra
+			rs = s.executeQuery("select * from compra"); 
+			while (rs.next()){
+				idCompra = rs.getInt(1);
+				idVendedor = rs.getString(2);
+				idProveedor =  rs.getString(3);
+				totalCompra =  rs.getFloat(4);
+				fechaCompra =  rs.getDate(5);
+				horaCompra =  rs.getTime(6);
+				saldo = rs.getFloat(7);
+				Compra itemCompra = new Compra(idCompra, idVendedor, idProveedor, totalCompra, fechaCompra, horaCompra, saldo);
+				compra.add(itemCompra);
+			}
+			return compra;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -135,13 +136,10 @@ public class Interfaz extends javax.swing.JFrame {
         modelo = new DefaultTableModel();
         jTableInventario = new javax.swing.JTable(modelo);
         panelContabilidad = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        lblVentas_Contabilidad = new javax.swing.JLabel();
+        lblVentas_Contabilidad.setBounds(39, 21, 100, 25);
+        lblCompra_Contabilidad = new javax.swing.JLabel();
+        lblCompra_Contabilidad.setBounds(39, 196, 100, 25);
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -191,21 +189,21 @@ public class Interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JLabel lblIdCompra_Compra = new JLabel();
-        lblIdCompra_Compra.setBounds(44, 59, 80, 25);
+        lblIdCompra_Compra.setBounds(43, 45, 80, 25);
         lblIdCompra_Compra.setText("Id compra:");
         
         JLabel lblIdProducto_Compra = new JLabel();
-        lblIdProducto_Compra.setBounds(44, 82, 80, 25);
+        lblIdProducto_Compra.setBounds(43, 68, 80, 25);
         lblIdProducto_Compra.setText("Id producto:");
         
         tfIdProducto_Compra = new JTextField();
-        tfIdProducto_Compra.setBounds(164, 82, 100, 25);
+        tfIdProducto_Compra.setBounds(163, 68, 100, 25);
         
         tfCantidad_Compra = new JTextField();
-        tfCantidad_Compra.setBounds(502, 35, 100, 25);
+        tfCantidad_Compra.setBounds(501, 21, 100, 25);
         
         JLabel lblCantidad_Compra = new JLabel();
-        lblCantidad_Compra.setBounds(382, 35, 80, 25);
+        lblCantidad_Compra.setBounds(381, 21, 80, 25);
         lblCantidad_Compra.setText("Cantidad:");
         
         JButton btnAgregarProducto_Compra = new JButton();
@@ -247,11 +245,11 @@ public class Interfaz extends javax.swing.JFrame {
         	}
         });
 
-        btnAgregarProducto_Compra.setBounds(42, 119, 220, 35);
+        btnAgregarProducto_Compra.setBounds(41, 105, 220, 35);
         btnAgregarProducto_Compra.setText("Agregar producto");
         
         JLabel lblProductosAComprar_Compra = new JLabel();
-        lblProductosAComprar_Compra.setBounds(44, 190, 125, 25);
+        lblProductosAComprar_Compra.setBounds(43, 176, 125, 25);
         lblProductosAComprar_Compra.setText("Productos a comprar:");
         
         JButton btnRealizarCompra = new JButton();
@@ -324,9 +322,16 @@ public class Interfaz extends javax.swing.JFrame {
         		tfFechaVencimiento_Compra.setText("");
         		tfValorCancelado_Compra.setText("0");
         		tfValorTotal_Compra.setText("");
+        		Conexion uno = new Conexion();
+        		//final int id_venta, esVenta = 4;
+        		final int id_compra, esCompra = 3;
+        		id_compra = uno.obtenerId(esCompra);
+        		//id_venta = uno.obtenerId(esVenta);
+        		uno.cerrarConexion();
+        		lblCompra_compra.setText(String.valueOf(id_venta));
         	}
         });
-        btnRealizarCompra.setBounds(44, 372, 150, 30);
+        btnRealizarCompra.setBounds(43, 358, 150, 30);
         btnRealizarCompra.setText("Realizar compra");
 
         panelContenedor.addTab("Compra", panelCompra);
@@ -341,7 +346,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(btnRealizarCompra);
         
         jScrollPaneCompra = new JScrollPane();
-        jScrollPaneCompra.setBounds(44, 216, 600, 150);
+        jScrollPaneCompra.setBounds(43, 202, 600, 150);
         panelCompra.add(jScrollPaneCompra);
         
         modeloCompra = new DefaultTableModel();
@@ -356,22 +361,22 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPaneCompra.setViewportView(jTableCompra);
         
         tfValorTotal_Compra = new JTextField();
-        tfValorTotal_Compra.setBounds(544, 372, 100, 25);
+        tfValorTotal_Compra.setBounds(543, 358, 100, 25);
         panelCompra.add(tfValorTotal_Compra);
         
         lblValorTotal_Compra = new JLabel();
         lblValorTotal_Compra.setText("Valor total:");
-        lblValorTotal_Compra.setBounds(454, 372, 80, 25);
+        lblValorTotal_Compra.setBounds(453, 358, 80, 25);
         panelCompra.add(lblValorTotal_Compra);
         
         tfValorCancelado_Compra = new JTextField();
         tfValorCancelado_Compra.setText("0");
-        tfValorCancelado_Compra.setBounds(322, 372, 100, 25);
+        tfValorCancelado_Compra.setBounds(321, 358, 100, 25);
         panelCompra.add(tfValorCancelado_Compra);
         
         lblValorCancelado_Compra = new JLabel();
         lblValorCancelado_Compra.setText("Valor cancelado:");
-        lblValorCancelado_Compra.setBounds(222, 372, 100, 25);
+        lblValorCancelado_Compra.setBounds(221, 358, 100, 25);
         panelCompra.add(lblValorCancelado_Compra);
         
         JButton btnRegistrarProveedor_Compra = new JButton("Registrar proveedor");
@@ -388,30 +393,30 @@ public class Interfaz extends javax.swing.JFrame {
         	}
         });
 
-        btnRegistrarProveedor_Compra.setBounds(42, 35, 222, 25);
+        btnRegistrarProveedor_Compra.setBounds(41, 21, 222, 25);
         panelCompra.add(btnRegistrarProveedor_Compra);
         
         lblCompra_compra = new JLabel("");
-        lblCompra_compra.setBounds(174, 59, 100, 25);
+        lblCompra_compra.setBounds(173, 45, 100, 25);
         panelCompra.add(lblCompra_compra);
         lblCompra_compra.setText(String.valueOf(id_compra));
         
         JLabel lblFechaVencimiento = new JLabel();
         lblFechaVencimiento.setText("Fecha vencimiento:");
-        lblFechaVencimiento.setBounds(382, 83, 100, 25);
+        lblFechaVencimiento.setBounds(381, 69, 100, 25);
         panelCompra.add(lblFechaVencimiento);
         
         JLabel lblPrecio = new JLabel();
         lblPrecio.setText("Precio unidad:");
-        lblPrecio.setBounds(382, 58, 100, 25);
+        lblPrecio.setBounds(381, 44, 100, 25);
         panelCompra.add(lblPrecio);
         
         tfPrecioUnidad_Compra = new JTextField();
-        tfPrecioUnidad_Compra.setBounds(502, 58, 100, 25);
+        tfPrecioUnidad_Compra.setBounds(501, 44, 100, 25);
         panelCompra.add(tfPrecioUnidad_Compra);
         
         tfFechaVencimiento_Compra = new JTextField();
-        tfFechaVencimiento_Compra.setBounds(502, 82, 100, 25);
+        tfFechaVencimiento_Compra.setBounds(501, 68, 100, 25);
         panelCompra.add(tfFechaVencimiento_Compra);
         
         lblNombreProducto_Inventario.setText("Nombre producto:");
@@ -463,19 +468,19 @@ public class Interfaz extends javax.swing.JFrame {
 	    modelo.addColumn("Vencimiento");
         panelVenta = new javax.swing.JPanel();
         jScrollPaneVenta = new javax.swing.JScrollPane();
-        jScrollPaneVenta.setBounds(43, 216, 600, 150);
+        jScrollPaneVenta.setBounds(43, 205, 600, 150);
         lblIdProducto_Venta = new javax.swing.JLabel();
-        lblIdProducto_Venta.setBounds(43, 82, 80, 25);
+        lblIdProducto_Venta.setBounds(43, 71, 80, 25);
         tfIdProducto_Venta = new javax.swing.JTextField();
-        tfIdProducto_Venta.setBounds(163, 82, 100, 25);
+        tfIdProducto_Venta.setBounds(163, 71, 100, 25);
         lblCantidad_Venta = new javax.swing.JLabel();
-        lblCantidad_Venta.setBounds(43, 105, 80, 25);
+        lblCantidad_Venta.setBounds(43, 94, 80, 25);
         tfCantidad_Venta = new javax.swing.JTextField();
-        tfCantidad_Venta.setBounds(163, 106, 100, 25);
+        tfCantidad_Venta.setBounds(163, 95, 100, 25);
         lblProductosAVender = new javax.swing.JLabel();
-        lblProductosAVender.setBounds(43, 190, 125, 25);
+        lblProductosAVender.setBounds(43, 179, 125, 25);
         btnAgregarProducto_Venta = new javax.swing.JButton();
-        btnAgregarProducto_Venta.setBounds(43, 133, 220, 35);
+        btnAgregarProducto_Venta.setBounds(43, 122, 220, 35);
         btnRealizarVenta = new javax.swing.JButton();
         btnRealizarVenta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -546,10 +551,16 @@ public class Interfaz extends javax.swing.JFrame {
         		tfIdProducto_Venta.setText("");
         		tfCantidad_Venta.setText("");
         		tfValorTotal_Venta.setText("");
-        		
+        		Conexion uno = new Conexion();
+        		final int id_venta, esVenta = 4;
+        		//final int id_compra, esCompra = 3;
+        		//id_compra = uno.obtenerId(esCompra);
+        		id_venta = uno.obtenerId(esVenta);
+        		uno.cerrarConexion();
+        		lblVenta_venta.setText(String.valueOf(id_venta));
         	}
         });
-        btnRealizarVenta.setBounds(43, 372, 150, 30);
+        btnRealizarVenta.setBounds(43, 361, 150, 30);
         jTableVenta = new JTable(modeloVenta);
         jScrollPaneVenta.setViewportView(jTableVenta);
         jScrollPaneVenta.setViewportView(jTableVenta);
@@ -624,7 +635,7 @@ public class Interfaz extends javax.swing.JFrame {
                                                                 btnRealizarVenta.setText("Realizar venta");
                                                                 
                                                                 JLabel lblIdVenta = new JLabel();
-                                                                lblIdVenta.setBounds(43, 59, 80, 25);
+                                                                lblIdVenta.setBounds(43, 48, 80, 25);
                                                                 lblIdVenta.setText("Id venta:");
                                                                 
                                                                         panelContenedor.addTab("Venta", panelVenta);
@@ -640,12 +651,12 @@ public class Interfaz extends javax.swing.JFrame {
                                                                         panelVenta.add(btnRealizarVenta);
                                                                         
                                                                         tfValorTotal_Venta = new JTextField();
-                                                                        tfValorTotal_Venta.setBounds(543, 372, 100, 25);
+                                                                        tfValorTotal_Venta.setBounds(543, 361, 100, 25);
                                                                         panelVenta.add(tfValorTotal_Venta);
                                                                         
                                                                         JLabel lblValorTotal_Venta = new JLabel();
                                                                         lblValorTotal_Venta.setText("Valor total:");
-                                                                        lblValorTotal_Venta.setBounds(453, 372, 80, 25);
+                                                                        lblValorTotal_Venta.setBounds(453, 361, 80, 25);
                                                                         panelVenta.add(lblValorTotal_Venta);
                                                                         
                                                                         JButton btnRegistrarCliente_Venta = new JButton("Registrar cliente");
@@ -660,11 +671,11 @@ public class Interfaz extends javax.swing.JFrame {
                                                                         	public void actionPerformed(ActionEvent arg0) {
                                                                         	}
                                                                         });
-                                                                        btnRegistrarCliente_Venta.setBounds(41, 33, 222, 25);
+                                                                        btnRegistrarCliente_Venta.setBounds(41, 22, 222, 25);
                                                                         panelVenta.add(btnRegistrarCliente_Venta);
                                                                         
                                                                         lblVenta_venta = new JLabel("");
-                                                                        lblVenta_venta.setBounds(168, 59, 100, 25);
+                                                                        lblVenta_venta.setBounds(168, 48, 100, 25);
                                                                         panelVenta.add(lblVenta_venta);
                                                                         lblVenta_venta.setText(String.valueOf(id_venta));
         jScrollPaneInventario.setViewportView(jTableInventario);
@@ -684,79 +695,112 @@ public class Interfaz extends javax.swing.JFrame {
         btnProductosAAcabarse.setBounds(20, 299, 170, 35);
         panelInventario.add(btnProductosAAcabarse);
 
-        jLabel12.setText("Generar informe:");
+        lblVentas_Contabilidad.setText("VENTAS:");
 
-        jButton6.setText("Informe del dÃ­a");
-
-        jButton7.setText("Informe de la semana");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setText("Informe del mes");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setText("Cuentas por pagar:");
-
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Fecha de compra", "Proveedor", "Valor"
-            }
-        ));
-        jScrollPane9.setViewportView(jTable9);
-
-        javax.swing.GroupLayout gl_panelContabilidad = new javax.swing.GroupLayout(panelContabilidad);
-        panelContabilidad.setLayout(gl_panelContabilidad);
-        gl_panelContabilidad.setHorizontalGroup(
-            gl_panelContabilidad.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_panelContabilidad.createSequentialGroup()
-                .addGroup(gl_panelContabilidad.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(gl_panelContabilidad.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(gl_panelContabilidad.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel12)))
-                    .addGroup(gl_panelContabilidad.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addGroup(gl_panelContabilidad.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gl_panelContabilidad.createSequentialGroup()
-                .addGap(0, 48, Short.MAX_VALUE)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
-        );
-        gl_panelContabilidad.setVerticalGroup(
-            gl_panelContabilidad.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gl_panelContabilidad.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
+        lblCompra_Contabilidad.setText("COMPRAS:");
 
         panelContenedor.addTab("Contabilidad", panelContabilidad);
+        panelContabilidad.setLayout(null);
+        panelContabilidad.add(lblCompra_Contabilidad);
+        panelContabilidad.add(lblVentas_Contabilidad);
+        
+        JScrollPane jScrollPaneVentas_Contabilidad = new JScrollPane();
+        jScrollPaneVentas_Contabilidad.setBounds(49, 45, 560, 140);
+        panelContabilidad.add(jScrollPaneVentas_Contabilidad);
+        
+        final DefaultTableModel VentaContabilidad = new DefaultTableModel();
+        jTableVentas_Contabilidad = new JTable(VentaContabilidad);
+  
+        VentaContabilidad.addColumn("Id venta");
+        VentaContabilidad.addColumn("Id vendedor");
+        VentaContabilidad.addColumn("Id cliente");
+        VentaContabilidad.addColumn("Total venta");
+        VentaContabilidad.addColumn("Fecha venta");
+        VentaContabilidad.addColumn("Hora venta");
+        jScrollPaneVentas_Contabilidad.setViewportView(jTableVentas_Contabilidad);
+        
+        JScrollPane jScrollPaneCompras_Contabilidad = new JScrollPane();
+        jScrollPaneCompras_Contabilidad.setBounds(49, 222, 560, 140);
+        panelContabilidad.add(jScrollPaneCompras_Contabilidad);
+        
+        final DefaultTableModel CompraContabilidad = new DefaultTableModel();
+        jTableCompras_Contabilidad = new JTable(CompraContabilidad);
+        
+        CompraContabilidad.addColumn("Id compra");
+        CompraContabilidad.addColumn("Id vendedor");
+        CompraContabilidad.addColumn("Id proveedor");
+        CompraContabilidad.addColumn("Total compra");
+        CompraContabilidad.addColumn("Fecha compra");
+        CompraContabilidad.addColumn("Hora compra");
+        CompraContabilidad.addColumn("Saldo");
+        jScrollPaneCompras_Contabilidad.setViewportView(jTableCompras_Contabilidad);
+        
+        JButton btnActualizarVentas_Contabilidad = new JButton("Actualizar");
+        btnActualizarVentas_Contabilidad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Limpia la tabla
+        		int numfilas = VentaContabilidad.getRowCount()-1;
+        		for(int i=numfilas; i>=0; i--) VentaContabilidad.removeRow(i);
+        		
+        		ArrayList<Venta> venta = new ArrayList<Venta>();
+        		Venta itemVenta;
+        		
+        		//Hace la conexión a la base de datos
+        		Conexion con = new Conexion();
+        		venta = con.generarConsultaVenta();
+        		con.cerrarConexion();
+        		
+        		//Usa Iterator para cada leer cada objeto ItemConsulta del arraylist
+        		Iterator it = venta.iterator();
+        		while(it.hasNext()){
+        			Object [] fila = new Object[6];
+        			itemVenta = (Venta) it.next();
+        			fila[0] = itemVenta.getIdVenta();
+        			fila[1] = itemVenta.getIdVendedor();
+        			fila[2] = itemVenta.getIdCliente();
+        			fila[3] = itemVenta.getTotalVenta();
+        			fila[4] = itemVenta.getFechaVenta();
+        			fila[5] = itemVenta.getHoraVenta();
+        			VentaContabilidad.addRow(fila);
+        		}
+        	}
+        });
+        btnActualizarVentas_Contabilidad.setBounds(520, 22, 89, 23);
+        panelContabilidad.add(btnActualizarVentas_Contabilidad);
+        
+        JButton btnActualizarCompras_Contabilidad = new JButton("Actualizar");
+        btnActualizarCompras_Contabilidad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Limpia la tabla
+        		int numfilas = CompraContabilidad.getRowCount()-1;
+        		for(int i=numfilas; i>=0; i--) CompraContabilidad.removeRow(i);
+        		
+        		ArrayList<Compra> compra = new ArrayList<Compra>();
+        		Compra itemCompra;
+        		
+        		//Hace la conexión a la base de datos
+        		Conexion con = new Conexion();
+        		compra = con.generarConsultaCompra();
+        		con.cerrarConexion();
+        		
+        		//Usa Iterator para cada leer cada objeto ItemConsulta del arraylist
+        		Iterator it = compra.iterator();
+        		while(it.hasNext()){
+        			Object [] fila = new Object[7];
+        			itemCompra = (Compra) it.next();
+        			fila[0] = itemCompra.getIdCompra();
+        			fila[1] = itemCompra.getIdVendedor();
+        			fila[2] = itemCompra.getIdProveedor();
+        			fila[3] = itemCompra.getTotalCompra();
+        			fila[4] = itemCompra.getFechaCompra();
+        			fila[5] = itemCompra.getHoraCompra();
+        			fila[6] = itemCompra.getSaldo();
+        			CompraContabilidad.addRow(fila);
+        		}
+        	}
+        });
+        btnActualizarCompras_Contabilidad.setBounds(520, 197, 89, 23);
+        panelContabilidad.add(btnActualizarCompras_Contabilidad);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -857,14 +901,6 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -905,14 +941,11 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarProducto_Venta;
     private javax.swing.JButton btnRealizarVenta;
     private javax.swing.JButton btnConsultarProducto_Inventario;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblIdProducto_Venta;
     private javax.swing.JLabel lblNombreProducto_Inventario;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel lblVentas_Contabilidad;
+    private javax.swing.JLabel lblCompra_Contabilidad;
     private javax.swing.JLabel lblCantidad_Venta;
     private javax.swing.JLabel lblProductosAVender;
     private javax.swing.JMenu jMenu1;
@@ -928,13 +961,11 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneVenta;
     private javax.swing.JScrollPane jScrollPaneInventario;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane panelContenedor;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableVenta;
     private javax.swing.JTable jTableInventario;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable9;
     private javax.swing.JTextField tfIdProducto_Venta;
     private javax.swing.JTextField tfCantidad_Venta;
     private javax.swing.JTextField tfNombreProducto_Inventario;
@@ -956,4 +987,6 @@ public class Interfaz extends javax.swing.JFrame {
 	private DefaultTableModel modelo;
 	private DefaultTableModel modeloCompra;
 	private DefaultTableModel modeloVenta;
+	private JTable jTableVentas_Contabilidad;
+	private JTable jTableCompras_Contabilidad;
 }
