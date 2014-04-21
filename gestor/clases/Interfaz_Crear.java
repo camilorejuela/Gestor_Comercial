@@ -89,11 +89,10 @@ public class Interfaz_Crear {
 		con.cerrarConexion();
 		
 		frmCrear = new JFrame();
-		frmCrear.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+		frmCrear.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frmCrear.setResizable(false);
 		frmCrear.setTitle("Crear");
 		frmCrear.setBounds(100, 100, 472, 326);
-		frmCrear.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCrear.getContentPane().setLayout(null);
 		
 		JTabbedPane panelContenedor = new JTabbedPane(JTabbedPane.TOP);
@@ -172,55 +171,40 @@ public class Interfaz_Crear {
 				nombreUsuario = tfNuevoUsuario_admin.getText();
 				contraseña = tfNuevaContrasena_admin.getText();
 				
-				// TODO La mayoría del código que sigue para este botón, consiste en validación.
-				// Éste se debe convertir en un método aparte (lo que se pueda) para que pueda
-				// ser utilizado por las otras funciones crear de esta ventana.
-				
 				Date fechaNac = null;
-				
+
 				String error = "";
-				
+
 				if (!fechaNacimiento.equals(""))
 				{
-					try{
-						fechaNac = Date.valueOf(fechaNacimiento);
-					}
-					catch(IllegalArgumentException e)
-					{
+					fechaNac = validarFecha(fechaNacimiento);
+					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
-					}
 				}
 				
-				if (error.equals("")){
-					if (id.equals("")) error = "No ha ingresado id. Por favor llene todos los campos obligatorios.";
-					else if (nombre.equals("")) error = "No ha ingresado nombre. Por favor llene todos los campos obligatorios.";
-					else if (apellido.equals("")) error = "No ha ingresado apellido. Por favor llene todos los campos obligatorios.";
-					else if (nombreUsuario.equals("")) error = "No ha ingresado nombre de usuario. Por favor llene todos los campos obligatorios.";
-					else if (contraseña.equals("")) error = "No ha ingresado contraseña. Por favor llene todos los campos obligatorios.";
-					else {
-						Administrador administrador = new Administrador(id, nombre, apellido,
-								fechaNac, nombreUsuario, contraseña);
-						
-						boolean es_administrador = true, seAgrego = false;
-						
-						seAgrego = administrador.almacenarEnBD(es_administrador);
-						
-						if (seAgrego == true){
-							//System.out.println("SE AGREGÓ EXITOSAMENTE");
-							JOptionPane.showMessageDialog(frmCrear, "El usuario administrador ha sido" +
-									" creado exitosamente.", "Administrador creado",
-									JOptionPane.INFORMATION_MESSAGE);
-						}else{
-							//System.out.println("ALGO FALLÓ");
-							JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el administrador.",
-									"Error", JOptionPane.INFORMATION_MESSAGE);
-						}
-					}
-				}
+				if (error.equals("")) // si no hubo error con la fecha
+					error = validarCamposObligatorios(id, nombre, apellido, nombreUsuario, contraseña);
 				
-				if (!error.equals(""))
+				
+				if (!error.equals("")) // si hubo algún error (fecha mal o campo obligatorio vacío)
 					JOptionPane.showMessageDialog(frmCrear, error,
 							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+					Administrador administrador = new Administrador(id, nombre, apellido,
+							fechaNac, nombreUsuario, contraseña);
+
+					boolean es_administrador = true, seAgrego = false;
+
+					seAgrego = administrador.almacenarEnBD(es_administrador);
+
+					if (seAgrego == true)
+						JOptionPane.showMessageDialog(frmCrear, "El usuario administrador ha sido" +
+								" creado exitosamente.", "Administrador creado",
+								JOptionPane.INFORMATION_MESSAGE);
+					else
+						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el administrador.",
+								"Error", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		btnCrear_admin.setBounds(169, 211, 125, 35);
@@ -257,11 +241,11 @@ public class Interfaz_Crear {
 		tfApellido_vend.setBounds(90, 146, 100, 30);
 		crearVendedor.add(tfApellido_vend);
 		
-		JLabel lblNuevaContrasena_vend = new JLabel("Nueva contrase\u00F1a:");
+		JLabel lblNuevaContrasena_vend = new JLabel("Nueva contrase\u00F1a: *");
 		lblNuevaContrasena_vend.setBounds(220, 146, 110, 30);
 		crearVendedor.add(lblNuevaContrasena_vend);
 		
-		JLabel lblNuevoUsuario_vend = new JLabel("Nuevo usuario:");
+		JLabel lblNuevoUsuario_vend = new JLabel("Nuevo usuario: *");
 		lblNuevoUsuario_vend.setBounds(220, 105, 110, 30);
 		crearVendedor.add(lblNuevoUsuario_vend);
 		
@@ -298,17 +282,38 @@ public class Interfaz_Crear {
 				nombreUsuario = tfNuevoUsuario_vend.getText();
 				contraseña = tfNuevaContrasena_vend.getText();
 				
-				Date fechaNac = Date.valueOf(fechaNacimiento);
+				Date fechaNac = null;
+
+				String error = "";
+
+				if (!fechaNacimiento.equals(""))
+				{
+					fechaNac = validarFecha(fechaNacimiento);
+					if (fechaNac == null)
+						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
+				}
 				
-				Vendedor vendedor = new Vendedor(id, nombre, apellido,
-						fechaNac, nombreUsuario, contraseña);
+				if (error.equals("")) // si no hubo error con la fecha
+					error = validarCamposObligatorios(id, nombre, apellido, nombreUsuario, contraseña);
 				
-				boolean es_administrador = false, seAgrego = false;
-				seAgrego = vendedor.almacenarEnBD(es_administrador);
-				if (seAgrego == true){
-					System.out.println("SE AGREGÓ EXITOSAMENTE");
-				}else{
-					System.out.println("ALGO FALLÓ");
+				
+				if (!error.equals("")) // si hubo algún error (fecha mal o campo obligatorio vacío)
+					JOptionPane.showMessageDialog(frmCrear, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+					Vendedor vendedor = new Vendedor(id, nombre, apellido,
+							fechaNac, nombreUsuario, contraseña);
+					
+					boolean es_administrador = false, seAgrego = false;
+					seAgrego = vendedor.almacenarEnBD(es_administrador);
+					if (seAgrego == true){
+						JOptionPane.showMessageDialog(frmCrear, "El usuario vendedor ha sido" +
+								" creado exitosamente.", "Vendedor creado",
+								JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el vendedor.",
+								"Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			}
 		});
@@ -387,17 +392,38 @@ public class Interfaz_Crear {
 				telefono = tfTelefono_cliente.getText();
 				email = tfEmail_cliente.getText();
 				
-				Date fechaNac = Date.valueOf(fechaNacimiento);
+				Date fechaNac = null;
+
+				String error = "";
+
+				if (!fechaNacimiento.equals(""))
+				{
+					fechaNac = validarFecha(fechaNacimiento);
+					if (fechaNac == null)
+						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
+				}
 				
-				Cliente cliente = new Cliente(id, nombre, apellido, fechaNac,
-						telefono, email);
+				if (error.equals("")) // si no hubo error con la fecha
+					error = validarCamposObligatorios(id, nombre, apellido);
 				
-				boolean seAgrego = false;
-				seAgrego = cliente.almacenarEnBD();
-				if (seAgrego == true){
-					System.out.println("SE AGREGÓ EXITOSAMENTE");
-				}else{
-					System.out.println("ALGO FALLÓ");
+				
+				if (!error.equals("")) // si hubo algún error (fecha mal o campo obligatorio vacío)
+					JOptionPane.showMessageDialog(frmCrear, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+					Cliente cliente = new Cliente(id, nombre, apellido, fechaNac,
+							telefono, email);
+					
+					boolean seAgrego = false;
+					seAgrego = cliente.almacenarEnBD();
+					if (seAgrego == true){
+						JOptionPane.showMessageDialog(frmCrear, "El nuevo cliente ha sido" +
+								" creado exitosamente.", "Cliente creado",
+								JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el cliente.",
+								"Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			}
 		});
@@ -478,17 +504,38 @@ public class Interfaz_Crear {
 				email = tfEmail_proveedor.getText();
 				tipoDeDocumento = tfTipoDeDocumento_proveedor.getText();
 				
-				Date fechaNac = Date.valueOf(fechaNacimiento);
+				Date fechaNac = null;
+
+				String error = "";
+
+				if (!fechaNacimiento.equals(""))
+				{
+					fechaNac = validarFecha(fechaNacimiento);
+					if (fechaNac == null)
+						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
+				}
 				
-				Proveedor proveedor = new Proveedor(id, nombre, apellido, fechaNac,
-						tipoDeDocumento, telefono, email);
+				if (error.equals("")) // si no hubo error con la fecha
+					error = validarCamposObligatorios(id, nombre, apellido, tipoDeDocumento);
 				
-				boolean seAgrego = false;
-				seAgrego = proveedor.almacenarEnBD();
-				if (seAgrego == true){
-					System.out.println("SE AGREGÓ EXITOSAMENTE");
-				}else{
-					System.out.println("ALGO FALLÓ");
+				
+				if (!error.equals("")) // si hubo algún error (fecha mal o campo obligatorio vacío)
+					JOptionPane.showMessageDialog(frmCrear, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+					Proveedor proveedor = new Proveedor(id, nombre, apellido, fechaNac,
+							tipoDeDocumento, telefono, email);
+					
+					boolean seAgrego = false;
+					seAgrego = proveedor.almacenarEnBD();
+					if (seAgrego == true){
+						JOptionPane.showMessageDialog(frmCrear, "El nuevo proveedor ha sido" +
+								" creado exitosamente.", "Proveedor creado",
+								JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el proveedor.",
+								"Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			}
 		});
@@ -518,11 +565,11 @@ public class Interfaz_Crear {
 		tfDescripcion_producto.setBounds(336, 79, 100, 30);
 		crearProducto.add(tfDescripcion_producto);
 		
-		JLabel lblDescripcion_producto = new JLabel("Descripci\u00F3n: *");
+		JLabel lblDescripcion_producto = new JLabel("Descripci\u00F3n:");
 		lblDescripcion_producto.setBounds(228, 79, 100, 30);
 		crearProducto.add(lblDescripcion_producto);
 		
-		JLabel lblProductor_producto = new JLabel("Productor: *");
+		JLabel lblProductor_producto = new JLabel("Productor:");
 		lblProductor_producto.setBounds(228, 120, 100, 30);
 		crearProducto.add(lblProductor_producto);
 		
@@ -549,19 +596,37 @@ public class Interfaz_Crear {
 		JButton btnCrear_producto = new JButton("Crear");
 		btnCrear_producto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String id, nombre, descripcion, productor;
+				
 				id = lbl_producto.getText();
 				nombre = tfNombre_producto.getText();
 				descripcion = tfDescripcion_producto.getText();
 				productor = tfProductor_producto.getText();
-				Producto producto = new Producto(id, nombre, descripcion, productor);
-				boolean seAgrego = false;
-				seAgrego = producto.agregarProductoaBD();
-				if (seAgrego == true){
-					System.out.println("SE AGREGÓ EXITOSAMENTE");
-				}else{
-					System.out.println("ALGO FALLÓ");
+				
+				String error = "";
+				if (nombre.equals(""))
+					error = "No ha ingresado nombre. Por favor llene todos los campos obligatorios.";
+				
+				
+				if (!error.equals("")) // si dejó el campo obligatorio "nombre" vacío
+					JOptionPane.showMessageDialog(frmCrear, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+					Producto producto = new Producto(id, nombre, descripcion, productor);
+					boolean seAgrego = false;
+					seAgrego = producto.agregarProductoaBD();
+					if (seAgrego == true){
+						JOptionPane.showMessageDialog(frmCrear, "El nuevo producto ha sido" +
+								" creado exitosamente.", "Producto creado",
+								JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el producto.",
+								"Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
+
+				
 				frmCrear.setVisible(false);
 				frmCrear.dispose();
 			}
@@ -569,5 +634,91 @@ public class Interfaz_Crear {
 		btnCrear_producto.setBounds(169, 205, 125, 35);
 		crearProducto.add(btnCrear_producto);
 		
+	}
+	
+	/**
+	 * Valida si la fecha de nacimiento ingresada (el parámetro que recibe) está escrita de
+	 * la manera correcta y la devuelve en formato Date si así es. Si la fecha no está bien
+	 * escrita devuelve null.
+	 * 
+	 * @param fechaNacimiento
+	 * @return
+	 */
+	private Date validarFecha(String fechaNacimiento){
+		Date fechaNac;
+		try{
+			fechaNac = Date.valueOf(fechaNacimiento);
+		}
+		catch(IllegalArgumentException e)
+		{
+			fechaNac = null; // no ha ingresado la fecha en el formato correcto AAAA-MM-DD
+		}
+		return fechaNac;
+	}
+	
+	/**
+	 * Valida que los campos obligatorios de la pestaña nuevo administrador o nuevo vendedor
+	 * hayan sido ingresados.
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param nombreUsuario
+	 * @param contraseña
+	 * @return Una cadena vacía ("") si todo está bien, o de error ("No ha ingr...") si algo está mal.
+	 */
+	private String validarCamposObligatorios(String id, String nombre, String apellido,
+			String nombreUsuario, String contraseña){
+		
+		String error = "";
+		
+		error = validarCamposObligatorios(id, nombre, apellido);
+		if (error.equals("")){ // si no hubo error en id, nombre y apellido, evaluamos los otros dos.
+			if (nombreUsuario.equals("")) error = "No ha ingresado nombre de usuario. Por favor llene todos los campos obligatorios.";
+			else if (contraseña.equals("")) error = "No ha ingresado contraseña. Por favor llene todos los campos obligatorios.";
+		}
+		
+		return error;
+	}
+	
+	/**
+	 * Valida que los campos obligatorios de la pestaña nuevo proveedor hayan sido ingresados.
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param tipoDeDocumento
+	 * @return
+	 */
+	private String validarCamposObligatorios(String id, String nombre, String apellido,
+			String tipoDeDocumento){
+		
+		String error = "";
+		
+		error = validarCamposObligatorios(id, nombre, apellido);
+		if (error.equals("")) // si no hubo error en id, nombre y apellido, evaluamos tipoDeDocumento.
+			if (tipoDeDocumento.equals(""))
+				error = "No ha ingresado tipo de documento. Por favor llene todos los campos obligatorios.";
+		
+		return error;
+	}
+	
+	/**
+	 * Valida que los campos obligatorios id, nombre y apellido hayan sido ingresados.
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @return Una cadena vacía ("") si todo está bien, o de error ("No ha ingr...") si algo está mal.
+	 */
+	private String validarCamposObligatorios(String id, String nombre, String apellido){
+		
+		String error = "";
+		
+		if (id.equals("")) error = "No ha ingresado id. Por favor llene todos los campos obligatorios.";
+		else if (nombre.equals("")) error = "No ha ingresado nombre. Por favor llene todos los campos obligatorios.";
+		else if (apellido.equals("")) error = "No ha ingresado apellido. Por favor llene todos los campos obligatorios.";
+		
+		return error;
 	}
 }
