@@ -17,7 +17,16 @@ public class Controlador {
 		
 		//limpiarTodasLasTablas();
 		//llenarConDatosDePrueba();
-		crearClienteYProveedorPorDefecto();
+		//crearClienteYProveedorPorDefecto();
+		
+		/*  PRUEBA DE obtener precio de venta Y vencimiento
+		 * 
+		 * String idProducto = "1";
+		 * float precioVenta = Inventario.getPrecioDeVenta(idProducto);
+		 * System.out.println("Precio venta: " + precioVenta);
+		 * Date f = Inventario.getFechaVencimiento(idProducto);
+		 * System.out.println("Fecha de vencimiento: " + f);
+		 * */
 		
 	}
 	
