@@ -599,6 +599,7 @@ public class Interfaz extends javax.swing.JFrame {
                                                         		con.cerrarConexion();
                                                         		if(existeProducto && hayCantidades>0){
 	                                                                		String nombreProducto = Producto.getNombreProducto(idProducto);
+	                                                                		
 	                                                                		// TODO En las dos siguientes llamadas de métodos estáticos de 
 	                                                                		// Inventario se realizan consultas a la tabla inventario en la
 	                                                                		// BD. Dicha tabla puede tener varios registros con el mismo
@@ -686,14 +687,6 @@ public class Interfaz extends javax.swing.JFrame {
         panelInventario.add(tfNombreProducto_Inventario);
         panelInventario.add(btnConsultarProducto_Inventario);
         panelInventario.add(jScrollPaneInventario);
-        
-        JButton btnProductosAVencerse = new JButton("Productos a vencerse");
-        btnProductosAVencerse.setBounds(20, 264, 170, 35);
-        panelInventario.add(btnProductosAVencerse);
-        
-        JButton btnProductosAAcabarse = new JButton("Productos a acabarse");
-        btnProductosAAcabarse.setBounds(20, 299, 170, 35);
-        panelInventario.add(btnProductosAAcabarse);
 
         lblVentas_Contabilidad.setText("VENTAS:");
 
@@ -852,9 +845,6 @@ public class Interfaz extends javax.swing.JFrame {
         	}
         });
         menuOpciones.add(menuModificar);
-        
-        JMenu menuAyuda = new JMenu("Ayuda");
-        barraMenuPrincipal.add(menuAyuda);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

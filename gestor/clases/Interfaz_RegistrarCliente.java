@@ -105,10 +105,9 @@ public class Interfaz_RegistrarCliente {
 			public void actionPerformed(ActionEvent arg0) {
 				frmRegistrarCliente.dispose();
 				
-				// TODO
-				// Los valores del cliente por defecto ya están almacenados en la BD,
-				// y son los declarados acá abajo. Sin embargo, para reducir el
-				// acoplamiento, no se deben asignar de esa manera sino que se deben
+				// TODO Los valores del cliente por defecto ya están almacenados
+				// en la BD, y son los declarados acá abajo. Sin embargo, para reducir
+				// el acoplamiento, no se deben asignar de esa manera sino que se deben
 				// obtener consultando a la base de datos, que puede ser con métodos get.
 				String nombreClientePorDefecto = "NoRegistrado";
 				String idClientePorDefecto = "10000";
