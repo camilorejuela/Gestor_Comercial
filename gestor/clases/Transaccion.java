@@ -11,19 +11,19 @@ package gestor.clases;
  */
 public abstract class Transaccion {
 	
-	protected int idVendedor;
+	protected String idVendedor;
 	
 	/**
 	 * 
 	 * @param id Id generado automáticamente
 	 * @param vendedor
 	 */
-	public Transaccion(int idVendedor)
+	public Transaccion(String idVendedor)
 	{
 		this.idVendedor = idVendedor;
 	}
 	
-	public int getIdVendedor(){
+	public String getIdVendedor(){
 		return idVendedor;
 	}
 	

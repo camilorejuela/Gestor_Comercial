@@ -169,7 +169,7 @@ public class Conexion {
 			
 			//Agrega el nuevo producto al inventario
 			System.out.println("Actualiza producto en la tabla /inventario/");
-			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','1900-01-01','0','0')";
+			String seleccion2 = "insert inventario values ('" + contadorId + "','" + producto.getId() + "','0','2099-01-01','0','0')";
 			s.executeUpdate(seleccion2);
 			System.out.println("Inventario actualizado");
 			return true;
@@ -257,13 +257,16 @@ public class Conexion {
 	 */
 	public boolean actualizarInventario(Inventario inventario){
 		try {
+			//select * from inventario where id_registro_inventario = '3'
 			rs = s.executeQuery ("select * from inventario where id_registro_inventario = '"+ inventario.getIdRegistroInventario() +"'");
-			if (rs.next())
-				rr = r.executeQuery ("update inventario set cantidad = '" + inventario.getCantidad() + "' where id_registro_inventario = '" + inventario.getIdRegistroInventario() + "'");
-			else
-				rr = r.executeQuery ("insert inventario values ('" + inventario.getIdRegistroInventario() + "', '" + inventario.getIdproducto() + "', '" 
-				+ inventario.getCantidad() + "', '" + inventario.getFecha_vencimiento() + "', '" + inventario.getPreciocompra() + "', '" 
-				+ inventario.getPrecioventa() + "'");		
+			if (rs.next()){
+				System.out.println("EJECUTA EL IF DEL METODO ACTUALIZAR INVENTARIO");
+				r.executeUpdate ("update inventario set cantidad = '" + inventario.getCantidad() + "' where id_registro_inventario = '" + inventario.getIdRegistroInventario() + "'");
+			}else{
+				System.out.println("SE VINO POR EL ELSE DEL METODO ACTUALIZAR INVENTARIO");
+				r.executeUpdate ("insert inventario values ('" + inventario.getIdRegistroInventario() + "','" + inventario.getIdproducto() + "','" 
+				+ inventario.getCantidad() + "','" + inventario.getFecha_vencimiento() + "','" + inventario.getPreciocompra() + "','" 
+				+ inventario.getPrecioventa() + "')");}
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -281,7 +284,7 @@ public class Conexion {
 	 */
 	public boolean actualizarProductoCompra(int idCompra, int idProducto, int cantidad){
 		try {
-			rs = s.executeQuery ("insert producto_compra values ('" + idCompra + "', '" + idProducto + "', '" + cantidad + "')");
+			s.executeUpdate ("insert producto_compra values ('" + idCompra + "', '" + idProducto + "', '" + cantidad + "')");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -291,8 +294,17 @@ public class Conexion {
 	}
 	
 	public boolean actualizarCompra(Compra compra){
+		try {
+			s.executeUpdate ("insert compra values ('" + compra.getIdCompra() + "', '" 
+		    + compra.getIdVendedor() + "', '" + compra.getIdProveedor() + "', '" + compra.getTotalCompra()+ "', '" 
+					+ compra.getFechaCompra() + "', '" + compra.getHoraCompra() + "', '" + compra.getSaldo() + "')");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 		//insert producto_compra values ('" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "')
-		return true;
 	}
 	
 	/**
@@ -307,8 +319,13 @@ public class Conexion {
 		try {
 			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
 			if(rs.next()){
-				if(rs.getDate(4) == fecha && rs.getFloat(5) == precio) idRegistroInventario = rs.getInt(1);
-				else idRegistroInventario = this.obtenerId(esInventario);
+				if(rs.getDate(4).equals(fecha) && rs.getFloat(5) == precio){ 
+					idRegistroInventario = rs.getInt(1);
+					System.out.println("TRUE");}
+				else {
+					idRegistroInventario = this.obtenerId(esInventario);
+					System.out.println("FALSE");}
+				
 			}
 			return idRegistroInventario;
 		} catch (SQLException e) {

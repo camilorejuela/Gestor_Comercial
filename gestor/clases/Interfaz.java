@@ -31,13 +31,10 @@ import java.util.ArrayList;
  */
 public class Interfaz extends javax.swing.JFrame {
 
-	private static String idvendedor; 
+	private static String idvendedor, idCliente, idProveedor; 
 	private static int isadmin, valortotal;
-	
 	private static ArrayList<ItemTransaccion> itemsVenta;
-	private static String idCliente;
 	private static ArrayList<ItemTransaccion> itemsCompra;
-	private static String idProveedor;
 	
     /**
      * Creates new form Interfaz
@@ -78,7 +75,7 @@ public class Interfaz extends javax.swing.JFrame {
 		id_venta = con.obtenerId(esVenta);
 		con.cerrarConexion();
     	
-    	System.out.println("El usuario identificado con id " + getIdVendedor() + " ha iniciado sesión");
+    	System.out.println("El usuario identificado con id " + idvendedor + " ha iniciado sesión");
     	System.out.println(getIsAdmin());
     	setTitle("Gestor Comercial");
     	setSize(535,418);
@@ -253,26 +250,36 @@ public class Interfaz extends javax.swing.JFrame {
         JButton btnRealizarCompra = new JButton();
         btnRealizarCompra.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		String proveed = idProveedor;
         		ItemTransaccion item;
         		int idRegistroInventario, cantidadexistente;
-        		float precioVenta;
-        		boolean actualizarInventario, actualizarProductoCompra;
+        		float precioVenta, saldo, totalCompra;
+        		boolean actualizarInventario, actualizarProductoCompra, actualizarCompra;
         		Date fechaActual;
         		Time horaActual;
         		//ACA ESTÁ LA MAGIA (Y)
         		Iterator it = itemsCompra.iterator();
         		while(it.hasNext()){
-        			
         			Conexion con = new Conexion();
         			item = (ItemTransaccion) it.next();
+        			System.out.println(item.getIdProducto()+ " " + item.getPrecioUnitario() + " " + item.getFechaVencimiento());
         			idRegistroInventario = con.actualizarOCrearNuevoRegistroInventario(Integer.parseInt(item.getIdProducto()), 
         					item.getPrecioUnitario(), item.getFechaVencimiento()); //obtiene el IdRegistroInventario
+        			System.out.println("||||||System. idRegistroInventario|||||");
+        			System.out.println(idRegistroInventario);
         			cantidadexistente = con.sumarCantidadExistenteInventario(idRegistroInventario); //si hay cantidad existentes las guarda, si no = 0
+        			System.out.println("LA CANTIDAD EXISTENTE ES: " +cantidadexistente);
         			precioVenta = con.obtenerPrecioVentaInventario(idRegistroInventario);
-        			
+        			System.out.println("EL PRECIO DE VENTA ES: " +precioVenta);
         			Inventario inventario = new Inventario(idRegistroInventario, Integer.parseInt(item.getIdProducto()),
         					(item.getCantidad()+cantidadexistente), item.getFechaVencimiento(), item.getPrecioUnitario(),
         		     		precioVenta);
+        			System.out.println("IDREGISTROINVENTARIO: "+idRegistroInventario);
+        			System.out.println("IDPRODUCTO: "+Integer.parseInt(item.getIdProducto()));
+        			System.out.println("CANTIDAD: "+(item.getCantidad()+cantidadexistente));
+        			System.out.println("FECHA VENC: "+item.getFechaVencimiento());
+        			System.out.println("PRECIO COMPRA: "+item.getPrecioUnitario());
+        			System.out.println("PRECIO VENTA: "+precioVenta);
         			
         			//la BD inventario se actualiza acá
         			actualizarInventario = con.actualizarInventario(inventario);
@@ -288,7 +295,22 @@ public class Interfaz extends javax.swing.JFrame {
         		// la BD compra se guarda despues del iterator
         		fechaActual = Controlador.fechaSistema();
 				horaActual = Controlador.horaSistema();
-        		
+				totalCompra = Float.valueOf(tfValorTotal_Compra.getText());
+				saldo = totalCompra - Float.valueOf(tfValorCancelado_Compra.getText());
+				System.out.println("id_compra: "+id_compra);
+    			System.out.println("id_vendedor: "+idvendedor);
+    			System.out.println("idproveedor: "+proveed);
+    			System.out.println("total compra: "+totalCompra);
+    			System.out.println("fecha actual: "+fechaActual);
+    			System.out.println("hora actual: "+horaActual);
+    			System.out.println("saldo: "+saldo);
+        		Compra compra = new Compra(id_compra, idvendedor, proveed, totalCompra, fechaActual, horaActual, saldo);
+        		System.out.println("COÑOOOO: "+compra.getIdProveedor());
+        		Conexion con = new Conexion();
+        		actualizarCompra = con.actualizarCompra(compra);
+        		con.cerrarConexion();
+        		if (actualizarCompra) System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+    			else System.out.println("NO ACTUALIZÓ COMPRA, PASÓ ALGO :s");
         	}
         });
         btnRealizarCompra.setBounds(44, 372, 150, 30);
@@ -330,6 +352,7 @@ public class Interfaz extends javax.swing.JFrame {
         panelCompra.add(lblValorTotal_Compra);
         
         tfValorCancelado_Compra = new JTextField();
+        tfValorCancelado_Compra.setText("0");
         tfValorCancelado_Compra.setBounds(322, 372, 100, 25);
         panelCompra.add(tfValorCancelado_Compra);
         

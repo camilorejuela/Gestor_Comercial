@@ -60,8 +60,8 @@ public class ConexionPrueba {
             }
             
             //insertar algo en la base de datos            
-            String seleccion = "insert persona values (NULL,'Fernanda','1993-04-02')";
-    		s.executeUpdate(seleccion);
+            //String seleccion = ;
+    		s.executeUpdate("insert persona values (NULL,'Fernanda','1993-04-02')");
     		System.out.println("GUARDO UN VALOR NUEVO YIPI!");
     		// s.close(); Cierra el statement
             
