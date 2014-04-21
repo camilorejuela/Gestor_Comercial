@@ -11,8 +11,14 @@ import java.util.logging.Logger;*/
  * Ya debe estar la base de datos llamada gestor y tener todas las tablas.
  */
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Clase de conexión con la base de datos MySQL
@@ -293,6 +299,17 @@ public class Conexion {
 		}
 	}
 	
+	public boolean actualizarProductoVenta(int idVenta, int idProducto, int cantidad){
+		try {
+			s.executeUpdate ("insert producto_venta values ('" + idVenta + "', '" + idProducto + "', '" + cantidad + "')");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean actualizarCompra(Compra compra){
 		try {
 			s.executeUpdate ("insert compra values ('" + compra.getIdCompra() + "', '" 
@@ -304,7 +321,53 @@ public class Conexion {
 			e.printStackTrace();
 			return false;
 		}
-		//insert producto_compra values ('" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "', '" +  + "')
+	}
+	
+	public boolean actualizarVenta(Venta venta){
+		try {
+			s.executeUpdate ("insert venta values ('" + venta.getIdVenta() + "', '" 
+		    + venta.getIdVendedor() + "', '" + venta.getIdVendedor() + "', '" + venta.getTotalVenta()+ "', '" 
+					+ venta.getFechaVenta() + "', '" + venta.getHoraVenta() + "')");
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	public int escogerProductoAVender(int idProducto){
+		ArrayList<Integer> holguras = new ArrayList<Integer>();
+		ArrayList<Integer>idRegistro = new ArrayList<Integer>();
+		int temporal, mayor = 0, idRegreso = 0;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
+			if(rs.next()){
+				while(rs.next()){
+					temporal = Controlador.diasFaltantes(rs.getDate(4));
+					System.out.println("HIJUEPUTA TEMPORAL:"+temporal);
+					holguras.add(temporal);
+					System.out.println("GUARDÓ TEMPORAL?:");
+					idRegistro.add(rs.getInt(1));
+					System.out.println("GUARDÓ IDREGISTRO?:");
+				}
+			}
+			Iterator it = holguras.iterator();
+			Iterator ot = idRegistro.iterator();
+			while(it.hasNext()){
+				temporal = (Integer) it.next();
+				if(temporal > mayor){
+					mayor = temporal;
+					idRegreso = (Integer) ot.next();
+				}
+			}
+			return idRegreso;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	/**
@@ -374,6 +437,69 @@ public class Conexion {
 			return 0;
 		}
 	}
+	
+	
+	public float obtenerPrecioCompraInventario(int idRegistroInventario){
+		float precioCompra;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_registro_inventario = '"+ idRegistroInventario +"'");
+			if (rs.next()) precioCompra = rs.getFloat(5);
+			else precioCompra = 0;
+			return precioCompra;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public boolean existeProducto(int idProducto){
+		try {
+			rs = s.executeQuery ("select * from producto where id = '"+ idProducto +"'");
+			if(rs.next()) return true;
+			else return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	public int hayCantidades(int idProducto){
+		int contador = 0;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
+			if(rs.next()){
+				while(rs.next()) {
+					if(rs.getInt(3)!=0) contador = contador + rs.getInt(3);
+				}
+				if(contador != 0) return contador;
+				else return 0;
+			}else return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	/*
+	public ArrayList<Integer> hayCantidades(int idProducto){
+		ArrayList<Integer> idsRegistroInventario = null;
+		try {
+			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
+			if(rs.next()){
+				while(rs.next()) {
+					if(rs.getInt(3)!=0) idsRegistroInventario.add(rs.getInt(1));
+				}
+				return idsRegistroInventario;
+			}else return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}*/
 	
 	
 	//COSAS AGREGADAS POR CAMILO

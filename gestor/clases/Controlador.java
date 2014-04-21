@@ -30,6 +30,20 @@ public class Controlador {
 		
 	}
 	
+	public static int diasFaltantes(Date fecha){
+		Date fechaactual = fechaSistema();
+		Date fechavencimiento = fecha;
+		int holgura = 0; 
+		int año1 = fechaactual.getYear();
+		int mes1 = fechaactual.getMonth();
+		int dia1 = fechaactual.getDay();
+		int año2 = fechavencimiento.getYear();
+		int mes2 = fechavencimiento.getMonth();
+		int dia2 = fechavencimiento.getDay();
+		holgura = ((año2 - año1)*365) + ((mes2 - mes1)*30) + (dia2 - dia1);
+		return holgura;
+	}
+	
 	public static Time horaSistema(){
 		Calendar calendario = Calendar.getInstance();
 		int hora, minutos, segundos;
@@ -139,5 +153,6 @@ public class Controlador {
 		Conexion conexion = new Conexion();
 		conexion.registrarProveedorYClientePorDefecto();
 		conexion.cerrarConexion();
-	}	
+	}
+	
 }
