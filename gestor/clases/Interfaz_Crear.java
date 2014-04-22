@@ -178,6 +178,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
+					// TODO Llamar al método validarFecha() de la clase Controlador y probar
 					fechaNac = validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
@@ -293,6 +294,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
+					// TODO Llamar al método validarFecha() de la clase Controlador y probar
 					fechaNac = validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
@@ -407,6 +409,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
+					// TODO Llamar al método validarFecha() de la clase Controlador y probar
 					fechaNac = validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
@@ -523,6 +526,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
+					// TODO Llamar al método validarFecha() de la clase Controlador y probar
 					fechaNac = validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
@@ -651,6 +655,8 @@ public class Interfaz_Crear {
 		
 	}
 	
+	// TODO Eliminar las referencias al siguiente método y quitarlo, ya que se trasladó
+	// a Controlador
 	/**
 	 * Valida si la fecha de nacimiento ingresada (el parámetro que recibe) está escrita de
 	 * la manera correcta y la devuelve en formato Date si así es. Si la fecha no está bien

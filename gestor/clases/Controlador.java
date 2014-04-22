@@ -159,4 +159,23 @@ public class Controlador {
 		conexion.cerrarConexion();
 	}
 	
+	/**
+	 * Valida si la fecha ingresada (el parámetro que recibe) está escrita de
+	 * la manera correcta y la devuelve en formato Date si así es. Si la fecha
+	 * no está bien escrita devuelve null.
+	 * 
+	 * @param cadenaFecha
+	 * @return
+	 */
+	public static Date validarFecha(String cadenaFecha){
+		Date fecha;
+		try{
+			fecha = Date.valueOf(cadenaFecha);
+		}
+		catch(IllegalArgumentException e)
+		{
+			fecha = null; // no ha ingresado la fecha en el formato correcto AAAA-MM-DD
+		}
+		return fecha;
+	}
 }
