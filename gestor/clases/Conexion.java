@@ -107,14 +107,16 @@ public class Conexion {
 				productor =  rs.getString(4);
 				//sobre inventario
 				rr = r.executeQuery("select precioventa, cantidad, vencimiento from inventario where id_producto = '"+ idtemporal +"'"); 
-				if(rr.next()){
-					precio = rr.getFloat(1);
-					cantidad = rr.getInt(2);
-					vencimiento = rr.getDate(3);
-					System.out.println("id:"+ idtemporal + " nombre:" + nombre + " productor:" + productor + " precio:" + precio + " cantidad:" + cantidad + " vencimiento:" + vencimiento);
-					ItemConsulta nuevaConsulta = new ItemConsulta(idtemporal, nombre, productor, precio, cantidad, vencimiento);
-					consulta.add(nuevaConsulta);
-				}	
+				//if(rr.next()){
+					while(rr.next()){
+						precio = rr.getFloat(1);
+						cantidad = rr.getInt(2);
+						vencimiento = rr.getDate(3);
+						System.out.println("id:"+ idtemporal + " nombre:" + nombre + " productor:" + productor + " precio:" + precio + " cantidad:" + cantidad + " vencimiento:" + vencimiento);
+						ItemConsulta nuevaConsulta = new ItemConsulta(idtemporal, nombre, productor, precio, cantidad, vencimiento);
+						consulta.add(nuevaConsulta);
+					}
+				//}	
 			}
 			return consulta;
 			

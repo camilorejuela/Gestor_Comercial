@@ -3,12 +3,14 @@ package gestor.clases;
 import java.sql.Date;
 
 public class ItemConsulta {
-	private int idProducto, cantidad;
+	
+	private int idProducto, cantidad; //idRegistroInventario;
 	private String nombre, productor;
 	private float precio;
 	private Date vencimiento;
 	
 	public ItemConsulta(int idProducto, String nombre, String productor, float precio, int cantidad, Date vencimiento){
+		//this.idRegistroInventario = idRegistroInventario;
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.productor = productor;
@@ -16,6 +18,10 @@ public class ItemConsulta {
 		this.cantidad = cantidad;
 		this.vencimiento = vencimiento;
 	}
+	
+	/*public int getIdidRegistroInventario() {
+		return idRegistroInventario;
+	}*/
 
 	public int getIdProducto() {
 		return idProducto;
