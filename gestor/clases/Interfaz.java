@@ -280,6 +280,7 @@ public class Interfaz extends javax.swing.JFrame {
         			cantidadexistente = con.sumarCantidadExistenteInventario(idRegistroInventario); //si hay cantidad existentes las guarda, si no = 0
         			System.out.println("LA CANTIDAD EXISTENTE ES: " +cantidadexistente);
         			precioVenta = con.obtenerPrecioVentaInventario(idRegistroInventario);
+        			if (precioVenta == 0) precioVenta = (float) (item.getPrecioUnitario()* 1.20);
         			System.out.println("EL PRECIO DE VENTA ES: " +precioVenta);
         			Inventario inventario = new Inventario(idRegistroInventario, Integer.parseInt(item.getIdProducto()),
         					(item.getCantidad()+cantidadexistente), item.getFechaVencimiento(), item.getPrecioUnitario(),
@@ -334,6 +335,10 @@ public class Interfaz extends javax.swing.JFrame {
         		//id_venta = uno.obtenerId(esVenta);
         		uno.cerrarConexion();
         		lblCompra_compra.setText(String.valueOf(id_venta));
+        		//Limpia la tabla
+        		int numfilas = modeloCompra.getRowCount()-1;
+        		for(int i=numfilas; i>=0; i--) modeloCompra.removeRow(i);
+        		
         	}
         });
         btnRealizarCompra.setBounds(43, 358, 150, 30);
@@ -563,6 +568,9 @@ public class Interfaz extends javax.swing.JFrame {
         		id_venta = uno.obtenerId(esVenta);
         		uno.cerrarConexion();
         		lblVenta_venta.setText(String.valueOf(id_venta));
+        		//Limpia la tabla
+        		int numfilas = modeloVenta.getRowCount()-1;
+        		for(int i=numfilas; i>=0; i--) modeloVenta.removeRow(i);
         	}
         });
         btnRealizarVenta.setBounds(43, 361, 150, 30);
