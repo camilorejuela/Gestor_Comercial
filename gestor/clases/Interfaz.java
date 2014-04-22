@@ -357,7 +357,7 @@ public class Interfaz extends javax.swing.JFrame {
         		id_compra = uno.obtenerId(esCompra);
         		//id_venta = uno.obtenerId(esVenta);
         		uno.cerrarConexion();
-        		lblCompra_compra.setText(String.valueOf(id_venta));
+        		lblCompra_compra.setText(String.valueOf(id_compra));
         		//Limpia la tabla
         		int numfilas = modeloCompra.getRowCount()-1;
         		for(int i=numfilas; i>=0; i--) modeloCompra.removeRow(i);
@@ -626,7 +626,6 @@ public class Interfaz extends javax.swing.JFrame {
                                                         btnAgregarProducto_Venta.setText("Agregar producto");
                                                         btnAgregarProducto_Venta.addActionListener(new java.awt.event.ActionListener() {
                                                             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                //jButton1ActionPerformed(evt);
                                                             	boolean existeProducto; 
                                                             	int hayCantidades;
                                                             	//ArrayList<Integer> hayCantidades;

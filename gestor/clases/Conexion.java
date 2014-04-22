@@ -405,15 +405,10 @@ public class Conexion {
 		int temporal, mayor = 0, idRegreso = 0;
 		try {
 			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
-			if(rs.next()){
-				while(rs.next()){
-					temporal = Controlador.diasFaltantes(rs.getDate(4));
-					System.out.println("HIJUEPUTA TEMPORAL:"+temporal);
-					holguras.add(temporal);
-					System.out.println("GUARDÓ TEMPORAL?:");
-					idRegistro.add(rs.getInt(1));
-					System.out.println("GUARDÓ IDREGISTRO?:");
-				}
+			while(rs.next()){
+				temporal = Controlador.diasFaltantes(rs.getDate(4));
+				holguras.add(temporal);
+				idRegistro.add(rs.getInt(1));
 			}
 			Iterator it = holguras.iterator();
 			Iterator ot = idRegistro.iterator();
@@ -428,8 +423,8 @@ public class Conexion {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}
-		return 0;
 	}
 	
 	/**
@@ -532,13 +527,13 @@ public class Conexion {
 		int contador = 0;
 		try {
 			rs = s.executeQuery ("select * from inventario where id_producto = '"+ idProducto +"'");
-			if(rs.next()){
+			//if(rs.next()){
 				while(rs.next()) {
 					if(rs.getInt(3)!=0) contador = contador + rs.getInt(3);
 				}
 				if(contador != 0) return contador;
 				else return 0;
-			}else return 0;
+			//}else return 0;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
