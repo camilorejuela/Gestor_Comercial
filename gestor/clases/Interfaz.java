@@ -214,39 +214,58 @@ public class Interfaz extends javax.swing.JFrame {
         		String idProducto = tfIdProducto_Compra.getText();
         		int cantidad = Integer.parseInt(tfCantidad_Compra.getText());
         		float precioUnitario = Float.parseFloat(tfPrecioUnidad_Compra.getText());
-        		Date fecha = Date.valueOf(tfFechaVencimiento_Compra.getText());
-        		float precioTotal = precioUnitario * cantidad;
-        		Conexion con = new Conexion();
-        		existeProducto = con.existeProducto(Integer.valueOf(idProducto));
-        		con.cerrarConexion();
-        		if(existeProducto){
-	        		String nombreProducto = Producto.getNombreProducto(idProducto);
+        		String cadenaFecha = tfFechaVencimiento_Compra.getText();
+        		
+        		Date fecha = null;
+
+				String error = "";
+
+				if (!cadenaFecha.equals(""))
+				{
+					fecha = Controlador.validarFecha(cadenaFecha);
+					if (fecha == null)
+						error = "La fecha de vencimiento debe estar en formato: AAAA-MM-DD";
+				}
+        		
+				if (!error.equals("")) // si hubo error en la fecha
+					JOptionPane.showMessageDialog(frmGestorComercial, error,
+							"Error", JOptionPane.INFORMATION_MESSAGE);
+				else{ // si todo está bien
+        		
+	        		float precioTotal = precioUnitario * cantidad;
+	        		Conexion con = new Conexion();
+	        		existeProducto = con.existeProducto(Integer.valueOf(idProducto));
+	        		con.cerrarConexion();
+	        		if(existeProducto){
+		        		String nombreProducto = Producto.getNombreProducto(idProducto);
+		        		
+		        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
+		        		boolean seAgrego = false;
+		        		seAgrego = itemsCompra.add(itemCompra);
+		        		
+		        		Object [] fila = new Object[6];
+		        		fila[0] = itemCompra.getIdProducto();
+		        		fila[1] = itemCompra.getNombreProducto();
+		        		fila[2] = itemCompra.getCantidad();
+		        		fila[3] = itemCompra.getFechaVencimiento();
+		        		fila[4] = itemCompra.getPrecioUnitario();
+		        		fila[5] = itemCompra.getPrecioTotal();
+		        		modeloCompra.addRow(fila);
+		        		valortotal+= itemCompra.getPrecioTotal();
+		        		tfValorTotal_Compra.setText(String.valueOf(valortotal));
+		        		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
+		        		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
+		         		tfIdProducto_Compra.setText("");
+		        		tfCantidad_Compra.setText("");
+		        		tfPrecioUnidad_Compra.setText("");
+		        		tfFechaVencimiento_Compra.setText("");
+	        		}else{;
+	        			//System.out.println("PARCERO, EL PRODUCTO NO EXISTE");
+	        			JOptionPane.showMessageDialog(frmGestorComercial, "No existe un producto con id " + idProducto,
+								"Id incorrecto", JOptionPane.INFORMATION_MESSAGE);
+	        		}
 	        		
-	        		ItemTransaccion itemCompra = new ItemTransaccion(idProducto, nombreProducto, cantidad, fecha, precioUnitario, precioTotal);
-	        		boolean seAgrego = false;
-	        		seAgrego = itemsCompra.add(itemCompra);
-	        		
-	        		Object [] fila = new Object[6];
-	        		fila[0] = itemCompra.getIdProducto();
-	        		fila[1] = itemCompra.getNombreProducto();
-	        		fila[2] = itemCompra.getCantidad();
-	        		fila[3] = itemCompra.getFechaVencimiento();
-	        		fila[4] = itemCompra.getPrecioUnitario();
-	        		fila[5] = itemCompra.getPrecioTotal();
-	        		modeloCompra.addRow(fila);
-	        		valortotal+= itemCompra.getPrecioTotal();
-	        		tfValorTotal_Compra.setText(String.valueOf(valortotal));
-	        		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
-	        		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
-	         		tfIdProducto_Compra.setText("");
-	        		tfCantidad_Compra.setText("");
-	        		tfPrecioUnidad_Compra.setText("");
-	        		tfFechaVencimiento_Compra.setText("");
-        		}else{;
-        			//System.out.println("PARCERO, EL PRODUCTO NO EXISTE");
-        			JOptionPane.showMessageDialog(frmGestorComercial, "No existe un producto con id " + idProducto,
-							"Id incorrecto", JOptionPane.INFORMATION_MESSAGE);
-        		}
+				}
         	}
         });
 

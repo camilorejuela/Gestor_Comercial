@@ -178,8 +178,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
-					// TODO Llamar al método validarFecha() de la clase Controlador y probar
-					fechaNac = validarFecha(fechaNacimiento);
+					fechaNac = Controlador.validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
 				}
@@ -294,8 +293,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
-					// TODO Llamar al método validarFecha() de la clase Controlador y probar
-					fechaNac = validarFecha(fechaNacimiento);
+					fechaNac = Controlador.validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
 				}
@@ -409,8 +407,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
-					// TODO Llamar al método validarFecha() de la clase Controlador y probar
-					fechaNac = validarFecha(fechaNacimiento);
+					fechaNac = Controlador.validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
 				}
@@ -526,8 +523,7 @@ public class Interfaz_Crear {
 
 				if (!fechaNacimiento.equals(""))
 				{
-					// TODO Llamar al método validarFecha() de la clase Controlador y probar
-					fechaNac = validarFecha(fechaNacimiento);
+					fechaNac = Controlador.validarFecha(fechaNacimiento);
 					if (fechaNac == null)
 						error = "La fecha de nacimiento debe estar en formato: AAAA-MM-DD";
 				}
@@ -653,28 +649,6 @@ public class Interfaz_Crear {
 		btnCrear_producto.setBounds(169, 205, 125, 35);
 		crearProducto.add(btnCrear_producto);
 		
-	}
-	
-	// TODO Eliminar las referencias al siguiente método y quitarlo, ya que se trasladó
-	// a Controlador
-	/**
-	 * Valida si la fecha de nacimiento ingresada (el parámetro que recibe) está escrita de
-	 * la manera correcta y la devuelve en formato Date si así es. Si la fecha no está bien
-	 * escrita devuelve null.
-	 * 
-	 * @param fechaNacimiento
-	 * @return
-	 */
-	private Date validarFecha(String fechaNacimiento){
-		Date fechaNac;
-		try{
-			fechaNac = Date.valueOf(fechaNacimiento);
-		}
-		catch(IllegalArgumentException e)
-		{
-			fechaNac = null; // no ha ingresado la fecha en el formato correcto AAAA-MM-DD
-		}
-		return fechaNac;
 	}
 	
 	/**
