@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -241,7 +242,11 @@ public class Interfaz extends javax.swing.JFrame {
 	        		tfCantidad_Compra.setText("");
 	        		tfPrecioUnidad_Compra.setText("");
 	        		tfFechaVencimiento_Compra.setText("");
-        		}else System.out.println("PARCERO, EL PRODUCTO NO EXISTE");
+        		}else{;
+        			//System.out.println("PARCERO, EL PRODUCTO NO EXISTE");
+        			JOptionPane.showMessageDialog(frmGestorComercial, "No existe un producto con id " + idProducto,
+							"Id incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        		}
         	}
         });
 
@@ -629,7 +634,11 @@ public class Interfaz extends javax.swing.JFrame {
 	                                                            
 	                                                                		if (seAgrego) System.out.println("ÍTEM/PRODUCTO AGREGADO EXITOSAMENTE!");
 	                                                                		else System.out.println("FATAL! -> NO SE AGREGÓ EL PRODUCTO!");
-                                                        		}else System.out.println("PARCERO, EL PRODUCTO NO EXISTE O ESTÁ AGOTADO");
+                                                        		}else{
+                                                        			//System.out.println("PARCERO, EL PRODUCTO NO EXISTE O ESTÁ AGOTADO");
+                                                        			JOptionPane.showMessageDialog(frmGestorComercial, "No existe un producto con id " + idProducto,
+                                                							"Id incorrecto", JOptionPane.INFORMATION_MESSAGE);
+                                                        		}
                                                             }
                                                         });
                                                         
@@ -928,6 +937,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JFrame frmGestorComercial;
     private javax.swing.JButton btnAgregarProducto_Venta;
     private javax.swing.JButton btnRealizarVenta;
     private javax.swing.JButton btnConsultarProducto_Inventario;

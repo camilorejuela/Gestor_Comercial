@@ -169,6 +169,9 @@ public class Interfaz_Crear {
 				nombreUsuario = tfNuevoUsuario_admin.getText();
 				contraseña = tfNuevaContrasena_admin.getText();
 				
+				// TODO Hace falta validar que el id ingresado no exista, es decir, que este
+				// usuario no haya sido creado con anterioridad
+				
 				Date fechaNac = null;
 
 				String error = "";
@@ -281,6 +284,9 @@ public class Interfaz_Crear {
 				nombreUsuario = tfNuevoUsuario_vend.getText();
 				contraseña = tfNuevaContrasena_vend.getText();
 				
+				// TODO Hace falta validar que el id ingresado no exista, es decir, que este
+				// usuario no haya sido creado con anterioridad
+				
 				Date fechaNac = null;
 
 				String error = "";
@@ -391,6 +397,9 @@ public class Interfaz_Crear {
 				fechaNacimiento = tfFechaNac_cliente.getText(); // formato: AAAA-MM-DD
 				telefono = tfTelefono_cliente.getText();
 				email = tfEmail_cliente.getText();
+				
+				// TODO Hace falta validar que el id ingresado no exista, es decir, que este
+				// cliente no haya sido creado con anterioridad
 				
 				Date fechaNac = null;
 
@@ -504,6 +513,9 @@ public class Interfaz_Crear {
 				telefono = tfTelefono_proveedor.getText();
 				email = tfEmail_proveedor.getText();
 				tipoDeDocumento = tfTipoDeDocumento_proveedor.getText();
+				
+				// TODO Hace falta validar que el id ingresado no exista, es decir, que este
+				// proveedor no haya sido creado con anterioridad
 				
 				Date fechaNac = null;
 
