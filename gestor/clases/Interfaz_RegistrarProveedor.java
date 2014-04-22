@@ -104,7 +104,6 @@ public class Interfaz_RegistrarProveedor {
 		JButton btnAceptar_RegistrarProveedor = new JButton("Aceptar");
 		btnAceptar_RegistrarProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmRegistrarProveedor.dispose();
 				
 				// TODO Los valores del proveedor por defecto ya están almacenados
 				// en la BD, y son los declarados acá abajo. Sin embargo, para reducir
@@ -126,17 +125,19 @@ public class Interfaz_RegistrarProveedor {
 					
 					if (nombreAVerificar.equals(nombreParaIdNoIngresado) ||
 							nombreAVerificar.equals(nombreParaIdIncorrecto)){
-						//System.out.println("POR FAVOR, INGRESE UN ID VÁLIDO O SELECCIONE" +
-							//	" LA OPCIÓN DE -NO REGISTRAR PROVEEDOR-");
 						JOptionPane.showMessageDialog(frmRegistrarProveedor,
-								"Por favor, ingrese un id" +
-								" válido o seleccione la opción de -No registrar " +
-								"proveedor-", "El id ingresado no es válido", JOptionPane.INFORMATION_MESSAGE);
+								"Por favor, ingrese un id válido o seleccione la opción" +
+								" de -No registrar proveedor-", "El id ingresado no es válido",
+								JOptionPane.INFORMATION_MESSAGE);
 						}
 					else {
 						nombreProveedor = nombreAVerificar;
-						System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
-							nombreProveedor);
+						//System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
+						//	nombreProveedor);
+						JOptionPane.showMessageDialog(frmRegistrarProveedor, "El proveedor "
+								+ nombreProveedor + " ha sido registrado.",
+								"Proveedor registrado", JOptionPane.INFORMATION_MESSAGE);
+						frmRegistrarProveedor.dispose();
 						// "ENVÍO EL ID DEL PROVEEDOR", es decir, que ya está en la
 						// variable estática "idProveedor" y puedo accederlo desde la
 						// interfaz principal. Éste ya se asignó en el código del
@@ -145,8 +146,12 @@ public class Interfaz_RegistrarProveedor {
 				}
 				else if (rdbtnmntmNoRegistrar_RegistrarProveedor.isSelected()){
 					nombreProveedor = nombreProveedorPorDefecto;
-					System.out.println("SELECCIONADO -> NO REGISTRAR PROVEEDOR -> " +
-						"NOMBRE DE PROVEEDOR POR DEFECTO ENVIADO: " + nombreProveedor);
+					//System.out.println("SELECCIONADO -> NO REGISTRAR PROVEEDOR -> " +
+					//	"NOMBRE DE PROVEEDOR POR DEFECTO ENVIADO: " + nombreProveedor);
+					JOptionPane.showMessageDialog(frmRegistrarProveedor, "Seleccionado: no " +
+							"registrar proveedor.", "Proveedor no registrado",
+							JOptionPane.INFORMATION_MESSAGE);
+					frmRegistrarProveedor.dispose();
 					//idProveedor = idProveedorPorDefecto;
 					Interfaz.setIdProveedor(idProveedorPorDefecto);
 					// "ENVÍO idProveedorPorDefecto", es decir, que ya está en la

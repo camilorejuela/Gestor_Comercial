@@ -89,7 +89,7 @@ public class Interfaz_Crear {
 		con.cerrarConexion();
 		
 		frmCrear = new JFrame();
-		frmCrear.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmCrear.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCrear.setResizable(false);
 		frmCrear.setTitle("Crear");
 		frmCrear.setBounds(100, 100, 472, 326);
@@ -160,8 +160,6 @@ public class Interfaz_Crear {
 		JButton btnCrear_admin = new JButton("Crear");
 		btnCrear_admin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmCrear.setVisible(false);
-				frmCrear.dispose();
 				
 				String id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña;
 				id = tfId_admin.getText();
@@ -197,10 +195,13 @@ public class Interfaz_Crear {
 
 					seAgrego = administrador.almacenarEnBD(es_administrador);
 
-					if (seAgrego == true)
+					if (seAgrego == true){
 						JOptionPane.showMessageDialog(frmCrear, "El usuario administrador ha sido" +
 								" creado exitosamente.", "Administrador creado",
 								JOptionPane.INFORMATION_MESSAGE);
+						frmCrear.setVisible(false);
+						frmCrear.dispose();
+					}
 					else
 						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el administrador.",
 								"Error", JOptionPane.INFORMATION_MESSAGE);
@@ -271,8 +272,6 @@ public class Interfaz_Crear {
 		JButton btnCrear_vend = new JButton("Crear");
 		btnCrear_vend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmCrear.setVisible(false);
-				frmCrear.dispose();
 				
 				String id, nombre, apellido, fechaNacimiento, nombreUsuario, contraseña;
 				id = tfId_vend.getText();
@@ -310,7 +309,10 @@ public class Interfaz_Crear {
 						JOptionPane.showMessageDialog(frmCrear, "El usuario vendedor ha sido" +
 								" creado exitosamente.", "Vendedor creado",
 								JOptionPane.INFORMATION_MESSAGE);
-					}else{
+						frmCrear.setVisible(false);
+						frmCrear.dispose();
+					}
+					else{
 						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el vendedor.",
 								"Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -381,8 +383,6 @@ public class Interfaz_Crear {
 		JButton btnCrear_cliente = new JButton("Crear");
 		btnCrear_cliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmCrear.setVisible(false);
-				frmCrear.dispose();
 				
 				String id, nombre, apellido, fechaNacimiento, telefono, email;
 				id = tfId_cliente.getText();
@@ -420,7 +420,10 @@ public class Interfaz_Crear {
 						JOptionPane.showMessageDialog(frmCrear, "El nuevo cliente ha sido" +
 								" creado exitosamente.", "Cliente creado",
 								JOptionPane.INFORMATION_MESSAGE);
-					}else{
+						frmCrear.setVisible(false);
+						frmCrear.dispose();
+					}
+					else{
 						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el cliente.",
 								"Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -491,9 +494,7 @@ public class Interfaz_Crear {
 		JButton btnCrear_proveedor = new JButton("Crear");
 		btnCrear_proveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmCrear.setVisible(false);
-				frmCrear.dispose();
-				
+								
 				String id, nombre, apellido, fechaNacimiento, telefono, email,
 					tipoDeDocumento;
 				id = tfId_proveedor.getText();
@@ -532,7 +533,10 @@ public class Interfaz_Crear {
 						JOptionPane.showMessageDialog(frmCrear, "El nuevo proveedor ha sido" +
 								" creado exitosamente.", "Proveedor creado",
 								JOptionPane.INFORMATION_MESSAGE);
-					}else{
+						frmCrear.setVisible(false);
+						frmCrear.dispose();
+					}
+					else{
 						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el proveedor.",
 								"Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -620,15 +624,14 @@ public class Interfaz_Crear {
 						JOptionPane.showMessageDialog(frmCrear, "El nuevo producto ha sido" +
 								" creado exitosamente.", "Producto creado",
 								JOptionPane.INFORMATION_MESSAGE);
-					}else{
+						frmCrear.setVisible(false);
+						frmCrear.dispose();
+					}
+					else{
 						JOptionPane.showMessageDialog(frmCrear, "No se pudo crear el producto.",
 								"Error", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
-
-				
-				frmCrear.setVisible(false);
-				frmCrear.dispose();
 			}
 		});
 		btnCrear_producto.setBounds(169, 205, 125, 35);

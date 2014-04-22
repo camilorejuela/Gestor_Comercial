@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -103,8 +104,7 @@ public class Interfaz_RegistrarCliente {
 		JButton btnAceptar_RegistrarCliente = new JButton("Aceptar");
 		btnAceptar_RegistrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frmRegistrarCliente.dispose();
-				
+								
 				// TODO Los valores del cliente por defecto ya están almacenados
 				// en la BD, y son los declarados acá abajo. Sin embargo, para reducir
 				// el acoplamiento, no se deben asignar de esa manera sino que se deben
@@ -125,12 +125,18 @@ public class Interfaz_RegistrarCliente {
 					
 					if (nombreAVerificar.equals(nombreParaIdNoIngresado) ||
 							nombreAVerificar.equals(nombreParaIdIncorrecto))
-						System.out.println("POR FAVOR, INGRESE UN ID VÁLIDO O SELECCIONE" +
-								" LA OPCIÓN DE -NO REGISTRAR CLIENTE-");
+						JOptionPane.showMessageDialog(frmRegistrarCliente,
+								"Por favor, ingrese un id válido o seleccione la opción" +
+								" de -No registrar cliente-", "El id ingresado no es válido",
+								JOptionPane.INFORMATION_MESSAGE);
 					else {
 						nombreCliente = nombreAVerificar;
-						System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
-							nombreCliente);
+						//System.out.println("NOMBRE VERIFICADO CORRECTAMENTE: " +
+						//	nombreCliente);
+						JOptionPane.showMessageDialog(frmRegistrarCliente, "El cliente "
+								+ nombreCliente + " ha sido registrado.",
+								"Cliente registrado", JOptionPane.INFORMATION_MESSAGE);
+						frmRegistrarCliente.dispose();
 						// "ENVÍO EL ID DEL CLIENTE", es decir, que ya está en la
 						// variable estática "idCliente" y puedo accederlo desde la
 						// interfaz principal. Éste ya se asignó en el código del
@@ -139,17 +145,18 @@ public class Interfaz_RegistrarCliente {
 				}
 				else if (rdbtnmntmNoRegistrar_RegistrarCliente.isSelected()){
 					nombreCliente = nombreClientePorDefecto;
-					System.out.println("SELECCIONADO -> NO REGISTRAR CLIENTE -> " +
-						"NOMBRE DE CLIENTE POR DEFECTO ENVIADO: " + nombreCliente);
+					//System.out.println("SELECCIONADO -> NO REGISTRAR CLIENTE -> " +
+					//	"NOMBRE DE CLIENTE POR DEFECTO ENVIADO: " + nombreCliente);
+					JOptionPane.showMessageDialog(frmRegistrarCliente, "Seleccionado: no " +
+							"registrar cliente.", "Cliente no registrado",
+							JOptionPane.INFORMATION_MESSAGE);
+					frmRegistrarCliente.dispose();
 					//idCliente = idClientePorDefecto;
 					Interfaz.setIdCliente(idClientePorDefecto);
 					// "ENVÍO idClientePorDefecto", es decir, que ya está en la
 					// variable estática "idCliente" y puedo accederlo desde la
 					// interfaz principal.
 				}
-				
-				// JOptionPane.showMessageDialog(frmJwc, "Fallo grave", "Error",
-				// 	JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnAceptar_RegistrarCliente.setBounds(145, 194, 89, 23);
