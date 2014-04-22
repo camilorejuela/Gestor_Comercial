@@ -319,7 +319,11 @@ public class Interfaz extends javax.swing.JFrame {
         		Conexion con = new Conexion();
         		actualizarCompra = con.actualizarCompra(compra);
         		con.cerrarConexion();
-        		if (actualizarCompra) System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+        		if (actualizarCompra){
+        			System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+        			JOptionPane.showMessageDialog(frmGestorComercial, "Compra realizada exitosamente.",
+        					"Compra realizada", JOptionPane.INFORMATION_MESSAGE);
+        		}
     			else System.out.println("NO ACTUALIZÓ COMPRA, PASÓ ALGO :s");
         		tfIdProducto_Compra.setText("");
         		tfCantidad_Compra.setText("");
@@ -551,7 +555,11 @@ public class Interfaz extends javax.swing.JFrame {
         		Conexion con = new Conexion();
         		actualizarCompra = con.actualizarVenta(venta);
         		con.cerrarConexion();
-        		if (actualizarCompra) System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+        		if (actualizarCompra){
+        			System.out.println("SE ACTUALIZÓ COMPRA CORRECTAMENTE");
+        			JOptionPane.showMessageDialog(frmGestorComercial, "Venta realizada exitosamente.",
+        					"Venta realizada", JOptionPane.INFORMATION_MESSAGE);
+        		}
     			else System.out.println("NO ACTUALIZÓ COMPRA, PASÓ ALGO :s");
         		tfIdProducto_Venta.setText("");
         		tfCantidad_Venta.setText("");
