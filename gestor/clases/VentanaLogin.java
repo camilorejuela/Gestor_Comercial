@@ -15,9 +15,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class VentanaPrincipal {
+public class VentanaLogin {
 
-	private JFrame frmPrincipal;
+	private JFrame frmLogin;
 	private JTextField tfUsuario;
 	private JPasswordField tfContrasena;
 
@@ -28,9 +28,9 @@ public class VentanaPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal window = new VentanaPrincipal();
-					window.frmPrincipal.setVisible(true);
-					window.frmPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					VentanaLogin window = new VentanaLogin();
+					window.frmLogin.setVisible(true);
+					window.frmLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,7 +41,7 @@ public class VentanaPrincipal {
 	/**
 	 * Create the application.
 	 */
-	public VentanaPrincipal() {
+	public VentanaLogin() {
 		initialize();
 	}
 
@@ -49,35 +49,39 @@ public class VentanaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmPrincipal = new JFrame();
-		frmPrincipal.setTitle("Principal");
-		frmPrincipal.setResizable(false);
-		frmPrincipal.setBounds(100, 100, 449, 377);
-		frmPrincipal.getContentPane().setLayout(null);
+		frmLogin = new JFrame();
+		frmLogin.setTitle("Iniciar sesión");
+		frmLogin.setResizable(false);
+		frmLogin.setBounds(100, 100, 449, 377);
+		frmLogin.getContentPane().setLayout(null);
 		
 		tfUsuario = new JTextField();
 		tfUsuario.setBounds(211, 119, 100, 25);
-		frmPrincipal.getContentPane().add(tfUsuario);
+		frmLogin.getContentPane().add(tfUsuario);
 		tfUsuario.setColumns(10);
+		
+		tfContrasena = new JPasswordField();
+		tfContrasena.setBounds(211, 155, 100, 25);
+		frmLogin.getContentPane().add(tfContrasena);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setBounds(135, 119, 80, 25);
-		frmPrincipal.getContentPane().add(lblUsuario);
+		frmLogin.getContentPane().add(lblUsuario);
 		
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a");
 		lblContrasena.setBounds(135, 155, 80, 25);
-		frmPrincipal.getContentPane().add(lblContrasena);
+		frmLogin.getContentPane().add(lblContrasena);
 		
 		JLabel lblGestorComercial = new JLabel("GESTOR COMERCIAL");
 		lblGestorComercial.setFont(new Font("Calibri", Font.PLAIN, 21));
 		lblGestorComercial.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGestorComercial.setBounds(110, 49, 201, 34);
-		frmPrincipal.getContentPane().add(lblGestorComercial);
+		frmLogin.getContentPane().add(lblGestorComercial);
 		
 		/**
 		 * Botón Ingresar:
-		 * Se encarga de hacer la validación del administrador o el usuario
-		 * para permitir el uso de la aplicación por parte de los mismos
+		 * Se encarga de hacer la validación del administrador o el vendedor
+		 * para permitir el uso de la aplicación por parte de los mismos.
 		 * Metodos usados: verificarUsuario, esAdmin
 		 * 1 es para administrador
 		 * 2 es para vendedor
@@ -92,35 +96,41 @@ public class VentanaPrincipal {
 				
 				Conexion con = new Conexion();
 				idvendedor = con.verificarUsuario(usuario, contraseña);
-				if(idvendedor != null){
+				if(idvendedor != null){ // si el usuario existe
 					acceso = con.esAdmin(idvendedor);
 				}else{
 					acceso = 0;
 				}
 				con.cerrarConexion();
 				
-				if(acceso == 1){
+				// TODO En el código que sigue: No hay ninguna diferencia si acceso es
+				// 1 o 2. ¿La va a haber? ¿Dónde? ¿Cómo? Mientras tanto no sirve de
+				// nada distinguirlos aquí.
+				// TODO En el código que sigue: ¿no se usaron los mismos valores para
+				// identificar al usuario (si es vendedor o admin) que se usaron en la
+				// base de datos?
+				if(acceso == 1){ // es admin
 					Interfaz interfaz = new Interfaz(idvendedor, acceso);
 					interfaz.setVisible(true);
-					frmPrincipal.setVisible(false);
-					frmPrincipal.dispose();
+					frmLogin.setVisible(false);
+					frmLogin.dispose();
 					
-				}else if (acceso == 2){
+				}else if (acceso == 2){ // es vendedor
 					Interfaz interfaz = new Interfaz(idvendedor, acceso);
 					interfaz.setVisible(true);
-					frmPrincipal.setVisible(false);
-					frmPrincipal.dispose();
+					frmLogin.setVisible(false);
+					frmLogin.dispose();
 					
 				}else{
 					//System.out.println("DATOS INCORRECTOS, VUELVA A INTENTARLO");
-					JOptionPane.showMessageDialog(frmPrincipal, "Combinación de nombre de usuario" +
+					JOptionPane.showMessageDialog(frmLogin, "Combinación de nombre de usuario" +
 							" y contraseña incorrecta",
 							"Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 		btnIngresar.setBounds(43, 237, 100, 35);
-		frmPrincipal.getContentPane().add(btnIngresar);
+		frmLogin.getContentPane().add(btnIngresar);
 		
 		/**
 		 * Botón Limpiar:
@@ -135,7 +145,7 @@ public class VentanaPrincipal {
 			}
 		});
 		btnLimpiar.setBounds(170, 237, 100, 35);
-		frmPrincipal.getContentPane().add(btnLimpiar);
+		frmLogin.getContentPane().add(btnLimpiar);
 		
 		/**
 		 * Botón Salir:
@@ -148,10 +158,6 @@ public class VentanaPrincipal {
 			}
 		});
 		btnSalir.setBounds(297, 237, 100, 35);
-		frmPrincipal.getContentPane().add(btnSalir);
-		
-		tfContrasena = new JPasswordField();
-		tfContrasena.setBounds(211, 155, 100, 25);
-		frmPrincipal.getContentPane().add(tfContrasena);
+		frmLogin.getContentPane().add(btnSalir);
 	}
 }

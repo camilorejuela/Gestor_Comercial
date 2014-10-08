@@ -36,7 +36,7 @@ public class Conexion {
 	private ResultSet rs, rr;
 	
 	/** 
-     * Crea una instancia de la clase MySQL y realiza todo el código 
+     * Crea una instancia de la clase y realiza todo el código 
      * de conexión, consulta y muestra de resultados.
      */
 	public Conexion() 
@@ -48,11 +48,10 @@ public class Conexion {
             DriverManager.registerDriver(new org.gjt.mm.mysql.Driver());
             //System.out.println("Driver registrado.");
             
-            // Se obtiene una conexión con la base de datos. Hay que
-            // cambiar el usuario "root" y la clave "la_clave" por las
-            // adecuadas a la base de datos que estemos usando.
+            // Se obtiene una conexión con la base de datos.
+            // El usuario y la clave son los que estemos usando en la BD.
             conexion = DriverManager.getConnection (
-                "jdbc:mysql://localhost/gestor","root", "australia");
+                "jdbc:mysql://localhost/gestor", "root", "australia");
             //System.out.println("Conexión establedida exitosamente.");
             
             // Se crea un Statement, para realizar la consulta
@@ -252,10 +251,11 @@ public class Conexion {
 	}
 	
 	/**
+	 * Verifica si el usuario y contraseña ingresados existen en la BD
 	 * 
 	 * @param usuario
 	 * @param contraseña
-	 * @return
+	 * @return idvendedor el id del usuario o null si no existe
 	 */
 	public String verificarUsuario(String usuario, String contraseña){
 		try {
@@ -263,14 +263,15 @@ public class Conexion {
 				// Accede y buscar el registro del usuario digitado.
 				rs = s.executeQuery("select * from vendedor where usuario = '"+ usuario +"'");
 				if (rs.next() == true){
-					// Si hay un registro
+					// El usuario sí existe en la BD
 					vercontraseña = rs.getString(6);
 					System.out.println("ESTA ES LA CONTRASEÑA QUE DIGITÉ: " + contraseña);
 					System.out.println("ESTA ES LA CONTRASEÑA DE LA BD:" + vercontraseña);
 					if(vercontraseña.equals(contraseña)){
 						//Usuario y contraseña correcta, hay que verificar si es admin o vendedor
 						return rs.getString(1);
-					}else{
+						}
+					else{
 						//El usuario existe, pero la contraseña es incorrecta
 						System.out.println("CONTRASEÑA INCORRECTA");
 						return null;
@@ -288,6 +289,7 @@ public class Conexion {
 	}
 	
 	/**
+	 * Determina si el usuario con un id dado es administrador o vendedor
 	 * 
 	 * @param idvendedor
 	 * @return Si es administrador o vendedor
@@ -295,21 +297,26 @@ public class Conexion {
 	public int esAdmin(String idvendedor){
 		try {
 			int verIsadmin;
+			int tipoUsuario; // 1 = admin  2 = vededor
+			
 			rs = s.executeQuery("select * from vendedor where id = '"+ idvendedor +"'");
+			
 			if (rs.next() == true){
 				// Si hay un registro
 				verIsadmin = rs.getInt(7);
 				if (verIsadmin == 0){
 					System.out.println("BIENVENIDO VENDEDOR FULANO DE TAL");
-					return 2;
+					tipoUsuario = 2;
 				}else{
 					System.out.println("BIENVENIDO ADMINISTRADOR FULANO DE TAL");
-					return 1;	
+					tipoUsuario = 1;	
 				}
 			}else{
 				//Esta vacia esta mierda
-				return 0;
+				tipoUsuario = 0;
 			}
+			return tipoUsuario;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,9 +15,11 @@ public class Controlador {
 	 */
 	public static void main(String[] args) {
 		
-		VentanaPrincipal ventana = new VentanaPrincipal();
-		ventana.main(null);
-		
+		// TODO verificar cuál de las dos siguientes formas de convocar
+		// a VentanaLogin es la mejor y borrar la otra.
+		//VentanaLogin ventanaLogin = new VentanaLogin();
+		//ventanaLogin.main(null);
+		VentanaLogin.main(null);
 		
 		//limpiarTodasLasTablas();
 		//llenarConDatosDePrueba();
