@@ -31,7 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  *
  * @author 
  */
-public class Interfaz extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame {
 
 	private static String idvendedor, idCliente, idProveedor; 
 	private static int isadmin, valortotal;
@@ -41,7 +41,7 @@ public class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
-    public Interfaz(String idvendedor, int isadmin) {
+    public VentanaPrincipal(String idvendedor, int isadmin) {
     	this.idvendedor = idvendedor; //Guarda el id del usuario que inició sesión
     	this.isadmin = isadmin; //Guarda si el usuario que inició sesión es un admin o un vendedor
     	setResizable(false);
@@ -951,20 +951,20 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            	Interfaz nuevo = new Interfaz(idvendedor, isadmin);
+            	VentanaPrincipal nuevo = new VentanaPrincipal(idvendedor, isadmin);
             	nuevo.setVisible(true);
                 //new Interfaz().setVisible(true);
             }

@@ -82,7 +82,7 @@ public class Interfaz_RegistrarProveedor {
 				if (nombreProveedor != ""){
 					lblNombre_RegistrarProveedor.setText(nombreProveedor);
 					//idProveedor = idProveedorIngresado;
-					Interfaz.setIdProveedor(idProveedorIngresado);
+					VentanaPrincipal.setIdProveedor(idProveedorIngresado);
 				}
 				else lblNombre_RegistrarProveedor.setText("(No existe un proveedor con este id)");
 			}
@@ -153,7 +153,7 @@ public class Interfaz_RegistrarProveedor {
 							JOptionPane.INFORMATION_MESSAGE);
 					frmRegistrarProveedor.dispose();
 					//idProveedor = idProveedorPorDefecto;
-					Interfaz.setIdProveedor(idProveedorPorDefecto);
+					VentanaPrincipal.setIdProveedor(idProveedorPorDefecto);
 					// "ENVÍO idProveedorPorDefecto", es decir, que ya está en la
 					// variable estática "idProveedor" y puedo accederlo desde la
 					// interfaz principal.

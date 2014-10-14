@@ -82,7 +82,7 @@ public class Interfaz_RegistrarCliente {
 				if (nombreCliente != ""){
 					lblNombre_RegistrarCliente.setText(nombreCliente);
 					//idCliente = idClienteIngresado;
-					Interfaz.setIdCliente(idClienteIngresado);
+					VentanaPrincipal.setIdCliente(idClienteIngresado);
 				}
 				else lblNombre_RegistrarCliente.setText("(No existe un cliente con este id)");
 			}
@@ -152,7 +152,7 @@ public class Interfaz_RegistrarCliente {
 							JOptionPane.INFORMATION_MESSAGE);
 					frmRegistrarCliente.dispose();
 					//idCliente = idClientePorDefecto;
-					Interfaz.setIdCliente(idClientePorDefecto);
+					VentanaPrincipal.setIdCliente(idClientePorDefecto);
 					// "ENVÍO idClientePorDefecto", es decir, que ya está en la
 					// variable estática "idCliente" y puedo accederlo desde la
 					// interfaz principal.

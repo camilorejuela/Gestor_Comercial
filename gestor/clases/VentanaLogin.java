@@ -110,14 +110,14 @@ public class VentanaLogin {
 				// identificar al usuario (si es vendedor o admin) que se usaron en la
 				// base de datos?
 				if(acceso == 1){ // es admin
-					Interfaz interfaz = new Interfaz(idvendedor, acceso);
-					interfaz.setVisible(true);
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(idvendedor, acceso);
+					ventanaPrincipal.setVisible(true);
 					frmLogin.setVisible(false);
 					frmLogin.dispose();
 					
 				}else if (acceso == 2){ // es vendedor
-					Interfaz interfaz = new Interfaz(idvendedor, acceso);
-					interfaz.setVisible(true);
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(idvendedor, acceso);
+					ventanaPrincipal.setVisible(true);
 					frmLogin.setVisible(false);
 					frmLogin.dispose();
 					

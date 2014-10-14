@@ -19,7 +19,13 @@ public class Controlador {
 		// a VentanaLogin es la mejor y borrar la otra.
 		//VentanaLogin ventanaLogin = new VentanaLogin();
 		//ventanaLogin.main(null);
-		VentanaLogin.main(null);
+		VentanaLogin.main(null); // en este caso es el método estático main() quien crea el objeto de VentanaLogin.
+		// TODO Lo anterior va de la mano con el rediseño de las conexiones de las interfaces
+		// con el resto de clases y de las interfaces con ellas mismas. En el proyecto que
+		// se hizo para petróleos el controlador llamaba era a la ventana principal del programa
+		// y ésta llamaba a las demás, incluyendo a la ventana de arranque (ventana de login en
+		// este caso).
+		
 		
 		//limpiarTodasLasTablas();
 		//llenarConDatosDePrueba();
